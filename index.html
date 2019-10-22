@@ -12,8 +12,8 @@
 	<menu>
 		<button
 			onclick="alert(`USAGE:\narrows: move focused node\ndelete: delete focused node\nenter: duplicate focused node\nshift+[one of above] = apply to every node`)">help</button>
-		<input v-model.number=width max=256 min=6 size=2 type=number title=width />
-		<input v-model.number=height max=256 min=6 size=2 type=number title=height />
+		<input v-model.number=width max=256 min=2 size=2 type=number title=width />
+		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
 		<button @click="lines=[[[2,4],[4,2],[6,4]]]">reset</button>
 		<img :src="'data:image/svg+xml;utf8,'+svg" width=16 title=16>
 		<img :src="'data:image/svg+xml;utf8,'+svg" width=24 title=24>
@@ -32,7 +32,7 @@
 				@keydown.exact.right=$set(point,0,point[0]+1) @keydown.exact.left=$set(point,0,point[0]-1)
 				@keydown.exact.down=$set(point,1,point[1]+1) @keydown.exact.up=$set(point,1,point[1]-1)
 				@keydown.exact.shift.delete=lines.splice(line,1)
-				@keydown.exact.shift.enter=lines.splice(line,0,[...points])
+				@keydown.exact.shift.enter=lines.splice(line,0,JSON.parse(JSON.stringify([...points])))
 				@keydown.exact.shift.right="points.map(point=>$set(point,0,point[0]+1))"
 				@keydown.exact.shift.left="points.map(point=>$set(point,0,point[0]-1))"
 				@keydown.exact.shift.down="points.map(point=>$set(point,1,point[1]+1))"
