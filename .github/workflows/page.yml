@@ -1,0 +1,22 @@
+name: page
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PUBLISH_DIR: .
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        (echo "<template>";
+         for f in *.svg ; do
+           awk -F\" '{ print "'${f%.*}' "$4" "$6}' $f
+         done
+         echo "</template>") >> index.html
+    - uses: peaceiris/actions-gh-pages@v2.5.0
+      env:
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
