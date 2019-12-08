@@ -17,9 +17,11 @@ jobs:
          done
          echo "</template>") >> index.html
          for f in svg/* ; do
+           echo "$f" $(basename "${f%%.*}.svg")
            mv "$f" $(basename "${f%%.*}.svg")
          done
          tar cjf picon.tar.bz2 *.svg
+         ls -al $PUBLISH_DIR
     - uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
