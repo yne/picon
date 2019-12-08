@@ -11,11 +11,15 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       run: |
-        (echo "<template>";
-         for f in *.svg ; do
-           awk -F\" '{ print "'${f%.*}' "$4" "$6}' $f
+         (echo "<template>";
+         for f in svg/* ; do
+           awk -F\" '{ print "'$(basename ${f%.svg})' "$6}' $f
          done
          echo "</template>") >> index.html
+         for f in svg/* ; do
+           mv "$f" $(basename "${f%%.*}.svg")
+         done
+         tar cjf picon.tar.bz2 *.svg
     - uses: peaceiris/actions-gh-pages@v2.5.0
       env:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
