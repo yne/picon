@@ -11,8 +11,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       run: |
+         find
          (echo "<template>";
-         for f in svg/* ; do
+         for f in svg/{.*,*}.svg ; do
            awk -F\" '{ print "'$(basename ${f%.svg})' "$6}' $f
          done
          echo "</template>") >> index.html
