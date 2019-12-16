@@ -16,7 +16,8 @@
 		<button onclick="alert(`USAGE:\narrows: move focused node\ndelete: delete focused node\nenter: duplicate focused node\nshift+[one of above] = apply to every node`)">help</button>
 		<input v-model.number=width max=256 min=2 size=2 type=number title=width />
 		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
-		<button @click="lines=[[[2,4],[4,2],[6,4]]]">reset</button>
+		<button @click="lines.splice(lines,0,[[2,4],[4,2],[6,4]])">L</button>
+		<button @click="lines=[]">clear</button>
 		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8>
 		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=16 height=16 title=16>
 		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24>

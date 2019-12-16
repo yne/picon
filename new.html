@@ -1,0 +1,135 @@
+<!doctype HTML>
+<style>
+@font-face {font-family: picon;src: url(picon.woff2);}
+:root{--text:#404545;--back:#F8F8F8;--size:16px;--radius:4px;--cols:1}
+body{font-family: Helvetica, Arial, Sans-Serif;font-size:var(--size); color:var(--text);background:var(--back);}
+ul,ol{margin:0;padding:0 0 0 1em}
+article{}
+table{width:100%}
+[lang]:before{content:'lang-'attr(lang);font-family:picon;float:right}
+code,pre{background:var(--text);color:var(--back);padding:.25em;border-radius:4px;}
+rb{font-family:picon;user-select:none;vertical-align: middle;}
+h1,h2,h3,h4{margin:0 0 .5em 0}
+h1{font-size:32px}
+h2{font-size:24px}
+h3{font-size:16px}
+/*
+@media (min-width: 576px) {:root{--cols:1}}
+@media (min-width: 768px) {:root{--cols:2}}
+@media (min-width: 992px) {:root{--cols:3}}
+@media (min-width: 1200px){:root{--cols:4}}
+*/
+grid{display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-gap:1em;}
+card footer{text-align:right}
+card{
+	background: white;
+	box-shadow: 0 2px 8px -5px;
+	border-radius: var(--radius);
+	display: inline-block;
+	padding: .75em;
+}
+[data-tooltip]{
+	position: relative;
+}
+[data-tooltip]::after {
+	content: attr(data-tooltip);
+	position: absolute;
+	pointer-events: none;
+	background: var(--text);
+	color: var(--back);
+	top: calc(var(--size)*1.2);
+	border-radius:var(--radius);
+	opacity: 0;
+	left: 0;
+	text-overflow: ellipsis;
+	overflow:hidden;
+	max-width: 250px;
+	white-space: pre;
+	padding: .5em;
+	font-weight: initial;text-decoration:initial;text-align:initial;
+	font-size: var(--size);
+	backdrop-filter: blur(3px);
+	transition: opacity 250ms, top 250ms;
+}
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after {
+	z-index:2;
+	opacity:.85;
+	top: calc(var(--size)*1.5);
+}
+</style>
+<img src=.logo.svg style="opacity:.8;display:block;margin:auto;max-width:50vw;max-height:50vh"/>
+<br/>
+<article style="max-width:850px;margin:auto">
+<grid>
+<card><h2><rb>cli</rb> Code-less approach</h2>
+<ol><li>import your Picon font
+<pre lang=css>@font-face {
+  font-family:picon;
+  src: url(/url/to/picon.woff2);
+}</pre></li>
+<li>Bind it to an element/class, for <em>example</em>:<pre lang=css>rb { font-family:picon; }</pre></li>
+<li>That's it ! You can now render the <code>app</code> icon <rb>app</rb> using <pre lang=html>&lt;rb&gt;app&lt;/rb&gt;</pre></li>
+</ol>
+
+
+<footer>See <a href=#proscons>Examples</a></footer></card>
+
+<card><h2><rb>heart</rb> Size friendly</h2>
+Every byte count, that's why Picon strive to achieve the lowest BytePerIcon (BPI) ratio.
+<table>
+<thead style=font-weight:900>
+<tr><td></td><td><abbr tabindex=-1 data-tooltip="Byte per Icon">Average BPI</abbr></td></tr>
+</thead>
+<tr><td>Picon</td><td>180</td></tr>
+<tr><td>Fontawesome</td><td>180</td></tr>
+<tr><td>Clarity</td><td>180</td></tr>
+<tr><td>Entypo</td><td>180</td></tr>
+<tr><td>Jam</td><td>180</td></tr>
+<tr><td>Feather</td><td>180</td></tr>
+<tr><td>Material</td><td>180</td></tr>
+</table>
+<footer>See <a href=#proscons>Others</a></footer></card>
+
+<card><h2><rb>archive</rb> Pack what you need</h2>
+Stop importing 3000 icons when you need 20.
+Use the Picon Configurator to bundle just what you need !
+<footer>See <a href=#proscons>Configurator</a></footer></card>
+
+<card><h2><rb>magnifier</rb> Legibility up to 8x8</h2>
+Picon is designed for 8px*8px resolution !
+<footer>See <a href=#proscons>comparaison</a></footer></card>
+
+<card><h2><rb>chart</rb> Unicode vs SVG vs Font</h2>
+<table>
+<thead>
+<tr><th>Uni</th><th>SVG</th><th>Font</th><td></td></tr>
+</thead>
+<tr><th tabindex=-1 data-tooltip="unless on linux">✗</th><th tabindex=-1 data-tooltip="unless embeeded in the DOM">✗</th><th>✓</th><td>Coloration</td></tr>
+<tr><th tabindex=-1 data-tooltip="No request needed">✓</th><th tabindex=-1 data-tooltip="1 req for each icons">✗</th><th tabindex=-1 data-tooltip="1 request for every icons">✓</th><td>Bandwidth friendly</td></tr>
+<tr><th tabindex=-1 data-tooltip="Different for each vendors">✗</th><th>✓</th><th>✓</th><td>Reproductible</td></tr>
+<tr><th tabindex=-1 data-tooltip="wait for the next version">✗</th><th>✓</th><th>✓</th><td>Up to date logo/icon</td></tr>
+</table>
+<footer>See <a href=#proscons>Pro/Cons</a></footer></card>
+
+<card><h2><rb>building-justice</rb> Libre</h2>
+Picon is free and <b>MIT Licencied</b>.
+You can hack or sell it as you please.
+No mail, credicard required.
+<footer>See <a href=#proscons>License</a></footer></card>
+
+</grid>
+</article>
+
+<article>
+</article>
+
+<article><h1>Iconset</h1>
+<ul>
+<card><rb>app</rb><pre>app</pre><pre>𝍖</pre></card>
+<card><rb>app</rb><pre>app</pre></card>
+<card><rb>app</rb><pre>app</pre></card>
+<card><rb>app</rb><pre>app</pre></card>
+<card><rb>app</rb><pre>app</pre></card>
+</ul>
+</article>
