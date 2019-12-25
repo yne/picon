@@ -1,20 +1,25 @@
 name: page
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - gh-pages
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PUBLISH_DIR: .
+#    env:
+#      PUBLISH_DIR: .
     steps:
     - uses: actions/checkout@v1
     - name: Build
+      env:
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
-         find
          (echo "<template>";
-         for f in svg/{.*,*}.svg ; do
-           awk -F\" '{ print "'$(basename ${f%.svg})' "$6}' $f
+         for f in svg/*.svg ; do
+           name=$(basename "$f")
+           awk -v name="${name%.svg} " -F\" '{ print name $6}' $f
          done
          echo "</template>") >> index.html
          for f in svg/* ; do
@@ -22,8 +27,11 @@ jobs:
            mv "$f" $(basename "${f%%.*}.svg")
          done
          tar cjf picon.tar.bz2 *.svg
-         ls -al $PUBLISH_DIR
-    - uses: peaceiris/actions-gh-pages@v2.5.0
-      env:
-        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
+         git config user.name  "${GITHUB_ACTOR}"
+         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+         git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
+         git checkout -b gh-pages
+         git commit -am "CI: $(date -u) ${GITHUB_SHA}"
+         git push origin_token --force
+#    - uses: peaceiris/actions-gh-pages@v2.5.0
+#        PUBLISH_BRANCH: gh-pages
