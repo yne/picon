@@ -1,124 +1,87 @@
-
 <!doctype HTML>
-<style>body{font-family: Helvetica, Arial, Sans-Serif;}</style>
 <script src="https://cdn.jsdelivr.net/npm/opentype.js"></script>
-<style>
-.picon,rb {
-font-family:picon;/*
-line-height: 1;
-font-style: normal;
-font-weight: normal;
-font-variant: normal;
-text-transform: none;
-word-break: break-all;*/
-}</style>
-<script>
-window.addEventListener('DOMContentLoaded', (event) => {
-	const template = document.querySelector('template');
-	if(!template)return alert('please add a <template> (via CI)')
-	const lines = template.innerHTML.split(/\n/);
-	const svgs = lines.map(e=>e.split(/\s+/)).filter(_=>_.length>1);
-	[showFont,showImg].forEach(f=>f(svgs));
-});
-function toSVG(g,size){
-	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}"><path d="${g.concat(' ')}"></path></svg>`
-}
-</script>
-<nav>
-	<a href=https://github.com/yne/svg>Github</a>
-	<a href=editor.html>Editor</a>
-</nav>
+<script src="script.js"></script>
+<link rel=stylesheet href=style.css>
+<img src=logo.svg style="opacity:.8;display:block;margin:auto;height:384px"/>
+<br/>
+<article style="max-width:576px;margin:auto">
+<grid>
+<card><h2><rb>cli</rb> Code-less approach</h2>
+<ol><li>import your Picon font
+<pre lang=css>@font-face {
+  font-family:picon;
+  src: url(/url/to/picon.woff2);
+}</pre></li>
+<li>Bind it to an element/class, for <em>example</em>:<pre lang=css>rb { font-family:picon; }</pre></li>
+<li>That's it ! You can now render the <code>app</code> icon <rb>app</rb> using <pre lang=html>&lt;rb&gt;app&lt;/rb&gt;</pre></li>
+</ol>
 
 
-<h1>
-SVG Image <rb>image</rb>
+<footer>See <a href=#proscons>Examples</a></footer></card>
+
+<card><h2><rb>heart</rb> Size friendly</h2>
+Every byte count, that's why Picon strive to achieve the lowest BytePerIcon (BPI) ratio.
+<table>
+<thead>
+<tr><td></td><td><abbr tabindex=-1 data-tooltip="Byte per Icon">BPI</abbr></td></tr>
+</thead>
+<tr><td>Picon</td><td>180</td></tr>
+<tr><td>Fontawesome</td><td>180</td></tr>
+<tr><td>Clarity</td><td>180</td></tr>
+<tr><td>Entypo</td><td>180</td></tr>
+<tr><td>Jam</td><td>180</td></tr>
+<tr><td>Feather</td><td>180</td></tr>
+<tr><td>Material</td><td>180</td></tr>
+</table>
+<footer>See <a href=#proscons>Others</a></footer></card>
+
+<card><h2><rb>archive</rb> Pack what you need</h2>
+Stop importing 3000 icons when you need 20.
+Use the Picon Configurator to bundle just what you need !
+<footer>See <a href=#proscons>Configurator</a></footer></card>
+
+<card><h2><rb>magnifier</rb> Legibility up to 8x8</h2>
+Picon is designed for 8px*8px resolution !
+<footer>See <a href=#proscons>comparaison</a></footer></card>
+
+<card><h2><rb>chart</rb> Unicode vs SVG vs Font</h2>
+<table>
+<thead>
+<tr><th>Uni</th><th>SVG</th><th>Font</th><td></td></tr>
+</thead>
+<tr><th tabindex=-1 data-tooltip="unless on linux">✗</th><th tabindex=-1 data-tooltip="unless embeeded in the DOM">✗</th><th>✓</th><td>Coloration</td></tr>
+<tr><th tabindex=-1 data-tooltip="No request needed">✓</th><th tabindex=-1 data-tooltip="1 req for each icons">✗</th><th tabindex=-1 data-tooltip="1 request for every icons">✓</th><td>Bandwidth friendly</td></tr>
+<tr><th tabindex=-1 data-tooltip="Different for each vendors">✗</th><th>✓</th><th>✓</th><td>Reproductible</td></tr>
+<tr><th tabindex=-1 data-tooltip="wait for the next version">✗</th><th>✓</th><th>✓</th><td>Up to date logo/icon</td></tr>
+</table>
+<footer>See <a href=#proscons>Pro/Cons</a></footer></card>
+
+<card><h2><rb>building-justice</rb> Libre</h2>
+Picon is free and <b>MIT Licencied</b>.
+You can hack or sell it as you please.
+No mail, credicard required.
+<footer>See <a href=#proscons>License</a></footer></card>
+
+</grid>
+</article>
+
+<article>
+</article>
+
+<article>
+<h1>Iconset
+<button onclick="document.location.href='picon.tar.bz2'">SVG</a>
+<button onclick="makeFont(svgs).download()">OTF</button>
 </h1>
-<ruby>
-<rbc><rb>振</rb><rb>り</rb><rb>仮</rb><rb>名</rb><rp>(</rp></rbc>
-<rtc><rt>ふ</rt><rt>り</rt><rt>が</rt><rt>な</rt><rp>)</rp></rtc>
-</ruby>
-<ruby>
-明日 <rp>(</rp><rt>Ashita</rt><rp>)</rp>
-</ruby>
-Cols:<input name=--col value=32 style=width:3em type=number onchange=grid.style.setProperty(this.name,this.value)>
-Size:<select name=--size data-unit=px onchange=grid.style.setProperty(this.name,this.value+this.dataset.unit)><option>8<option selected>16<option>24<option>32</select>
-Gap:<input name=--gap data-unit=px value=8 style=width:3em type=number onchange=grid.style.setProperty(this.name,this.value+this.dataset.unit)>
-<a download href=picon.tar.bz2>download all</a>
-<div id=grid style="
---col:6;
---size:16px;
---gap:8px;
-display: grid;
-grid-template-columns: repeat(var(--col), var(--size));
-grid-gap: var(--gap);
-margin: var(--gap);
-"></div>
-
-<input>
-
-<style>
-ul {
-	list-style: none;
-}
-ul>li{text-align:center}
-ul>li:hover{box-shadow:0 2px 5px rgba(0,0,0,.2)}
-ul>li>rb {font-size:32px;}
-ul>li>pre{font-size:32px;}
-</style>
-<ul>
-<li><rb>app</rb><pre>app</pre></li>
-<li><rb>app</rb><pre>app</pre></li>
-<li><rb>app</rb><pre>app</pre></li>
-<li><rb>app</rb><pre>app</pre></li>
-<li><rb>app</rb><pre>app</pre></li>
-</ul>
-
-<script>
-const el=(tag,attr)=>Object.keys(attr).reduce((e,a)=>(e.setAttribute(a,attr[a]),e),document.createElement(tag));
-function showImg(svgs) {
-	//t.map(name=>[name,name.split('-')[0]]).reduce((map,[name,group])=>(map[group]=(map[group]||[]).concat(name),map),{});
-	const grid=document.getElementById('grid');
-	svgs.filter(([id])=>id.split('.')[0]).map(([id,...g])=>grid.append(el('img',{src:`data:image/svg+xml;utf8,`+toSVG(g,8),title:id.split('.')[0]})))
-}
-</script>
-
-
-
-<h1>
-OpenType Font
-</h1>
-
-<h2>Usage</h2>
-<textarea class=picon style=font-size:32px>app 𝍖 ♿</textarea>
-
-<p id=font class=picon></p>
-<script>
-function normalize(p,w=16,h=16){
-	let [x,y] = p.match(/[0-9.]+/g)
-	return [x*2, h-y*2]
-}
-function showFont(svgs, advanceWidth=16){
-	const notdefGlyph = new opentype.Glyph({
-		name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
-	const alphaGlyphs = [];/*"-abcdefghijklmnopqrstuvwxyz0123456789".split('').map(name=>new opentype.Glyph({
-		name, unicode: name.charCodeAt(0), advanceWidth, path: new opentype.Path()}));*/
-	var ligatures = [];
-	const glyphs = [notdefGlyph,...alphaGlyphs, ...svgs.map((svg,i) => {
-		const [name,uni] = svg[0].split('.');
-		const unicode = (!name&&uni&&uni.length==1)?uni.charCodeAt(0):0xE000+i;
-		const path = svg.slice(1).reduce((path,p)=>((p[0]=='M'?path.moveTo(...normalize(p)):path.lineTo(...normalize(p)),path)),new opentype.Path());
-		const glyph = new opentype.Glyph({name:name||uni, unicode, advanceWidth, path});
-		if(name)ligatures.push({sub: name, by:glyph});
-		return glyph;
-	})]
-	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
-	const font = new opentype.Font({familyName: 'Picon', styleName: 'Medium',...fontMetrics, glyphs});
-	ligatures.forEach(({sub,by}) => font.substitution.add("liga",{
-		sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),
-		by:glyphs.indexOf(by)
-	}) );
-	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
-font.download()
-}
-</script>
+<p>Preview size:
+<select name=--size onchange=list.style.setProperty(this.name,this.value)>
+	<option>8px
+	<option>12px
+	<option selected>16px
+	<option>24px
+	<option>32px
+</select>
+</p>
+<dl id=list style=--size:16px></dl>
+</article>
 

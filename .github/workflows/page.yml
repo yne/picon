@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#    env:
-#      PUBLISH_DIR: .
     steps:
     - uses: actions/checkout@v1
     - name: Build
@@ -31,7 +29,6 @@ jobs:
          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
          git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
          git checkout -b gh-pages
-         git commit -am "CI: $(date -u) ${GITHUB_SHA}"
+         git add .
+         git commit -m "CI: $(date -u) ${GITHUB_SHA}"
          git push origin_token --force
-#    - uses: peaceiris/actions-gh-pages@v2.5.0
-#        PUBLISH_BRANCH: gh-pages
