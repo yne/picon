@@ -1,0 +1,103 @@
+<!doctype HTML>
+<script src="https://cdn.jsdelivr.net/npm/opentype.js"></script>
+<script src="script.js"></script>
+<link rel=stylesheet href=style.css>
+<figure>
+	<img src=logo.svg style="opacity:.8;display:block;margin:auto;height:384px"/>
+	<figcaption>The <a href=#usage>Easy</a> & <a href=#libre>Libre</a> <b><a href=#pico>Pico </a><a href=#icon>Icon </a></b><a href=#font>Font</a> !</figcaption>
+</figure>
+<br/>
+<section>
+<grid>
+<article id=usage><h2><rb>cli</rb> Usage</h2>
+<ol>
+<li>Import it:
+<pre lang=css>
+@font-face {
+  font-family:picon;
+  src:url(//yne.fr/picon/picon.woff2);
+}
+</pre></li>
+
+<li>Declare it:
+<pre lang=css>
+rb {
+  font-family:picon;
+}
+</pre></li>
+<li>
+Use it :
+<pre lang=html>&lt;rb&gt;app&lt;/rb&gt;</pre>
+to get the app <rb>app</rb> icon
+</li>
+</ol>
+</article>
+
+<article id=libre><h2><rb>building-justice</rb> Libre</h2>
+Picon is <b>MIT Licencied</b>, so <a href=editor>hack it</a> now !
+</article>
+
+<article id=pico><h2><rb>heart</rb> Pico sized</h2>
+Picon strive to be pico weighted...
+<table>
+<thead>
+<tr><td></td><td><abbr tabindex=-1 data-tooltip="Byte per Icon">BPI</abbr></td></tr>
+</thead>
+<tr><td>Picon</td><td>180</td></tr>
+<tr><td>Fontawesome</td><td>180</td></tr>
+<tr><td>Clarity</td><td>180</td></tr>
+<tr><td>Entypo</td><td>180</td></tr>
+<tr><td>Jam</td><td>180</td></tr>
+<tr><td>Feather</td><td>180</td></tr>
+<tr><td>Material</td><td>180</td></tr>
+</table>
+... while being redable on pico screen (8*8px).
+<table class=compare>
+<thead><tr><td>🖼</td><td>📞</td><td>🔈</td><td>🕷️</td><td>Name</td></tr></thead>
+<tr><td/><td/><td/><td/><td>Feather</td></tr>
+<tr><td/><td/><td/><td/><td>Clarity</td></tr>
+<tr><td/><td/><td/><td/><td>FontAwesome</td></tr>
+<tr><td/><td/><td/><td/><td>Entypo</td></tr>
+<tr><td/><td/><td/><td/><td><b>Picon</b></td></tr>
+<tr><td/><td/><td/><td/><td>Material</td></tr>
+<tr><td/><td/><td/><td/><td>Jam</td></tr>
+</table>
+</article>
+
+<article id=font><h2><rb>chart</rb> Unicode vs SVG vs Font</h2>
+<table>
+<thead>
+<tr><th>Uni</th><th>SVG</th><th>Font</th><td></td></tr>
+</thead>
+<tr><th tabindex=-1 data-tooltip="unless on linux">✗</th><th tabindex=-1 data-tooltip="unless embeeded in the DOM">✗</th><th>✓</th><td>Coloration</td></tr>
+<tr><th tabindex=-1 data-tooltip="No request needed">✓</th><th tabindex=-1 data-tooltip="1 req for each icons">✗</th><th tabindex=-1 data-tooltip="1 request for every icons">✓</th><td>Bandwidth friendly</td></tr>
+<tr><th tabindex=-1 data-tooltip="Different for each vendors">✗</th><th>✓</th><th>✓</th><td>Reproductible</td></tr>
+<tr><th tabindex=-1 data-tooltip="wait for the next version">✗</th><th>✓</th><th>✓</th><td>Up to date logo/icon</td></tr>
+</table>
+</article>
+
+<article><h2><rb>archive</rb> Pack what you need</h2>
+Stop importing 3000 icons when you need 20.
+Use the Picon Configurator to bundle just what you need !
+</article>
+
+</grid>
+</section>
+
+<section id=icon>
+<h1>Iconset
+<button onclick="document.location.href='picon.tar.bz2'">SVG</a>
+<button onclick="makeFont(svgs).download()">OTF</button>
+</h1>
+<p>Preview size:
+<select name=--size onchange=list.style.setProperty(this.name,this.value)>
+	<option>8px
+	<option>12px
+	<option selected>16px
+	<option>24px
+	<option>32px
+</select>
+</p>
+<dl id=list style=--size:16px></dl>
+</section>
+

@@ -1,7 +1,7 @@
 let svgs = [];
 window.addEventListener('DOMContentLoaded', (event) => {
 	const template = document.querySelector('template');
-	if(!template)return alert('please add a <template> (via CI)')
+	if(!template)return console.log('please add a <template> (via CI)')
 	const lines = template.innerHTML.split(/\n/);
 	svgs = lines.map(e=>e.split(/\s+/)).filter(_=>_.length>1).sort();
 	showImg(svgs, document.getElementById('list'));

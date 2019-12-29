@@ -1,9 +1,14 @@
 @font-face {font-family: picon;src: url(picon.woff2);}
-:root{--text:#404545;--back:#F8F8F8;--size:16px;--radius:4px;--cols:1}
-body{font-family: Helvetica, Arial, Sans-Serif;font-size:var(--size); color:var(--text);background:var(--back);}
+:root{--text:#404545;--primary:#b74a4a;--back:#F8F8F8;--size:16px;--radius:4px;--cols:1}
+body{
+	font-family: Helvetica, Arial, Sans-Serif;
+	max-width:576px;margin:auto;
+	font-size:var(--size); color:var(--text);background:var(--back);
+}
+a{color: var(--primary);text-decoration: none;}
+a:hover{text-decoration: underline;}
 ul,ol{margin:0;padding:0 0 0 1em}
 figcaption{text-align:center;font-size:2em}
-article{}
 pre,table{margin: 1em auto;border-collapse: collapse;}
 table>thead>tr>td,
 table>thead>tr>th{border-bottom: 2px solid var(--text);}
@@ -17,8 +22,8 @@ h1{font-size:32px;text-align:center;margin:1em}
 h2{font-size:24px}
 h3{font-size:16px}
 grid{display:grid;grid-template-columns:repeat(var(--cols),1fr);grid-gap:1em;}
-card footer{text-align:right}
-card{
+article footer{text-align:right}
+article{
 	background: white;
 	box-shadow: 0 2px 8px -5px;
 	border-radius: var(--radius);

@@ -14,6 +14,8 @@ jobs:
       env:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
+         BPI_ALL=$(for f in svg/* ; do grep -Po 'M[^"]+' $f | wc -c ; done |  awk '{ total += $1 } END { printf "%i %i",total/NR,NR }')
+         mv .github/pages/* .
          (echo "<template>";
          for f in svg/*.svg ; do
            name=$(basename "$f")
