@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	//applyFont(makeFont(svgs));
 });
 function toSVG(g,size){
-	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}"><path d="${g.concat(' ')}"></path></svg>`
+	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}"><path d="${g.join(' ')}"></path></svg>`
 }
 function el(tag,attr){
 	return Object.keys(attr).reduce((e,a)=>(e.setAttribute(a,attr[a]),e),document.createElement(tag));
