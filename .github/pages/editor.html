@@ -34,7 +34,7 @@
 				:style="{top:'calc('+(100*point[1]/height)+'% - 8px)',left:'calc('+(100*point[0]/width)+'% - 8px'}"
 				@contextmenu.prevent="prompt('x,y',point).split(',').forEach((v,i)=>$set(point,i,+v))"
 				@keydown.exact.delete="points.length>1&&points.splice(p,1)"
-				@keydown.exact.enter=points.splice(p,0,[point[0]+1,point[1]+1])
+				@keydown.exact.enter=points.splice(p,0,[point[0]-1,point[1]-1])
 				@keydown.exact.right=$set(point,0,point[0]+1) @keydown.exact.left=$set(point,0,point[0]-1)
 				@keydown.exact.down=$set(point,1,point[1]+1) @keydown.exact.up=$set(point,1,point[1]-1)
 				@keydown.exact.shift.delete=lines.splice(line,1)

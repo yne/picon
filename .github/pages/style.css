@@ -30,6 +30,16 @@ article{
 	display: inline-block;
 	padding: .75em;
 }
+[aria-label]:before{
+	content: attr(aria-label);
+	width: calc(var(--size) * 3);
+	max-width: calc(var(--size) * 3);
+	min-width: calc(var(--size) * 3);
+	display: inline-block;
+	vertical-align: top;
+	font-size: 12px;
+	text-align: right;
+}
 [data-tooltip]{
 	position: relative;
 }
@@ -86,8 +96,14 @@ article{
 #list {
 	line-height: var(--size);
 }
+#list img:hover {
+	cursor: pointer;
+	background: white;
+	box-shadow: 0 2px 8px -3px;
+	border-radius: var(--radius);
+}
 #list img{
-  margin: calc(var(--size) / 4);
+  padding: calc(var(--size) / 4);
 	width: var(--size);
 	height: var(--size);
 }

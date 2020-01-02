@@ -5,17 +5,23 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const lines = template.innerHTML.split(/\n/);
 	svgs = lines.map(e=>e.split(/\s+/)).filter(_=>_.length>1).sort();
 	showImg(svgs, document.getElementById('list'));
+	
 	//applyFont(makeFont(svgs));
 });
 function toSVG(g,size){
 	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}"><path d="${g.join(' ')}"></path></svg>`
 }
-function el(tag,attr){
-	return Object.keys(attr).reduce((e,a)=>(e.setAttribute(a,attr[a]),e),document.createElement(tag));
+function el(tag,attr={}){
+	return Object.keys(attr).reduce((e,a)=>(e[a]=attr[a],e),document.createElement(tag));
 }
 function showImg(svgs, grid) {
-	//t.map(name=>[name,name.split('-')[0]]).reduce((map,[name,group])=>(map[group]=(map[group]||[]).concat(name),map),{});
-	svgs.filter(([id])=>id.split('.')[0]).map(([id,...g])=>grid.append(el('img',{src:`data:image/svg+xml;utf8,`+toSVG(g,8),title:id.split('.')[0]})))
+	grid.innerHTML="";
+	const sorted = svgs
+		.map(([name,...path])=>[name.split(/[-\.]/)[0],name,el('img',{tabIndex:-1,onclick:copyTextToClipboard,name,src:`data:image/svg+xml;utf8,`+toSVG(path,8)})])
+		.map((icon,_,icons) => (icon[0]=icons.filter(([c])=>c==icon[0]).length==1?'':icon[0],icon))
+		.sort(([cat],[_cat])=>cat.localeCompare(_cat))
+		.reduce((map,[cat,name,img])=>((map[cat]=(map[cat]||el('span',{"aria-label":cat}))).append(img),map),{});
+	Object.values(sorted).forEach(cat => grid.append(cat))
 }
 
 function normalize(p,w=16,h=16){
@@ -53,4 +59,28 @@ function makeFont(svgs, advanceWidth=16, familyName="picon", styleName="medium")
 		by:glyphs.indexOf(by)
 	}) );
 	return font;
+}
+
+
+function copyTextToClipboard(ev) {
+	var text = ev.target.name;
+  if (navigator.clipboard)
+		return navigator.clipboard.writeText(text).then(function() {
+		  console.log('Async: Copying to clipboard was successful!');
+		}, function(err) {
+		  console.error('Async: Could not copy text: ', err);
+		});
+  var textArea = el("textarea", {value:text, style:"position:fixed"});
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var msg = document.execCommand('copy') ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
 }
