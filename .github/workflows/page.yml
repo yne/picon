@@ -1,3 +1,4 @@
+#!/usr/bin/awk /[S]TART/,0
 name: page
 
 on:
@@ -14,14 +15,17 @@ jobs:
       env:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
+         ### START ###
+         IFS=: ; for f in $PATH ; do ls $f; done
+         exit
          BPI_ALL=$(for f in svg/* ; do grep -Po 'M[^"]+' $f | wc -c ; done |  awk '{ total += $1 } END { printf "%i %i",total/NR,NR }')
-         mv .github/pages/* .
-         (echo "<template>";
          for f in svg/*.svg ; do
-           name=$(basename "$f")
-           awk -v name="${name%.svg} " -F\" '{ print name $6}' $f
+           name=$(basename "${f/.*}")
+           echo mv "$f" "$name"
+           awk -v name="${name%.svg}" -F\" '{print"<img name=\""name"\" src='\''data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 8 8\"><path d=\""$6"\"></path></svg>'\''>"}' "$f"
          done
-         echo "</template>") >> index.html
+         [ -z $GITHUB_ACTOR ] && exit
+         mv .github/pages/* .
          for f in svg/* ; do
            echo "$f" $(basename "${f%%.*}.svg")
            mv "$f" $(basename "${f%%.*}.svg")
