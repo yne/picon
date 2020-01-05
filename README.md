@@ -1,19 +1,77 @@
-# PicoN - the Pico icoN set
+# [Easy](#Usage) [Hackable](#Hackable) **[PI](#Pico-sized)[CON](#con)** [Font](#Font)
 
-- 🖼️ Embeddable: as ([SVG images](https://en.wikipedia.org/wiki/Scalable_Vector_Graphics)) and ([OpenType Font](https://en.wikipedia.org/wiki/OpenType))
-- 👓 Readable: down to 8x8 pixels !
-- ☁️ Lightweight: 277 icons are ~8KB (gzip-ed)
-- 🎨 Customizable: Generate your own assets with only what you need
-- 🤗 Open: Did we missed an icon ? [request](https://github.com/yne/svg/issues/new) it now !
+## Usage
 
-## [Online demo](https://yne.github.io/svg/)
+Import it:
+```css
+@font-face {
+  font-family:picon;
+  src:url(//yne.fr/picon/picon.woff2);
+}
+```
 
-Browse, search, package your assets
+Declare it:
+```css
+del { // or .picon, rb, i ...
+  font-family:picon;
+}
+```
 
-[![preview](https://imgur.com/we88y3N.png)](https://yne.github.io/svg/)
+Use it :
+```html
+<del>app</del>
+```
+to get the app ~~app~~ icon
 
-## Editor
+## Hackable
 
-For quick icons and logos prototyping
+Picon is **MIT Licencied**, so you can [modify it](editor)
+and rebuild your own version that suits you the best
 
-![](https://i.imgur.com/mWN9YL4.png)
+## Pico sized
+
+Picon strive to :
+
+<details><summary>have the lowest Byte Per Icon</summary>
+
+| Name       | BPI |
+|:---------- | ---:|
+| Picon      | 180 |
+| Fontawesome| 180 |
+| Clarity    | 180 |
+| Entypo     | 180 |
+| Jam        | 180 |
+| Feather    | 180 |
+| Material   | 180 |
+
+</details>
+
+<details><summary>while being readable on a 8px screen</summary>
+
+| 🖼 | 📞 | 🔈 | 🕷️ | Iconset|
+|---|---|---|---|---|
+|   |   |   |   | Feather |
+|   |   |   |   | Clarity |
+|   |   |   |   | FontAwesome |
+|   |   |   |   | Entypo |
+|   |   |   |   | Picon |
+|   |   |   |   | Material |
+|   |   |   |   | Jam |
+
+</details>
+
+## Font
+
+Font vs Unicode and SVG
+
+|Criteria     |Uni|SVG|Font|
+|:------------|:---:|:---:|:---:|
+|Coloration   | ✗ | ✗ | ✓  |
+|Lightweight  | ✓ | ✗ | ✓  |
+|Reproductible| ✗ | ✓ | ✓  |
+|Custom Glyph | ✗ | ✓ | ✓  |
+
+# Icon
+
+[Download SVG](picon.tar.bz2)
+
