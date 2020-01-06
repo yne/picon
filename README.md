@@ -1,4 +1,4 @@
-# [Easy](#Usage) [Hackable](#Hackable) **[PI](#Pico-sized)[CON](#con)** [Font](#Font)
+# [Easy](#Usage) [Hackable](#Hackable) **[PI](#Pico)[CON](#Icon)** [Font](#Font)
 
 ## Usage
 
@@ -46,7 +46,7 @@ Picon strive to :
 
 </details>
 
-<details><summary>while being readable on a 8px screen</summary>
+<details><summary>be readable down to 8px</summary>
 
 | 🖼 | 📞 | 🔈 | 🕷️ | Iconset|
 |---|---|---|---|---|
@@ -62,7 +62,15 @@ Picon strive to :
 
 ## Font
 
-Font vs Unicode and SVG
+If want to have icons on your website, you may hesistate between using a couple of SVG, or importing a for or simply use unicode glyphs.
+
+Picon is available as SVGs or as a font. But font format offer the following advantages:
+
+- it will assure you to have a **reproducible** result on any plateform (unlike unicode).
+- it can bundle many icons while being **lightweight** because of it binary and compressed format (unlike SVG).
+- it can be used in **text-only** section like input placeholder or pseudo element (unlike SVG).
+- it can be **colored** to match your style (unlike unicode or SVG that needs to be embedded to do that).
+- it can have any brand logo or **custom icon** you may need (unlike Unicode)
 
 |Criteria     |Uni|SVG|Font|
 |:------------|:---:|:---:|:---:|
@@ -70,6 +78,8 @@ Font vs Unicode and SVG
 |Lightweight  | ✓ | ✗ | ✓  |
 |Reproductible| ✗ | ✓ | ✓  |
 |Custom Glyph | ✗ | ✓ | ✓  |
+|Text-based   | ✓ | ✗ | ✓  |
+|Multi-shade  | ✓ | ✓ | ✗  |
 
 # Icon
 

@@ -38,17 +38,25 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 	return font;
 }
 
-function toast(txt, timeout=0){
-	const els = document.getElementById('toasts');
-	const e = el('details', {attr:{role:"alert"},open:true},[el('summary'),txt]);
-	els.append(e);
-	if(timeout)setTimeout(()=>els.removeChild(e))
+function filter(form,className="highlight") {
+	form.querySelectorAll(`.${className}`).forEach(e=>e.classList.remove(className))
+	if(form.q.value)form.querySelectorAll(`a[id*='${form.q.value}']`).forEach(e=>e.classList.add(className))
+}
+let prevToggle=null;
+function toggle(checkbox, event){
+	event.stopPropagation();
+	if(event.shiftKey && prevToggle) {
+		const all = [...checkbox.form.querySelectorAll('a>[type=checkbox]')];
+		const [from, to] = [prevToggle,checkbox].map(c=>all.findIndex(e=>c==e)).sort();
+		all.slice(from+1,to).forEach(cb=>cb.checked^=1);
+	}
+	prevToggle = checkbox;
 }
 function clip(target) {
 	const text = target.id;
   if (!navigator.clipboard)
 		alert(`No clipboard API to copy ${text}`);
-	setTimeout(() => target.classList.remove('copied'),500);
+	setTimeout(() => target.classList.remove('copied'),1000);
 	navigator.clipboard.writeText(target.id).then(
 		res => target.classList.add('copied'),
 		err => alert(`Unable to copy ${text}\n`+err));

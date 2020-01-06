@@ -1,53 +1,85 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
 @font-face {font-family: picon;src: url(picon.woff2);}
-@keyframes flash {5% {background-color: #AF8;transform: translate(0, -8px)}}
-:root{--text:#404545;--primary:#b74a4a;--back:#F8F8F8;--size:16px;--radius:4px}
+:root{--text:#404545;--back:#F8F8F8;--primary:#ea4a5a;--size:16px;--radius:4px;--fab:32px}
+@media (prefers-color-scheme: dark) { :root{--text:#F8F8F8;--back:#404545} }
 body{
 	font-family: Helvetica, Arial, Sans-Serif;
 	max-width:576px;
-	margin:2em auto;
+	margin:auto;
 	font-size:var(--size);
 	color:var(--text);
 	background:var(--back);
+	padding: var(--size);
 }
-#logo{fill:var(--text);display:block;margin:auto;height:calc(var(--size) * 24)}
+:target {color: var(--primary)}
+#logo{fill:var(--text);display:block;margin:auto;max-width:calc(var(--size) * 24)}
 a,summary{color: var(--primary);text-decoration: none;}
 a:hover,summary:hover{text-decoration: underline;cursor:pointer;}
 
 h1,h2,h3,h4{margin:2em 0 0 0;text-align:center;}
 h1{font-size:calc(var(--size) * 2.0);}
-h2{font-size:calc(var(--size) * 1.5);box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1)}
+h2{font-size:calc(var(--size) * 1.5);box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1) black}
 h3{font-size:calc(var(--size) * 1.0)}
 pre{color:var(--back);background:var(--text);padding:.25em;border-radius:var(--radius);}
 del{font-family:Picon;user-select:none;vertical-align: middle;text-decoration: none;}
 table{margin: auto;min-width: 256px;}
-form {
-	line-height: var(--size);
-}
-form svg:hover, .fab{
+.highlight{background: yellow}
+
+form svg{fill:var(--text)}
+form a:hover,
+form .highlight,
+form a:after,
+.fab{
 	cursor: pointer;
-	background: white;
-	box-shadow: 0 2px 8px -3px;
+	box-shadow: 0 2px 8px -3px black;
 }
-form svg {
+form:not([data-view]),
+form[data-view=tile]{--size:24px}
+form[data-view=list]{--size:16px}
+form[data-view=pico]{--size:8px}
+form a{
 	border-radius: var(--radius);
   padding: calc(var(--size) / 4);
 	width: var(--size);
-	height: var(--size);
+	display: inline-block;
+	position: relative;
+	line-height: 11px;
 }
-form svg.copied{animation: flash .5s cubic-bezier(0, 0, 1, -1);}
-form .flex [type=search]{flex-grow:1}
+form a [type=checkbox]{position: absolute;right:-4px;bottom:-4px;opacity:.75}
+
+form a:after {
+	white-space: pre;
+	pointer-events: none;
+	position: absolute;
+	transform: translate(calc(var(--size) * -2), calc(var(--size) * -.75 - 16px));
+  background: var(--text);
+  color: var(--back);
+	border-radius: var(--radius);
+	padding:.25em;
+	z-index: 3;
+}
+form a:hover:after{content:attr(id)}
+form a.copied:after {content:"Copied!"}
+form [type=search]{flex-grow:1;width:1em;}
 .flex{display:flex}
 form:not([data-edit-mode]) .edit,
 form[data-edit-mode=false] .edit{display:none}
+.sticky-top {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	background: var(--back);
+	padding: var(--radius);
+}
 .fab {
 	position: fixed;
-	bottom: 2em;
-	right: 2em;
-	border-radius: 100%;
-	width: 64px;
-	height: 64px;
+	bottom: var(--fab);
+	right: var(--fab);
+	border-radius: var(--fab);
+	width: calc(var(--fab) * 2);
+	height: calc(var(--fab) * 2);
 	border: 0;
 	background: var(--primary);
 	color: var(--back);
+	font-size: var(--fab);
 }
