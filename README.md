@@ -1,6 +1,6 @@
-# [Easy](#Usage) [Hackable](#Hackable) **[PI](#Pico)[CON](#Icon)** [Font](#Font)
+# [Easy](#Usage) [Hackable](#Hackable) **[Pico](#Pico)[Icon](#Icon)** [Font](#Font)
 
-Download as [Font](picon.woff2) or [SVGs](picon.zip)
+Available as [Font](picon.woff2) or [SVGs](picon.zip)
 
 ## Usage
 
@@ -14,13 +14,13 @@ Import it:
 }
 ```
 
-Declare it the way you like it:
+Declare it the way you like it, here is some examples:
 ```css
-// the good
+/* the classic */
 .picon { font-family:picon; }
-// the bad
+/* the courageous */
 picon { font-family:picon; }
-// and the ugly
+/* the markdown lover */
 del { font-family:picon; text-decoration: none;}
 ```
 
@@ -41,14 +41,14 @@ Picon strive to be:
 <details><summary>the lightest iconset</summary>
 
 | Name                                             | Avg. SVGs sizes |
-|:----------                                       | ---:|
-| [Entypo](http://www.entypo.com/)                 | 1070.060 Bytes |
-| [Clarity](https://clarity.design/icons)          |  916.036 Bytes |
-| [Fontawesome](https://fontawesome.com)           |  754.582 Bytes |
-| [Jam](https://jam-icons.com/)                    |  535.844 Bytes |
-| [Material](https://material.io/resources/icons/) |  479.151 Bytes |
-| [Feather](https://feathericons.com/)             |  378.872 Bytes |
-| [Picon](https://yne.fr/picon)                    |  144.137 Bytes |
+|:----------                                       |             ---:|
+| [Picon](https://yne.fr/picon)                    |  144 Bytes |
+| [Feather](https://feathericons.com/)             |  378 Bytes |
+| [Material](https://material.io/resources/icons/) |  479 Bytes |
+| [Jam](https://jam-icons.com/)                    |  535 Bytes |
+| [Fontawesome](https://fontawesome.com)           |  754 Bytes |
+| [Clarity](https://clarity.design/icons)          |  916 Bytes |
+| [Entypo](http://www.entypo.com/)                 | 1070 Bytes |
 
 Those values have been computed using the following line
 
@@ -93,11 +93,93 @@ Picon is available as SVGs or as a font. But font format offer the following adv
 |Text-based   | ✓ | ✗ | ✓  |
 |Multi-shade  | ✓ | ✓ | ✗  |
 
-Neat font tricks:
+## Secret snippets
 
-- text-based animation (`@keyframe` + `content:'hourglass-0'`)
-- attribut based (`[lang]`, `:disabled`, `:checked`) icons changes
-- icon composition
+The following are for advanced users only.
+
+<details>
+<summary>Animation <a name=wifi></a></summary>
+
+Because why not
+
+```css
+@keyframes wifi {
+	0%,100%{content:'wifi-0'}
+	20%{content:'wifi-1'}
+	40%{content:'wifi-2'}
+	60%{content:'wifi-3'}
+	80%{content:'wifi-4'}
+}
+.wifi:after{
+	font-family:Picon;
+	content:'wifi-4';
+	animation: wifi 1s infinite;
+}
+```
+
+</details>
+
+<details>
+<summary>Icons in my `<form>` elements ?</summary>
+
+Any HTML element that display text (reset button, select ...) can also display Picon icons:
+
+```html
+<input type=reset class=picon value=cross>
+
+<select>
+	<optgroup label=iconless>
+		<option>wifi-0
+	</optgroup>
+	<optgroup class=picon label="wifi-0">
+		<option>wifi-0
+		<option>wifi-4
+	</optgroup>
+</select>
+```
+
+</details>
+
+<details>
+<summary>attribut based icon</summary>
+
+Display the language icon of a `<pre lang=js>var i=0</pre>` :
+
+```css
+pre[lang]:after{
+	font-family:Picon;
+	content:'lang-' attr(lang);
+	float:right;
+}
+```
+
+</details>
+
+<details>
+<summary>Icon stacking</summary>
+
+You can stack multiple icons with the following CSS snippet:
+
+```css
+[data-picon]{
+	position: relative;
+	font-size:32px;
+}
+[data-picon]:after{
+	content:attr(data-picon);
+	position: absolute;
+	left: 0;
+	text-shadow: 0 -2px white;
+}
+```
+
+Example: Stack a `cross` icon over a `volume` icon:
+
+```html
+<del data-picon=cross>volume</del>
+```
+
+</details>
 
 # Icon
 

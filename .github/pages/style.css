@@ -1,5 +1,4 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
-@font-face {font-family: picon;src: url(picon.woff2);}
 :root{--text:#404545;--back:#F8F8F8;--primary:#ea4a5a;--size:16px;--radius:4px;--fab:32px}
 @media (prefers-color-scheme: dark) { :root{--text:#F8F8F8;--back:#404545} }
 body{
@@ -21,11 +20,42 @@ h1,h2,h3,h4{margin:2em 0 0 0;text-align:center;}
 h1{font-size:calc(var(--size) * 2.0);}
 h2{font-size:calc(var(--size) * 1.5);box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1) black}
 h3{font-size:calc(var(--size) * 1.0)}
-pre{color:var(--back);background:var(--text);padding:.25em;border-radius:var(--radius);}
-del{font-family:Picon;user-select:none;vertical-align: middle;text-decoration: none;}
+pre{color:var(--back);background:var(--text);padding:var(--radius);border-radius:var(--radius);overflow: auto;}
+@font-face {font-family: picon;src: url(picon.woff2);}
+del,.picon{font-family:Picon;user-select:none;vertical-align: middle;text-decoration: none;}
 table{margin: auto;min-width: 256px;}
 .highlight{background: yellow}
 
+/* neat tricks real */
+@keyframes wifi {
+0%,100%{content:'wifi-0'}
+20%{content:'wifi-1'}
+40%{content:'wifi-2'}
+60%{content:'wifi-3'}
+80%{content:'wifi-4'}
+}
+[name=user-content-wifi]:after {
+	font-family:Picon;
+	content:'wifi-4';
+	animation: wifi 1s infinite;
+}
+pre[lang]:after{
+	font-family:Picon;
+	content:'lang-' attr(lang);
+	float:right;
+}
+[data-picon]{
+	position: relative;
+	font-size:32px;
+}
+[data-picon]:after{
+	text-shadow: 0 -2px white;
+	content:attr(data-picon);
+	position: absolute;
+	left: 0;
+}
+
+/* go back to business */
 form svg{fill:var(--text)}
 form a:hover,
 form .highlight,
