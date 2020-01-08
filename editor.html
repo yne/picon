@@ -9,7 +9,7 @@
 	.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
 	figure input{position:absolute;background:none;font-size:0;z-index:9}
 	figure input{border:1px solid #888;width:16px;height:16px;cursor:pointer;}
-	figure input:focus{outline: 3px solid;}
+	figure input:focus{outline: 3px solid #888;}
 </style>
 <main>
 	<menu>
@@ -19,10 +19,10 @@
 		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
 		<button @click="lines.splice(lines,0,[[2,4],[4,2],[6,4]])">L</button>
 		<button @click="lines=[]">clear</button>
-		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8>
-		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=16 height=16 title=16>
-		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24>
-		<hr/><img :src="'data:image/svg+xml;utf8,'+svg" width=32 height=32 title=32>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=16 height=16 title=16></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=32 height=32 title=32></a>
 	</menu>
 	<figure class=rel>
 		<img :src="'data:image/svg+xml;utf8,'+svg" width=100%>
@@ -64,8 +64,8 @@ var v = new Vue({
 		},
 		data() {
 			return {
-				width: 16,
-				height: 16,
+				width: 8,
+				height: 8,
 				lines: [[[2, 4], [4, 2], [6, 4]]]
 			}
 		},

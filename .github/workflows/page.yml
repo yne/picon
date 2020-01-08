@@ -16,7 +16,6 @@ jobs:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
          ### START ###
-         # BPI_ALL=$(for f in svg/* ; do grep -Po 'M[^"]+' $f | wc -c ; done |  awk '{ total += $1 } END { printf "%i %i",total/NR,NR }')
          (echo '
            <!doctype HTML>
            <script src="script.js"></script>
@@ -25,7 +24,7 @@ jobs:
          '
          jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"yne/picon"}' |
            curl -svd @- https://api.github.com/markdown -HContent-Type:application/json |
-           sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/'
+           sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' | sed -r 's@.github/pages/@@g'
          echo '
            <form onsubmit=filter(this)>
            <div class="flex sticky-top">
@@ -49,6 +48,7 @@ jobs:
            mv "$f" $(basename "${f%%.*}.svg")
          done
          tar cjf picon.tar.bz2 *.svg
+         zip -9  picon.zip     *.svg
          git config user.name  "${GITHUB_ACTOR}"
          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
          git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"

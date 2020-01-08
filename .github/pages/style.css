@@ -13,6 +13,7 @@ body{
 }
 :target {color: var(--primary)}
 #logo{fill:var(--text);display:block;margin:auto;max-width:calc(var(--size) * 24)}
+h1+p {text-align: center;}
 a,summary{color: var(--primary);text-decoration: none;}
 a:hover,summary:hover{text-decoration: underline;cursor:pointer;}
 
