@@ -24,7 +24,7 @@ pre{color:var(--back);background:var(--text);padding:var(--radius);border-radius
 @font-face {font-family: picon;src: url(picon.woff2);}
 del,.picon{font-family:Picon;user-select:none;vertical-align: middle;text-decoration: none;}
 table{margin: auto;min-width: 256px;}
-.highlight{background: yellow}
+.highlight{background: rgba(255, 255, 0, 0.363)}
 
 /* neat tricks real */
 @keyframes wifi {
@@ -57,10 +57,13 @@ pre[lang]:after{
 
 /* go back to business */
 form svg{fill:var(--text)}
-form a:hover,
+form :checked+svg{fill:var(--primary)}
+
+form a[id]:hover,
+form a[id]:focus,
 form .highlight,
-form a:after,
-.fab{
+form a[id]:after,
+.fab{outline: 0;
 	cursor: pointer;
 	box-shadow: 0 2px 8px -3px black;
 }
@@ -68,7 +71,7 @@ form:not([data-view]),
 form[data-view=tile]{--size:24px}
 form[data-view=list]{--size:16px}
 form[data-view=pico]{--size:8px}
-form a{
+form a[id]{
 	border-radius: var(--radius);
   padding: calc(var(--size) / 4);
 	width: var(--size);
@@ -76,9 +79,13 @@ form a{
 	position: relative;
 	line-height: 11px;
 }
-form a [type=checkbox]{position: absolute;right:-4px;bottom:-4px;opacity:.75}
+form a [type=checkbox]{display:none;}
+form a:hover [type=checkbox],
+form a:focus [type=checkbox]{
+	display:initial;position: absolute;right:-3px;bottom:-3px;opacity:.75
+}
 
-form a:after {
+form a[id]:after {
 	white-space: pre;
 	pointer-events: none;
 	position: absolute;
@@ -89,12 +96,25 @@ form a:after {
 	padding:.25em;
 	z-index: 3;
 }
-form a:hover:after{content:attr(id)}
-form a.copied:after {content:"Copied!"}
-form [type=search]{flex-grow:1;width:1em;}
+form a[id]:hover:after{content:attr(id)}
+form a[id].copied:after {content:"Copied!"}
+blockquote{text-align: center;}
+[name=count]:empty+span{display:none}
 .flex{display:flex}
-form:not([data-edit-mode]) .edit,
-form[data-edit-mode=false] .edit{display:none}
+.flex>*{flex:1}
+[type=search]{
+	width:100%;
+	border-radius: var(--radius);
+	border: 1px solid #888;
+	font-size:calc(var(--size) * 1.0);
+	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
+	padding:calc(var(--size) / 2) var(--size);
+	margin: var(--radius) 0;
+	transition: box-shadow 0.2s ease-in-out;
+}
+[type=search]:hover,[type=search]:focus{
+	box-shadow: 0 2px 8px -3px rgba(0,0,0,1);
+}
 .sticky-top {
 	position: sticky;
 	top: 0;

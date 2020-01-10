@@ -17,30 +17,38 @@ jobs:
       run: |
          ### START ###
          (echo '
-           <!doctype HTML>
+           <!doctype HTML><meta charset=utf-8>
            <script src="script.js"></script>
            <link rel=stylesheet href=style.css>
+           <a href="https://github.com/yne/picon">
            <svg id=logo viewBox="0 0 16 16"><path d="M13,4 13,0 14,0 15,2 15,0 16,0 16,4 15,4 15,4 14,2 14,4 M9,4 9,0 12,0 12,4 M6,4 6,0 8,0 8,1 7,1 7,3 8,3 8,4 M0,4 0,0 3,0 3,2 1,3 1,4 M1,1 1,2 2,2 2,1 M10,1 10,3 11,3 11,1 M6,16 6.25,15 6,8 7.25,7 7.25,5 8.75,5 8.75,7 10,8 9.75,15 10,16 M9,9.5 9,9 7,9 7,9.5 M9,12 9,10 7,10 7,12 7.5,13 8.5,13 M4,4 4,0 5,0 5,4"></path></svg>
+           </a>
          '
          jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
            curl -svd @- https://api.github.com/markdown -HContent-Type:application/json |
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' | sed -r 's@.github/pages/@@g'
          echo '
-           <form oninput=filter(this) onsubmit=filter(this)>
-           <div class="flex sticky-top">
-             <input type=search name=q list=names placeholder="Search Criteria">
-             <select onchange=this.form.dataset.view=this.value><option>tile<option>pico<option>detail</select>
-             <label for=editMode><input type=checkbox id=editMode onchange=this.form.dataset[this.id]=this.checked>Customize</label>
+           <form oninput=filter(this) onsubmit="event.preventDefault();return filter(this),false">
+           <div class=sticky-top>
+             <input type=search name=q list=names placeholder="Search 🔍">
+             <blockquote>
+               <output name=count></output>
+               <span> icon(s) found(s) (
+               <a onclick="document.querySelectorAll(\'form .highlight [type=checkbox]\').forEach(e=>e.checked=true)">Add</a> /
+               <a onclick="document.querySelectorAll(\'form .highlight [type=checkbox]\').forEach(e=>e.checked=false)">Exclude</a> )
+               </span>
+             </blockquote>
            </div>
+           <blockquote>Protip: Hold <kbd>Shift</kbd> to select a range of icon checkboxes <input type=reset value=reset></blockquote>
            <datalist id=names>'
          for f in svg/*.svg ; do echo '<option value="'$(basename "${f/.*}")'">'; done
          echo '</datalist><!--'
          for f in svg/*.svg ; do
            name=$(basename "${f/.*}")
-           echo "--><a onclick=clip(this) id='$name'>$(<$f)<input type=checkbox class=edit onclick=toggle(this,event)></a><!--"
+           echo "--><a onclick=clip(this,event) tabindex=1 id='$name'><input type=checkbox onclick=toggle(this,event)>$(<$f)</a><!--"
            #echo mv "$f" "$name"
          done
-         echo '--><button class="fab edit" onclick=makeFont()>⭳</button></form>')>index.html
+         echo '--><button class=fab onclick="return event.preventDefault(makeFont(this.form)),false">⭳</button></form>')>index.html
          [ -z $GITHUB_ACTOR ] && exit
          mv .github/pages/* .
          for f in svg/* ; do

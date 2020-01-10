@@ -120,7 +120,7 @@ Because why not
 </details>
 
 <details>
-<summary>Icons in my `<form>` elements ?</summary>
+<summary>Icons in my `form` ?</summary>
 
 Any HTML element that display text (reset button, select ...) can also display Picon icons:
 

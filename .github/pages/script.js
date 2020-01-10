@@ -1,5 +1,3 @@
-let svgs = [];
-
 function normalize(p,w=16,h=16) {
 	let [x,y] = p.match(/[0-9.]+/g)
 	return [x*2, h-y*2]
@@ -15,9 +13,13 @@ function toPath(path,str){
 	return path;
 }
 function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium"){
-//<script src="https://cdn.jsdelivr.net/npm/opentype.js"></script>
-	const notdefGlyph = new opentype.Glyph({
-		name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
+	if(typeof opentype === "undefined")
+		return document.body.append(Object.assign(document.createElement('script'),{
+			src:'https://cdn.jsdelivr.net/npm/opentype.js',
+			onload: ()=>makeFont(...arguments)
+		}));
+	const svgs = [...form.querySelectorAll(':checked+svg')].map(path=>[path.closest('a').id, path.getAttribute('d')]);
+	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
 	const alphaGlyphs = [];/*"-abcdefghijklmnopqrstuvwxyz0123456789".split('').map(name=>new opentype.Glyph({
 		name, unicode: name.charCodeAt(0), advanceWidth, path: new opentype.Path()}));*/
 	var ligatures = [];
@@ -35,12 +37,14 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 		sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),
 		by:glyphs.indexOf(by)
 	}) );
-	return font;
+	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
+	console.log(font);
 }
 
 function filter(form,className="highlight") {
 	form.querySelectorAll(`.${className}`).forEach(e=>e.classList.remove(className))
-	if(form.q.value)form.querySelectorAll(`a[id*='${form.q.value}']`).forEach(e=>e.classList.add(className))
+	const matches = (form.q.value) ? [...form.querySelectorAll(`a[id*='${form.q.value}']`)].map(e=>e.classList.add(className)):[];
+	form.count.value = matches.length
 }
 let prevToggle=null;
 function toggle(checkbox, event){
@@ -52,7 +56,8 @@ function toggle(checkbox, event){
 	}
 	prevToggle = checkbox;
 }
-function clip(target) {
+function clip(target, event) {
+	event.stopPropagation();
 	const text = target.id;
   if (!navigator.clipboard)
 		alert(`No clipboard API to copy ${text}`);
