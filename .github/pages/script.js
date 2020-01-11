@@ -46,6 +46,9 @@ function filter(form,className="highlight") {
 	const matches = (form.q.value) ? [...form.querySelectorAll(`a[id*='${form.q.value}']`)].map(e=>e.classList.add(className)):[];
 	form.count.value = matches.length
 }
+function highlightCheck(checked){
+	document.querySelectorAll('form .highlight [type=checkbox]').forEach(e=>e.checked=checked)
+}
 let prevToggle=null;
 function toggle(checkbox, event){
 	event.stopPropagation();
