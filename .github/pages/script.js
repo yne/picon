@@ -43,15 +43,15 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 
 function filter(form,className="highlight") {
 	form.querySelectorAll(`.${className}`).forEach(e=>e.classList.remove(className))
-	const matches = (form.q.value) ? [...form.querySelectorAll(`a[id*='${form.q.value}']`)].map(e=>e.classList.add(className)):[];
-	form.count.value = matches.length
+	if(form.q.value)
+		form.querySelectorAll(`a[id*='${form.q.value}']`).forEach(e=>e.classList.add(className));
 }
 function highlightCheck(checked){
-	document.querySelectorAll('form .highlight [type=checkbox]').forEach(e=>e.checked=checked)
+	form.querySelectorAll('.highlight [type=checkbox]').forEach(e=>e.checked=checked)
 }
 let prevToggle=null;
 function toggle(checkbox, event){
-	event.stopPropagation();
+	event.stopPropagation();//avoid <a> "clip" event
 	if(event.shiftKey && prevToggle) {
 		const all = [...checkbox.form.querySelectorAll('a>[type=checkbox]')];
 		const [from, to] = [prevToggle,checkbox].map(c=>all.findIndex(e=>c==e)).sort();
@@ -63,7 +63,7 @@ function clip(target, event) {
 	event.stopPropagation();
 	const text = target.id;
   if (!navigator.clipboard)
-		alert(`No clipboard API to copy ${text}`);
+		return alert(`No clipboard API to copy ${text}`);
 	setTimeout(() => target.classList.remove('copied'),1000);
 	navigator.clipboard.writeText(target.id).then(
 		res => target.classList.add('copied'),

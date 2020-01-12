@@ -1,5 +1,7 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
-:root{--text:#404545;--back:#F8F8F8;--primary:#ea4a5a;--size:16px;--radius:4px;--fab:32px}
+:root{
+counter-reset: check, match, all;
+--text:#404545;--back:#F8F8F8;--primary:#ea4a5a;--size:16px;--radius:4px;--fab:32px}
 @media (prefers-color-scheme: dark) { :root{--text:#F8F8F8;--back:#404545} }
 body{
 	font-family: Helvetica, Arial, Sans-Serif;
@@ -54,11 +56,20 @@ pre[lang]:after{
 	position: absolute;
 	left: 0;
 }
-
 /* go back to business */
-form svg{fill:var(--text)}
-form :checked+svg{fill:var(--primary)}
+[data-counter]:after{
+	content: counter(attr(data-counter))
+}
 
+form {counter-reset: sum;}
+form svg{fill:var(--text)}
+form :checked+svg{
+	fill:var(--primary);
+	counter-increment: check;
+}
+form .highlight{
+	counter-increment: match;
+}
 form a[id]:hover,
 form a[id]:focus,
 form .highlight,
@@ -67,10 +78,6 @@ form a[id]:after,
 	cursor: pointer;
 	box-shadow: 0 2px 8px -3px black;
 }
-form:not([data-view]),
-form[data-view=tile]{--size:24px}
-form[data-view=list]{--size:16px}
-form[data-view=pico]{--size:8px}
 form a[id]{
 	border-radius: var(--radius);
   padding: calc(var(--size) / 4);
@@ -79,12 +86,12 @@ form a[id]{
 	position: relative;
 	line-height: 11px;
 }
-form a [type=checkbox]{display:none;}
+form a [type=checkbox]{display:none;counter-increment: all;}
 form a:hover [type=checkbox],
 form a:focus [type=checkbox]{
 	display:initial;position: absolute;right:-3px;bottom:-3px;opacity:.75
 }
-
+/**/
 form a[id]:after {
 	white-space: pre;
 	pointer-events: none;
@@ -108,7 +115,7 @@ blockquote{text-align: center;}
 	border: 1px solid #888;
 	font-size:calc(var(--size) * 1.0);
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
-	padding:calc(var(--size) / 2) var(--size);
+	padding:calc(var(--size) / 4) var(--size);
 	margin: var(--radius) 0;
 	transition: box-shadow 0.2s ease-in-out;
 }
@@ -133,4 +140,9 @@ blockquote{text-align: center;}
 	background: var(--primary);
 	color: var(--back);
 	font-size: var(--fab);
+	z-index:4;
+}
+.fab svg{
+	fill: var(--back);
+	width: 1em;
 }

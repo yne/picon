@@ -14,16 +14,20 @@ include(/tmp/README)
 	<div class=sticky-top>
 		<input type=search name=q list=names placeholder="Search 🔍">
 		<blockquote>
-			<output name=count></output>
-			<span> icon(s) found(s)
-				(<a onclick=highlightCheck(true)>Add</a> /	<a onclick=highlightCheck(false">Exclude</a> )
+			<span data-counter=match>?</span> / <span data-counter=all>?</span> icon(s) found(s)
+				(<a onclick=highlightCheck(this.form,true)>Add</a> /	<a onclick=highlightCheck(this.form,false)>Exclude</a> )
 			</span>
 		</blockquote>
 	</div>
 	<blockquote>Protip: Hold <kbd>Shift</kbd> to check a range of icon <input type=reset value=reset></blockquote>
 	<datalist id=names>
 include(/tmp/DATALIST)
-	</datalist><!--
+	</datalist>
+		<a onclick=clip(this,event) tabindex=1 id='test'><input type=checkbox onclick=toggle(this,event)><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M7,7 7,8 1,8 1,7 M3,4 3,1 5,1 5,4 7,4 4,7 1,4"></path></svg></a>
+<!--
 include(/tmp/ICONLIST)
-	--><button class=fab onclick="return event.preventDefault(makeFont(this.form)),false">⭳</button>
+	--><button class=fab onclick="return event.preventDefault(makeFont(this.form)),false">
+		<span data-counter=check>?</span>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M7,7 7,8 1,8 1,7 M3,4 3,1 5,1 5,4 7,4 4,7 1,4"></path></svg>
+		</button>
 </form>

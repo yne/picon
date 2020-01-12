@@ -16,7 +16,6 @@ jobs:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
          ### START ###
-         #for list in $(IFS=:; echo $PATH); do ls $list ; done ; return
          jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
            curl -sd @- https://api.github.com/markdown -HContent-Type:application/json |
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
