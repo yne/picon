@@ -181,5 +181,3 @@ Example: Stack a `cross` icon over a `volume` icon:
 
 </details>
 
-# Icon
-

@@ -42,30 +42,35 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 }
 
 function filter(form,className="highlight") {
-	form.querySelectorAll(`.${className}`).forEach(e=>e.classList.remove(className))
+	form.querySelectorAll('.'+className).forEach(e=>e.classList.remove(className))
+	form.querySelector("blockquote").hidden=!form.q.value;
 	if(form.q.value)
-		form.querySelectorAll(`a[id*='${form.q.value}']`).forEach(e=>e.classList.add(className));
+		form.match.value=[...form.querySelectorAll(`a[id*='${form.q.value}']`)].map(e=>e.classList.add(className)).length;
 }
-function highlightCheck(checked){
+function highlightCheck(form, checked){
 	form.querySelectorAll('.highlight [type=checkbox]').forEach(e=>e.checked=checked)
 }
 let prevToggle=null;
 function toggle(checkbox, event){
-	event.stopPropagation();//avoid <a> "clip" event
+	const all = [...checkbox.form.querySelectorAll('a>[type=checkbox]')];
 	if(event.shiftKey && prevToggle) {
-		const all = [...checkbox.form.querySelectorAll('a>[type=checkbox]')];
 		const [from, to] = [prevToggle,checkbox].map(c=>all.findIndex(e=>c==e)).sort();
-		all.slice(from+1,to).forEach(cb=>cb.checked^=1);
+		all.slice(from+1,to).map(cb=>cb.checked^=1);
 	}
+	const checked = checkbox.form.querySelectorAll(':checked').length
+	checkbox.form.check.value=checked
+	checkbox.form.fab.hidden=!checked
 	prevToggle = checkbox;
 }
-function clip(target, event) {
-	event.stopPropagation();
-	const text = target.id;
+function clip(a, event) {
+	//event.stopPropagation();//avoid parent <a> href follow
+	event.preventDefault();
+	const text = a.id;
   if (!navigator.clipboard)
 		return alert(`No clipboard API to copy ${text}`);
-	setTimeout(() => target.classList.remove('copied'),1000);
-	navigator.clipboard.writeText(target.id).then(
-		res => target.classList.add('copied'),
+	setTimeout(() => a.classList.remove('copied'),1000);
+	navigator.clipboard.writeText(a.id).then(
+		res => a.classList.add('copied'),
 		err => alert(`Unable to copy ${text}\n`+err));
+	return toggle(a.querySelector('[type=checkbox]'),event);
 }

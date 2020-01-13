@@ -1,148 +1,243 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
-:root{
-counter-reset: check, match, all;
---text:#404545;--back:#F8F8F8;--primary:#ea4a5a;--size:16px;--radius:4px;--fab:32px}
-@media (prefers-color-scheme: dark) { :root{--text:#F8F8F8;--back:#404545} }
-body{
+ :root {
+	--text: #404545;
+	--back: #F8F8F8;
+	--primary: #ea4a5a;
+	--size: 32px;
+	--radius: 4px;
+	--fab: 32px;
+}
+
+@media (prefers-color-scheme: dark) {
+	 :root {
+		--text: #F8F8F8;
+		--back: #404545
+	}
+}
+
+body {
 	font-family: Helvetica, Arial, Sans-Serif;
-	max-width:576px;
-	margin:auto;
-	font-size:var(--size);
-	color:var(--text);
-	background:var(--back);
-	padding: var(--size);
-}
-:target {color: var(--primary)}
-#logo{fill:var(--text);display:block;margin:auto;max-width:calc(var(--size) * 24)}
-h1+p {text-align: center;}
-a,summary{color: var(--primary);text-decoration: none;}
-a:hover,summary:hover{text-decoration: underline;cursor:pointer;}
-
-h1,h2,h3,h4{margin:2em 0 0 0;text-align:center;}
-h1{font-size:calc(var(--size) * 2.0);}
-h2{font-size:calc(var(--size) * 1.5);box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1) black}
-h3{font-size:calc(var(--size) * 1.0)}
-pre{color:var(--back);background:var(--text);padding:var(--radius);border-radius:var(--radius);overflow: auto;}
-@font-face {font-family: picon;src: url(picon.woff2);}
-del,.picon{font-family:Picon;user-select:none;vertical-align: middle;text-decoration: none;}
-table{margin: auto;min-width: 256px;}
-.highlight{background: rgba(255, 255, 0, 0.363)}
-
-/* neat tricks real */
-@keyframes wifi {
-0%,100%{content:'wifi-0'}
-20%{content:'wifi-1'}
-40%{content:'wifi-2'}
-60%{content:'wifi-3'}
-80%{content:'wifi-4'}
-}
-[name=user-content-wifi]:after {
-	font-family:Picon;
-	content:'wifi-4';
-	animation: wifi 1s infinite;
-}
-pre[lang]:after{
-	font-family:Picon;
-	content:'lang-' attr(lang);
-	float:right;
-}
-[data-picon]{
-	position: relative;
-	font-size:32px;
-}
-[data-picon]:after{
-	text-shadow: 0 -2px white;
-	content:attr(data-picon);
-	position: absolute;
-	left: 0;
-}
-/* go back to business */
-[data-counter]:after{
-	content: counter(attr(data-counter))
+	max-width: 576px;
+	margin: auto;
+	font-size: 16px;
+	color: var(--text);
+	background: var(--back);
+	padding: 1em;
 }
 
-form {counter-reset: sum;}
-form svg{fill:var(--text)}
-form :checked+svg{
-	fill:var(--primary);
+ :target {
+	color: var(--primary)
+}
+
+ :focus {
+	outline: 0;
+}
+
+#logo {
+	fill: var(--text);
+	display: block;
+	margin: auto;
+	max-width: 24em
+}
+
+h1+p {
+	text-align: center;
+}
+
+a,
+summary {
+	color: var(--primary);
+	text-decoration: none;
+}
+
+a:hover,
+summary:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 2em 0 0 0;
+	text-align: center;
+}
+
+h1 {
+	font-size: 2.0em;
+}
+
+h2 {
+	font-size: 1.5em;
+	box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1) black
+}
+
+h3 {
+	font-size: 1.0em
+}
+
+pre {
+	color: var(--back);
+	background: var(--text);
+	padding: var(--radius);
+	border-radius: var(--radius);
+	overflow: auto;
+}
+
+@font-face {
+	font-family: picon;
+	src: url(picon.woff2);
+}
+
+del,
+.picon {
+	font-family: Picon;
+	user-select: none;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+table {
+	margin: auto;
+	min-width: 256px;
+}
+
+form {
+	counter-reset: check, match, icons;
+}
+
+form>a {
+	counter-increment: icons;
+}
+
+form :checked {
 	counter-increment: check;
 }
-form .highlight{
-	counter-increment: match;
+
+[data-counter=icons]::before {
+	content: counter(icons);
+	color: red;
 }
-form a[id]:hover,
-form a[id]:focus,
-form .highlight,
-form a[id]:after,
-.fab{outline: 0;
-	cursor: pointer;
-	box-shadow: 0 2px 8px -3px black;
+
+[data-counter=match]::before {
+	content: counter(match);
+	color: red;
 }
-form a[id]{
-	border-radius: var(--radius);
-  padding: calc(var(--size) / 4);
-	width: var(--size);
-	display: inline-block;
-	position: relative;
-	line-height: 11px;
+
+[data-counter=check]::before {
+	content: counter(check);
+	color: red;
 }
-form a [type=checkbox]{display:none;counter-increment: all;}
-form a:hover [type=checkbox],
-form a:focus [type=checkbox]{
-	display:initial;position: absolute;right:-3px;bottom:-3px;opacity:.75
+
+
+/* ICONLIST */
+form>nav{
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	background: linear-gradient(0deg, transparent, var(--back));
+	padding: var(--radius);
+	text-align:center
 }
-/**/
-form a[id]:after {
-	white-space: pre;
-	pointer-events: none;
-	position: absolute;
-	transform: translate(calc(var(--size) * -2), calc(var(--size) * -.75 - 16px));
-  background: var(--text);
-  color: var(--back);
-	border-radius: var(--radius);
-	padding:.25em;
-	z-index: 3;
-}
-form a[id]:hover:after{content:attr(id)}
-form a[id].copied:after {content:"Copied!"}
-blockquote{text-align: center;}
-[name=count]:empty+span{display:none}
-.flex{display:flex}
-.flex>*{flex:1}
 [type=search]{
 	width:100%;
 	border-radius: var(--radius);
 	border: 1px solid #888;
-	font-size:calc(var(--size) * 1.0);
+	font-size:1.5em;
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
-	padding:calc(var(--size) / 4) var(--size);
-	margin: var(--radius) 0;
+	padding:.5em 1em;
 	transition: box-shadow 0.2s ease-in-out;
 }
-[type=search]:hover,[type=search]:focus{
+[type=search]:hover,
+[type=search]:focus{
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,1);
 }
-.sticky-top {
-	position: sticky;
-	top: 0;
-	z-index: 2;
-	background: var(--back);
-	padding: var(--radius);
+
+form>a.highlight {
+	background: rgba(255, 255, 0, 0.363)
 }
-.fab {
+form>a,
+form>a>img,
+form>a>input{
+	width: var(--size);
+	height: var(--size);
+}
+form>a>input,
+form>a>img{
+	position: absolute;
+	margin:0
+}
+
+form>a {
+	border-radius: var(--radius);
+	padding: var(--radius);
+	display: inline-block;
+	/* hardcoded */
+	background: white;
+	color: black;
+	position: relative;
+}
+
+form>a::before {
+	white-space: pre;
+	pointer-events: none;
+	position: absolute;
+	transform: translate(calc(var(--size) * -0.5), calc(var(--size) * -1));
+	background: var(--text);
+	color: var(--back);
+	border-radius: var(--radius);
+	padding: var(--radius);
+	z-index: 3;
+}
+
+form>a:hover::before {
+	content: attr(id)
+}
+
+form>a.copied::before {
+	content: "Copied!"
+}
+
+form>a>[type=checkbox] {
+	opacity: 100%
+}
+
+
+/* form a[id]:hover, form a[id]:focus, form .highlight, form a[id]:after, .fab{
+     cursor: pointer;
+     box-shadow: 0 2px 8px -3px black;
+}
+ form a [type=checkbox]{
+    display:none;
+    counter-increment: icons;
+}
+ form a:hover [type=checkbox], form a:focus [type=checkbox]{
+     display:initial;
+    position: absolute;
+    right:-3px;
+    bottom:-3px;
+    opacity:.75 
+}
+*/
+form [name=fab] {
 	position: fixed;
 	bottom: var(--fab);
 	right: var(--fab);
 	border-radius: var(--fab);
 	width: calc(var(--fab) * 2);
 	height: calc(var(--fab) * 2);
-	border: 0;
 	background: var(--primary);
 	color: var(--back);
 	font-size: var(--fab);
+	border: 0;
 	z-index:4;
 }
-.fab svg{
+form [name=fab] svg{display:none}
+form [name=fab]:hover output{display:none}
+form [name=fab]:hover svg{display:block}
+form [name=fab] svg {
 	fill: var(--back);
-	width: 1em;
+	margin: auto;
+	width:1em;
 }
