@@ -1,7 +1,3 @@
-# [Easy](#Usage) [Hackable](#Hackable) **[Pico](#Pico)[Icon](#Icon)** [Font](#Font)
-
-Available as [Font](picon.woff2) or [SVGs](picon.zip)
-
 ## Usage
 
 Picon is a **ligature**-based icon font, and so, it does not require any external CSS stylesheet, or any javascript.
@@ -32,7 +28,12 @@ to get the app ~~app~~ icon
 
 ## Hackable
 
-Picon is **MIT Licencied**, so you can [modify it](editor.html) and even rebuild your own custom version that suits you the best.
+Picon is **MIT Licencied**, so you can
+
+- use it in commercial project
+- [modify it](editor.html)
+- build your own version
+- sell it (or at least try to)
 
 ## Pico sized
 

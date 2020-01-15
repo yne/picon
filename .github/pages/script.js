@@ -24,16 +24,15 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
 	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,"M2,5 4,3 6,5"]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
-	console.log(alphaGlyphs)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
 	var ligatures = [];
 	const glyphs = [notdefGlyph, ...svgs.map(([names,pathData],i) => {
-		const [name,uni] = names.split('.');
-		const c = name.charCodeAt(0);
-		const unicode = (name.length==1 && c < 255) ? c : 0xE000+i;
+		const [name,uni] = names.split('.').map(decodeURIComponent);
+		const isLatin = (name.length==1 && name.charCodeAt(0) < 255);
+		const unicode = isLatin ? name.charCodeAt(0) : 0xE000+i;
 		const path = pathData.split(' ').reduce(toPath,new opentype.Path());
 		const glyph = new opentype.Glyph({name, unicode, advanceWidth, path});
-		if(unicode>255)ligatures.push({sub: name, by:glyph});
+		if(!isLatin)ligatures.push({sub: name, by:glyph});
 		return glyph;
 	})]
 	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
@@ -43,12 +42,11 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 			sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),
 			by:glyphs.indexOf(by)
 		}
-		console.log(liga.sub, liga.by);
 		font.substitution.add("liga", liga);
 	});
 	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
 	applyFont(font);
-//	font.download();
+	font.download();
 }
 
 function filter(form,className="highlight") {
@@ -73,9 +71,8 @@ function highlightCheck(form, checked){
 	updateCheck(form)
 }
 let prevToggle=null;
-function toggle(el, event){
-	const form = el.closest('form');
-	const li = el.closest('li');
+function toggle(li, event){
+	const form = li.closest('form');
 	const all = [...form.querySelectorAll('li')];
 	if (!prevToggle)prevToggle = li;
 	const [from, to] = [prevToggle,li].map(c=>all.findIndex(e=>c==e));
@@ -85,6 +82,7 @@ function toggle(el, event){
 	updateCheck(form)
 }
 function clip(a, event) {
+	event.stopPropagation();
 	const text = a.innerText;
   if (!navigator.clipboard)
 		return alert(`No clipboard API to copy ${text}`);
