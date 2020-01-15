@@ -21,7 +21,7 @@ jobs:
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
            sed -r 's@.github/pages/@@g' > /tmp/README
          (for f in svg/*.svg ; do echo '<option value="'$(basename "${f/.*}")'">'; done)>/tmp/DATALIST
-         (for f in svg/*.svg ; do echo "--><a onclick=clip(this,event) tabindex=1 id='"$(basename "${f/.*}")"'><input type=checkbox onclick=toggle(this,event)>$(<$f)</a><!--" ; done)>/tmp/ICONLIST
+         (for f in svg/*.svg ; do echo '<li id='"$(basename "${f/.*}")"'><img onclick="toggle(this,event)" src=' "'data:image/svg+xml," "$(<$f)" "'" '/><code onclick="clip(this,event)">'"$(basename "${f/.*}")"'</code></li>' ; done)>/tmp/ICONLIST
          m4 < .github/pages/template.html > index.html
          [ -z $GITHUB_ACTOR ] && exit
          mv .github/pages/* .

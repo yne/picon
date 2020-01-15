@@ -11,18 +11,22 @@
 @media (prefers-color-scheme: dark) {
 	 :root {
 		--text: #F8F8F8;
-		--back: #404545
+		--back: #404545;
 	}
+	img[src^="data:image/svg"]{filter: invert(1);}
 }
 
 body {
 	font-family: Helvetica, Arial, Sans-Serif;
-	max-width: 576px;
-	margin: auto;
 	font-size: 16px;
 	color: var(--text);
 	background: var(--back);
 	padding: 1em;
+}
+
+article, nav {
+	max-width: 576px;
+	margin: auto;
 }
 
  :target {
@@ -32,7 +36,12 @@ body {
  :focus {
 	outline: 0;
 }
-
+[onclick] {
+	cursor:pointer;
+}
+[hidden] {
+	display: none !important;
+}
 #logo {
 	fill: var(--text);
 	display: block;
@@ -103,124 +112,36 @@ table {
 	min-width: 256px;
 }
 
-form {
-	counter-reset: check, match, icons;
-}
-
-form>a {
-	counter-increment: icons;
-}
-
-form :checked {
-	counter-increment: check;
-}
-
-[data-counter=icons]::before {
-	content: counter(icons);
-	color: red;
-}
-
-[data-counter=match]::before {
-	content: counter(match);
-	color: red;
-}
-
-[data-counter=check]::before {
-	content: counter(check);
-	color: red;
-}
-
-
-/* ICONLIST */
-form>nav{
+nav {
 	position: sticky;
 	top: 0;
 	z-index: 2;
-	background: linear-gradient(0deg, transparent, var(--back));
 	padding: var(--radius);
 	text-align:center
 }
-[type=search]{
-	width:100%;
+nav .flex {
+	background: var(--back);
+	display:flex;
 	border-radius: var(--radius);
 	border: 1px solid #888;
-	font-size:1.5em;
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
-	padding:.5em 1em;
 	transition: box-shadow 0.2s ease-in-out;
 }
-[type=search]:hover,
-[type=search]:focus{
+nav .flex>* {
+	font-size:1.25em;
+	border:0;
+	background:none;
+	padding:.5em 1em;
+}
+nav .flex>[name]{
+	flex-grow:1;
+}
+nav .flex>*:hover,
+nav .flex>*:focus{
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,1);
 }
 
-form>a.highlight {
-	background: rgba(255, 255, 0, 0.363)
-}
-form>a,
-form>a>img,
-form>a>input{
-	width: var(--size);
-	height: var(--size);
-}
-form>a>input,
-form>a>img{
-	position: absolute;
-	margin:0
-}
-
-form>a {
-	border-radius: var(--radius);
-	padding: var(--radius);
-	display: inline-block;
-	/* hardcoded */
-	background: white;
-	color: black;
-	position: relative;
-}
-
-form>a::before {
-	white-space: pre;
-	pointer-events: none;
-	position: absolute;
-	transform: translate(calc(var(--size) * -0.5), calc(var(--size) * -1));
-	background: var(--text);
-	color: var(--back);
-	border-radius: var(--radius);
-	padding: var(--radius);
-	z-index: 3;
-}
-
-form>a:hover::before {
-	content: attr(id)
-}
-
-form>a.copied::before {
-	content: "Copied!"
-}
-
-form>a>[type=checkbox] {
-	opacity: 100%
-}
-
-
-/* form a[id]:hover, form a[id]:focus, form .highlight, form a[id]:after, .fab{
-     cursor: pointer;
-     box-shadow: 0 2px 8px -3px black;
-}
- form a [type=checkbox]{
-    display:none;
-    counter-increment: icons;
-}
- form a:hover [type=checkbox], form a:focus [type=checkbox]{
-     display:initial;
-    position: absolute;
-    right:-3px;
-    bottom:-3px;
-    opacity:.75 
-}
-*/
-form [name=fab] {
+.fab {
 	position: fixed;
 	bottom: var(--fab);
 	right: var(--fab);
@@ -233,11 +154,82 @@ form [name=fab] {
 	border: 0;
 	z-index:4;
 }
-form [name=fab] svg{display:none}
-form [name=fab]:hover output{display:none}
-form [name=fab]:hover svg{display:block}
-form [name=fab] svg {
+.fab svg {
+	display:block;
 	fill: var(--back);
 	margin: auto;
 	width:1em;
+}
+
+/* ICONLIST */
+
+#List.tile-s {
+	--size:8px;
+}
+#List.tile-m {
+	--size:16px;
+}
+#List.tile-l {
+	--size:32px;
+}
+#List.tile-xl {
+	--size:64px;
+}
+#List.list {
+	--size:32px;
+}
+#List.list li {
+	display: block;
+}
+#List.list code {
+	font-size: var(--size);
+}
+#List ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+	font-size:0px;
+}
+#List li {
+	display: inline-flex;
+	flex-direction: column;
+	margin: var(--radius);
+}
+#List li.check{
+	outline: 2px solid var(--primary);
+}
+#List li:hover {
+	box-shadow:0 0 5px var(--text)
+}
+#List img {
+	width:var(--size);
+	margin:8px auto 0 auto;
+}
+#List code:hover {
+	color: var(--primary)
+}
+#List code {
+	font-size: 8px;
+	padding:1em;
+	width:calc(var(--size) * 2);
+	max-width:calc(var(--size) * 2);
+	text-overflow: ellipsis;
+	text-align:center;
+	overflow: hidden;
+	white-space: pre;
+}
+#List code::before {
+	white-space: pre;
+	pointer-events: none;
+	position: absolute;
+	transform: translate(0, -3em);
+	background: var(--text);
+	color: var(--back);
+	border-radius: var(--radius);
+	padding: var(--radius);
+	z-index: 3;
+}
+
+#List code.copied::before {
+	content: "Copied!"
 }
