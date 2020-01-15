@@ -4,7 +4,6 @@ function normalize(p,w=16,h=16) {
 }
 function applyFont(font) {
 	let ret = document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
-	console.log(ret)
 }
 function toPath(path,str){
 	if(!str)return path;
@@ -23,20 +22,20 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 		}));
 	const checkdGlyph = [...form.querySelectorAll('.check img')].map(path=>[path.closest('li').id.replace(/^latin-/,''), path.src.slice(20+67,-15)]);
 	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
-	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,""]);
+	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,"M2,5 4,3 6,5"]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
+	console.log(alphaGlyphs)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
 	var ligatures = [];
-	const glyphs = [notdefGlyph, ...svgs.map((svg,i) => {
-		const [name,uni] = svg[0].split('.');
+	const glyphs = [notdefGlyph, ...svgs.map(([names,pathData],i) => {
+		const [name,uni] = names.split('.');
 		const c = name.charCodeAt(0);
 		const unicode = (name.length==1 && c < 255) ? c : 0xE000+i;
-		const path = svg.slice(1).reduce(toPath,new opentype.Path());
+		const path = pathData.split(' ').reduce(toPath,new opentype.Path());
 		const glyph = new opentype.Glyph({name, unicode, advanceWidth, path});
-		if(name)ligatures.push({sub: name, by:glyph});
+		if(unicode>255)ligatures.push({sub: name, by:glyph});
 		return glyph;
 	})]
-	console.log(svgs,glyphs)
 	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
 	const font = new opentype.Font({familyName, styleName,...fontMetrics, glyphs});
 	ligatures.forEach(({sub,by}) => {
@@ -44,13 +43,12 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 			sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),
 			by:glyphs.indexOf(by)
 		}
-		//console.log(liga.sub, liga.by);
+		console.log(liga.sub, liga.by);
 		font.substitution.add("liga", liga);
 	});
 	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
-	console.log(font);
 	applyFont(font);
-	//font.download();
+//	font.download();
 }
 
 function filter(form,className="highlight") {

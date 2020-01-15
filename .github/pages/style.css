@@ -116,8 +116,8 @@ nav {
 	position: sticky;
 	top: 0;
 	z-index: 2;
-	padding: var(--radius);
-	text-align:center
+	padding: 1em;
+	text-align:center;
 }
 nav .flex {
 	background: var(--back);
@@ -206,7 +206,7 @@ nav .flex>*:focus{
 }
 #List img {
 	width:var(--size);
-	margin:8px auto 0 auto;
+	margin:8px auto;
 }
 #List code:hover {
 	color: var(--primary)
