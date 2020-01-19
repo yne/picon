@@ -1,39 +1,92 @@
-function normalize(p,w=16,h=16) {
-	let [x,y] = p.match(/[0-9.]+/g)
-	return [x*2, h-y*2]
+/*
+@svgs = ["../svg/a-name.alias.svg","/abs/path/to.my.svg"]
+@return = [
+	[["latin-a.à"],"<svg ..."],
+	[["app"], "<svg ..."],
+	...
+]
+*/
+function serializeFiles(svgs) {
+	const fs = require('fs');
+	const path = require('path');
+	return svgs.map(svg => [
+		path.basename(svg, '.svg'),
+		fs.readFileSync(svg, {encoding:"utf-8"})
+	])
 }
-function applyFont(font) {
-	let ff = new FontFace(font.names.fontFamily.en, font.toArrayBuffer());
-	document.fonts.add(ff);
-	return ff
+/**
+@form = <li id="latin-a.à"><img class=check src="data:..."></li><li>...
+@return = [
+	[["latin-a.à"],"<svg ..."],
+	[["app"], "<svg ..."],
+	...
+]
+*/
+function serializeForm(form) {
+	return [...form.querySelectorAll('.check img')]
+	.map(path => [path.closest('li').id, path.src])
 }
-function toPath(path,str){
-	if(!str)return path;
-	if(str[0]=='M')path.moveTo(...normalize(str));
-	else path.lineTo(...normalize(str));
-	return path;
+/**
+@glyphs = [
+	[["latin-a.à"],"<svg ..."],
+	[["app"], "<svg ..."],
+	...
+]
+@return = [
+		["a", Path(4,2)],
+		["à", Path(4,2)],
+		["app", Path(4,2)],
+		...
+	]
+TODO: promise
+**/
+var opentype = null;
+function transform(glyphs) {
+	/**
+		OpenType does not support 8x8 grid, and Y coordinate are inverted
+		We must translate to the nearest supported grid : 16*16
+	*/
+	if(!opentype) {
+		if(typeof document !== "undefined")
+			return document.body.append(Object.assign(document.createElement('script'),{
+				src:'https://cdn.jsdelivr.net/npm/opentype.js',
+				onload: ()=>transform(...arguments)
+			}));
+		opentype = require("./opentype.js");
+	}
+	function normalize(p,w=16,h=16) {
+		let [x,y] = p.match(/[0-9.]+/g)
+		return [x*2, h-y*2]
+	}
+	return glyphs
+		.map(([name, svg]) => [
+			name.replace(/^latin-/,'').split('.').map(decodeURIComponent),
+			svg.split('"')[5].split(' ').filter(Boolean).reduce((path,str)=> {
+				if(str[0] === 'M')
+					path.moveTo(...normalize(str))
+				else
+					path.lineTo(...normalize(str))
+				return path;
+			}, new opentype.Path())
+		]).reduce((all, [names,path])=>{
+			names.forEach(name=>all.push([name,path]));
+			return all;
+		},[])
 }
-function blankGlyph(unicode){
-	return new opentype.Glyph({name:unicode, unicode, advanceWidth:16, path: new opentype.Path()})
-}
-//TODO: return promise (for chaining in browser + node support)
-function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium"){
-	if(typeof opentype === "undefined")
-		return document.body.append(Object.assign(document.createElement('script'),{
-			src:'https://cdn.jsdelivr.net/npm/opentype.js',
-			onload: ()=>makeFont(...arguments)
-		}));
-	const checkdGlyph = [...form.querySelectorAll('.check img')].map(path=>[path.closest('li').id.replace(/^latin-/,''), path.src.split('"')[5]]);
+
+/*
+	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
+	font.download();
+*/
+function makeFont(checkdGlyph, advanceWidth=16, familyName="picon", styleName="medium") {
 	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
 	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,"M2,5 4,3 6,5"]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
 	var ligatures = [];
-	const glyphs = [notdefGlyph, ...svgs.map(([names,pathData],i) => {
-		const [name,uni] = names.split('.').map(decodeURIComponent);
+	const glyphs = [notdefGlyph, ...svgs.map(([name, path], i) => {
 		const isLatin = (name.length==1 && name.charCodeAt(0) < 255);
 		const unicode = isLatin ? name.charCodeAt(0) : 0xE000+i;
-		const path = pathData.split(' ').reduce(toPath,new opentype.Path());
 		const glyph = new opentype.Glyph({name, unicode, advanceWidth, path});
 		if(!isLatin)ligatures.push({sub: name, by:glyph});
 		return glyph;
@@ -47,11 +100,12 @@ function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium")
 		}
 		font.substitution.add("liga", liga);
 	});
-	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
-	applyFont(font);
-	font.download();
+	return font;
 }
 
+/*
+ DOM event related function
+ */
 function filter(form,className="highlight") {
 	const all = form.querySelectorAll('li');
 	all.forEach(li=>li.hidden=false);
@@ -99,3 +153,8 @@ document.addEventListener('DOMContentLoaded', () =>{
 	document.querySelectorAll('li[id^=latin-]').forEach(el=>el.classList.add('check'));
 	makeFont(List)
 })*/
+if(typeof process !== "undefined") {
+	const font = makeFont(transform(serializeFiles(process.argv.slice(2))));
+	process.stdout.write(Buffer.from(font.toArrayBuffer()))
+}
+
