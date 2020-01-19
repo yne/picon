@@ -47,11 +47,6 @@ function transform(glyphs) {
 		We must translate to the nearest supported grid : 16*16
 	*/
 	if(!opentype) {
-		if(typeof document !== "undefined")
-			return document.body.append(Object.assign(document.createElement('script'),{
-				src:'https://cdn.jsdelivr.net/npm/opentype.js',
-				onload: ()=>transform(...arguments)
-			}));
 		opentype = require("./opentype.js");
 	}
 	function normalize(p,w=16,h=16) {
@@ -61,7 +56,7 @@ function transform(glyphs) {
 	return glyphs
 		.map(([name, svg]) => [
 			name.replace(/^latin-/,'').split('.').map(decodeURIComponent),
-			svg.split('"')[5].split(' ').filter(Boolean).reduce((path,str)=> {
+			(svg.split('"')[5]||'').split(' ').filter(Boolean).reduce((path,str)=> {
 				if(str[0] === 'M')
 					path.moveTo(...normalize(str))
 				else
@@ -74,13 +69,9 @@ function transform(glyphs) {
 		},[])
 }
 
-/*
-	document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
-	font.download();
-*/
-function makeFont(checkdGlyph, advanceWidth=16, familyName="picon", styleName="medium") {
-	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
-	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,"M2,5 4,3 6,5"]);
+function makeFont(checkdGlyph, advanceWidth=16) {
+	const notdefGlyph = new opentype.Glyph({name: '.notdef', advanceWidth, path: new opentype.Path()});
+	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,new opentype.Path()]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
 	var ligatures = [];
@@ -91,8 +82,15 @@ function makeFont(checkdGlyph, advanceWidth=16, familyName="picon", styleName="m
 		if(!isLatin)ligatures.push({sub: name, by:glyph});
 		return glyph;
 	})]
+	const fontLegal = {
+		familyName: "Picon", styleName:"Regular", postScriptName:"Picon-Regular",/*fullName, fontSubfamily:"Regular",*/ version:"Version 1.0; git-0000000-release",
+		designer: "yne", designerURL: "https://github.com/yne",
+		manufacturer: "yne", manufacturerURL: "https://yne.fr",
+		license: 'Apache', licenseURL: 'https://www.apache.org/licenses/LICENSE-2.0',
+		description: "Easy Hackable PicoIcon Set", copyright: "2020", trademark: "2020",
+	};
 	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
-	const font = new opentype.Font({familyName, styleName,...fontMetrics, glyphs});
+	const font = new opentype.Font({...fontLegal,...fontMetrics, glyphs});
 	ligatures.forEach(({sub,by}) => {
 		const liga = {
 			sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),

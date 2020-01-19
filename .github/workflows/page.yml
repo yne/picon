@@ -20,17 +20,19 @@ jobs:
            curl -d @- https://api.github.com/markdown -HContent-Type:application/json |
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
            sed -r 's@.github/pages/@@g' > /tmp/README
+         rm -f /tmp/DATALIST /tmp/ICONLIST
          for f in svg/*.svg ; do
            name=$(basename "${f/.*}")
-           echo "<option>$name" > /tmp/DATALIST
-           echo "<li id='$name' onclick=toggle(this,event)><img src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" > /tmp/ICONLIST
+           echo "<option>$name" >> /tmp/DATALIST
+           echo "<li id='$name' onclick=toggle(this,event)><img src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
          done
-         node .github/pages/script.js svg/*.svg > picon.otf
-         apt install woff2 && woff2_compress picon.otf
-         (cd svg ; tar cjf ../picon.tar.bz2 *.svg)
-         (cd svg ; zip -9  ../picon.zip     *.svg)
-         size(){ du -sh index.html | awk '{print $1"B"}';}
-         m4 -DTOTAL=$(ls svg/*|wc -l) -DOTF=$(size *.otf) -DWOFF2=$(size *.woff2) -DBZ2=$(size *.bz2) -DZIP=$(size *.zip) < .github/pages/template.html > index.html
+         [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
+         node .github/pages/script.js svg/*.svg > PiconRegular.otf
+         apt install woff2
+         woff2_compress *.otf
+         (cd svg ; tar cjf ../PiconRegular.tar.bz2 *.svg)
+         size(){ du -sh $1 | awk '{print $1"B"}';}
+         m4 -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
          [ -z $GITHUB_ACTOR ] && exit
          mv .github/pages/* .
          git config user.name  "${GITHUB_ACTOR}"

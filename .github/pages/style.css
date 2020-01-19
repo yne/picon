@@ -136,6 +136,7 @@ nav .flex>* {
 }
 nav .flex>[name]{
 	flex-grow:1;
+	width: 100%;
 }
 nav .flex>*:hover,
 nav .flex>*:focus{
