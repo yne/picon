@@ -1,7 +1,7 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
  :root {
 	--text: #404545;
-	--back: #F8F8F8;
+	--back: rgba(248,248,248,.9);
 	--primary: #ea4a5a;
 	--size: 32px;
 	--radius: 4px;
@@ -101,7 +101,7 @@ pre {
 
 del,
 .picon {
-	font-family: Picon;
+	font-family: picon;
 	user-select: none;
 	vertical-align: middle;
 	text-decoration: none;
@@ -121,6 +121,7 @@ nav {
 }
 nav .flex {
 	background: var(--back);
+	backdrop-filter:blur(4px);
 	display:flex;
 	border-radius: var(--radius);
 	border: 1px solid #888;
@@ -140,7 +141,9 @@ nav .flex>*:hover,
 nav .flex>*:focus{
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,1);
 }
-
+nav blockquote {
+	
+}
 .fab {
 	position: fixed;
 	bottom: var(--fab);

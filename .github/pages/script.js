@@ -3,7 +3,9 @@ function normalize(p,w=16,h=16) {
 	return [x*2, h-y*2]
 }
 function applyFont(font) {
-	let ret = document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));
+	let ff = new FontFace(font.names.fontFamily.en, font.toArrayBuffer());
+	document.fonts.add(ff);
+	return ff
 }
 function toPath(path,str){
 	if(!str)return path;
@@ -14,13 +16,14 @@ function toPath(path,str){
 function blankGlyph(unicode){
 	return new opentype.Glyph({name:unicode, unicode, advanceWidth:16, path: new opentype.Path()})
 }
+//TODO: return promise (for chaining in browser + node support)
 function makeFont(form, advanceWidth=16, familyName="picon", styleName="medium"){
 	if(typeof opentype === "undefined")
 		return document.body.append(Object.assign(document.createElement('script'),{
 			src:'https://cdn.jsdelivr.net/npm/opentype.js',
 			onload: ()=>makeFont(...arguments)
 		}));
-	const checkdGlyph = [...form.querySelectorAll('.check img')].map(path=>[path.closest('li').id.replace(/^latin-/,''), path.src.slice(20+67,-15)]);
+	const checkdGlyph = [...form.querySelectorAll('.check img')].map(path=>[path.closest('li').id.replace(/^latin-/,''), path.src.split('"')[5]]);
 	const notdefGlyph = new opentype.Glyph({name: '.notdef', unicodes: 0,advanceWidth, path: new opentype.Path()});
 	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,"M2,5 4,3 6,5"]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
