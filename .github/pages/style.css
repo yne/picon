@@ -96,7 +96,7 @@ pre {
 
 @font-face {
 	font-family: picon;
-	src: url(picon.woff2);
+	src: url(Picon-Regular.woff2);
 }
 
 del,
@@ -195,6 +195,7 @@ nav blockquote {
 	margin:0;
 	padding:0;
 	list-style:none;
+	user-select:none;
 	font-size:0px;
 }
 #List li {
@@ -202,22 +203,23 @@ nav blockquote {
 	flex-direction: column;
 	margin: var(--radius);
 }
-#List li.check{
+#List li.check>img{
 	outline: 2px solid var(--primary);
 }
-#List li:hover {
+#List li>img:hover {
 	box-shadow:0 0 5px var(--text)
 }
 #List img {
 	width:var(--size);
-	margin:8px auto;
+	padding: 8px;
+	margin:auto;
 }
 #List code:hover {
 	color: var(--primary)
 }
 #List code {
-	font-size: 8px;
-	padding:1em;
+	font-size: 11px;
+	margin-top:.5em;
 	width:calc(var(--size) * 2);
 	max-width:calc(var(--size) * 2);
 	text-overflow: ellipsis;

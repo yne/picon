@@ -17,7 +17,7 @@ jobs:
       run: |
          ### START ###
          [ -f /tmp/README ] || jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
-           curl -d @- https://api.github.com/markdown -HContent-Type:application/json |
+           curl -sd @- https://api.github.com/markdown -HContent-Type:application/json |
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
            sed -r 's@.github/pages/@@g' > /tmp/README
          rm -f /tmp/DATALIST /tmp/ICONLIST
@@ -27,10 +27,14 @@ jobs:
            echo "<li id='$name' onclick=toggle(this,event)><img src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
          done
          [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
-         node .github/pages/script.js svg/*.svg > PiconRegular.otf
-         apt install woff2
+         node .github/pages/script.js METADATA.pb svg/*.svg > Picon-Regular.otf
+         command -v woff2_compress || sudo apt install -y woff2
          woff2_compress *.otf
-         (cd svg ; tar cjf ../PiconRegular.tar.bz2 *.svg)
+         command -v fontforge      || sudo apt install -y fontforge
+         fontforge -lang=ff -c 'Open($1);Generate($2)' Picon-Regular.otf /tmp/Picon-Regular.ttf
+         command -v ttfautohint    || sudo apt install -y ttfautohint
+         ttfautohint /tmp/Picon-Regular.ttf Picon-Regular.ttf
+         (cd svg ; tar cjf ../Picon-Regular.tar.bz2 *.svg)
          size(){ du -sh $1 | awk '{print $1"B"}';}
          m4 -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
          [ -z $GITHUB_ACTOR ] && exit

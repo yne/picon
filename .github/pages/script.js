@@ -1,3 +1,28 @@
+const TODO = {bProportion:9, achVendID:'!YNE'}
+function parsePb(pb) {
+	const obj = JSON.parse('{'+('\n' + pb)
+		.replace(/([^{])\n([^}])/g,'$1,\n$2')
+		.replace(' {',':{')
+		.replace(/\n *([a-z_]+):/g,'"$1":')
+		+'}');
+	//{familyName: obj.name,weightClass: obj.fonts.weight,...obj, ...obj.fonts}
+	return {
+		familyName: obj.name,
+		styleName: obj.fonts.style_name,
+		postScriptName: obj.fonts.post_script_name,
+		version: obj.version,
+		designer: obj.designer,
+		designerUrl: obj.designer_url,
+		license: obj.license,
+		licenseURL: obj.license_url,
+		manufacturer: obj.manufacturer,
+		manufacturerURL: obj.manufacturer_url,
+		weightClass: obj.fonts.weight,
+		description: obj.description,
+		copyright: obj.fonts.copyright,
+		trademark: obj.fonts.trademark,
+	}
+}
 /*
 @svgs = ["../svg/a-name.alias.svg","/abs/path/to.my.svg"]
 @return = [
@@ -41,56 +66,52 @@ function serializeForm(form) {
 TODO: promise
 **/
 var opentype = null;
+/**
+	OpenType does not support 8x8 grid, and Y coordinate are inverted
+	We must translate to the nearest supported grid : 16*16
+*/
+function normalize(p,w=16,h=16) {
+	let [x,y] = p.match(/[0-9.]+/g)
+	return [x*2, h-y*2]
+}
+function toPath(path,str){
+	if(str[0] === 'M')
+		path.moveTo(...normalize(str))
+	else
+		path.lineTo(...normalize(str))
+	return path;
+}
 function transform(glyphs) {
-	/**
-		OpenType does not support 8x8 grid, and Y coordinate are inverted
-		We must translate to the nearest supported grid : 16*16
-	*/
 	if(!opentype) {
 		opentype = require("./opentype.js");
 	}
-	function normalize(p,w=16,h=16) {
-		let [x,y] = p.match(/[0-9.]+/g)
-		return [x*2, h-y*2]
-	}
 	return glyphs
 		.map(([name, svg]) => [
-			name.replace(/^latin-/,'').split('.').map(decodeURIComponent),
-			(svg.split('"')[5]||'').split(' ').filter(Boolean).reduce((path,str)=> {
-				if(str[0] === 'M')
-					path.moveTo(...normalize(str))
-				else
-					path.lineTo(...normalize(str))
-				return path;
-			}, new opentype.Path())
+			name.split('.').map(e=>{console.error(e);return e}).map(n=>decodeURIComponent(n.replace(/^latin-/,''))),
+			(svg.split('"')[5]||'').split(' ').filter(Boolean).reduce(toPath, new opentype.Path())
 		]).reduce((all, [names,path])=>{
 			names.forEach(name=>all.push([name,path]));
 			return all;
 		},[])
 }
 
-function makeFont(checkdGlyph, advanceWidth=16) {
-	const notdefGlyph = new opentype.Glyph({name: '.notdef', advanceWidth, path: new opentype.Path()});
+function makeFont(checkdGlyph, metadata={}, advanceWidth=16) {
+	const notdefGlyph = new opentype.Glyph({name: '.notdef', advanceWidth, path: ['M2,3','4,5','6,3'].reduce(toPath, new opentype.Path())});
 	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,new opentype.Path()]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
 	var ligatures = [];
-	const glyphs = [notdefGlyph, ...svgs.map(([name, path], i) => {
-		const isLatin = (name.length==1 && name.charCodeAt(0) < 255);
-		const unicode = isLatin ? name.charCodeAt(0) : 0xE000+i;
-		const glyph = new opentype.Glyph({name, unicode, advanceWidth, path});
-		if(!isLatin)ligatures.push({sub: name, by:glyph});
+	const glyphs = [notdefGlyph, ...svgs.map(([fname, path], i) => {
+		const isLatin = (fname.length==1/* && fname.charCodeAt(0) <= 0xFF*/);
+		const unicode = isLatin ? fname.charCodeAt(0) : 0xE000+i;
+		console.error(isLatin, unicode.toString(16), fname)
+		const name = isLatin?'uni'+('000'+(fname.charCodeAt(0)).toString(16)).slice(-4):fname.replace(/-/g,'_')
+		const glyph = new opentype.Glyph({unicode, advanceWidth, path, name});
+		if(!isLatin)ligatures.push({sub: fname, by:glyph});
 		return glyph;
 	})]
-	const fontLegal = {
-		familyName: "Picon", styleName:"Regular", postScriptName:"Picon-Regular",/*fullName, fontSubfamily:"Regular",*/ version:"Version 1.0; git-0000000-release",
-		designer: "yne", designerURL: "https://github.com/yne",
-		manufacturer: "yne", manufacturerURL: "https://yne.fr",
-		license: 'Apache', licenseURL: 'https://www.apache.org/licenses/LICENSE-2.0',
-		description: "Easy Hackable PicoIcon Set", copyright: "2020", trademark: "2020",
-	};
 	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
-	const font = new opentype.Font({...fontLegal,...fontMetrics, glyphs});
+	const font = new opentype.Font({...metadata,...fontMetrics, glyphs});
 	ligatures.forEach(({sub,by}) => {
 		const liga = {
 			sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),
@@ -152,7 +173,9 @@ document.addEventListener('DOMContentLoaded', () =>{
 	makeFont(List)
 })*/
 if(typeof process !== "undefined") {
-	const font = makeFont(transform(serializeFiles(process.argv.slice(2))));
+	const fs = require('fs');
+	const pb = fs.readFileSync(process.argv[2], {encoding:"utf-8"});
+	const font = makeFont(transform(serializeFiles(process.argv.slice(3))), parsePb(pb));
 	process.stdout.write(Buffer.from(font.toArrayBuffer()))
 }
 

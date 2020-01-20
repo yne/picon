@@ -6,7 +6,7 @@ Import it:
 ```css
 @font-face {
   font-family:picon;
-  src:url(//yne.fr/picon/picon.woff2);
+  src:url(//yne.fr/picon/Picon-Regular.woff2);
 }
 ```
 
@@ -28,12 +28,12 @@ to get the app ~~app~~ icon
 
 ## Hackable
 
-Picon is **MIT Licencied**, so you can
+Picon is under **[SIL Open Font License 1.1](https://github.com/yne/picon/blob/master/OFL.txt) Licencied**, so you can
 
-- use it in commercial project
+- rebuild your own version
+- use it in any commercial project
 - [modify it](editor.html)
-- build your own version
-- sell it (or at least try to)
+- redistribute/sell it (if you can)
 
 ## Pico sized
 
