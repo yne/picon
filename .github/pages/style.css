@@ -1,8 +1,13 @@
 @import url("https://unpkg.com/github-syntax-dark@0.5.0/lib/github-dark.css");
+/*
+codemirror-github-dark-theme/lib/codemirror-github-dark-theme.css
+github-ace-dark/github-dark.css
+github-ace-dark/blob/master/github-dark.css
+*/
  :root {
 	--text: #404545;
 	--back: rgba(248,248,248,.9);
-	--primary: #ea4a5a;
+	--primary: #af0000;
 	--size: 32px;
 	--radius: 4px;
 	--fab: 32px;
@@ -11,11 +16,11 @@
 @media (prefers-color-scheme: dark) {
 	 :root {
 		--text: #F8F8F8;
-		--back: #404545;
+		--back: rgba(64,64,64,.9);
+		--primary: #ff98ab;
 	}
 	img[src^="data:image/svg"]{filter: invert(1);}
 }
-
 body {
 	font-family: Helvetica, Arial, Sans-Serif;
 	font-size: 16px;
@@ -23,7 +28,9 @@ body {
 	background: var(--back);
 	padding: 1em;
 }
-
+input, select {
+	color:var(--text);
+}
 article, nav {
 	max-width: 576px;
 	margin: auto;
@@ -85,10 +92,10 @@ h2 {
 h3 {
 	font-size: 1.0em
 }
-
+/* pre colors stay white on black even in dark mode*/
 pre {
-	color: var(--back);
-	background: var(--text);
+	background: #222;
+	color: #FFF;
 	padding: var(--radius);
 	border-radius: var(--radius);
 	overflow: auto;
@@ -119,14 +126,15 @@ nav {
 	padding: 1em;
 	text-align:center;
 }
-nav .flex {
+nav .flex, input[type=button] {
 	background: var(--back);
-	backdrop-filter:blur(4px);
-	display:flex;
 	border-radius: var(--radius);
 	border: 1px solid #888;
 	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
-	transition: box-shadow 0.2s ease-in-out;
+}
+nav .flex {
+	backdrop-filter:blur(4px);
+	display:flex;
 }
 nav .flex>* {
 	font-size:1.25em;

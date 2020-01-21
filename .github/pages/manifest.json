@@ -1,0 +1,22 @@
+{
+  "name": "Picon",
+  "short_name": "Picon",
+  "description": "Picon",
+  "icons": [
+    {
+      "src": "/picon/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/picon/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/picon/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f8f8",
+  "theme_color": "#af0000"
+}
