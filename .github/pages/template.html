@@ -63,5 +63,5 @@ include(/tmp/README)
 if ('serviceWorker' in navigator) { /* manifest's .serviceworker seems useless */
 	navigator.serviceWorker.register('/picon/sw.js', {scope: '/picon/'}).then(console.log);
 }
-window.addEventListener('beforeinstallprompt', e=>console.log(e))
+window.addEventListener('beforeinstallprompt', e=>console.log("installable",e))
 </script>

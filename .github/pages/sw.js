@@ -2,13 +2,11 @@ const version = "0.0.1";
 const cacheName = `picon-${version}`;
 //(grep -o 'http[^")'"']*" static/index.html ; ls static) | sed -E "s:(.*):'\1',:"
 const assets = [
-'https://cdn.jsdelivr.net/npm/opentype.js',
 'https://unpkg.com/vue@2.6.11/dist/vue.min.js',
+'https://cdn.jsdelivr.net/npm/opentype.js',
 '/picon/',
 '/picon/editor.html',
 '/picon/favicon.ico',
-'/picon/logo.png',
-'/picon/apple-touch-icon.png',
 '/picon/script.js',
 '/picon/style.css',
 '/picon/sw.js',
@@ -46,7 +44,6 @@ self.addEventListener('install', e => e.waitUntil(caches.open(cacheName).then(c 
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 
 self.addEventListener('fetch', event => {
-	console.log(event)
   event.respondWith(caches.open(cacheName)
       .then(cache => cache.match(event.request, {ignoreSearch: true}))
       .then(response => response || fetch(event.request))
