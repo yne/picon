@@ -16,8 +16,9 @@ jobs:
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
       run: |
          ### START ###
+         tag=$(date +v%y.%m.%d)
          [ -f /tmp/README ] || jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
-           curl -sd @- https://api.github.com/markdown -HContent-Type:application/json |
+           curl -sd @- https://api.github.com/markdown |
            sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
            sed -r 's@.github/pages/@@g' > /tmp/README
          rm -f /tmp/DATALIST /tmp/ICONLIST
@@ -27,6 +28,7 @@ jobs:
            echo "<li id='$name' onclick=toggle(this,event)><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
          done
          [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
+         m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DTAG=$tag -DOWNER=${GITHUB_REPOSITORY/\/*} -DSHA=${GITHUB_SHA} < .github/pages/METADATA.m4 > METADATA.pb
          node .github/pages/script.js METADATA.pb svg/*.svg > Picon-Regular.otf
          command -v woff2_compress || sudo apt install -y woff2
          woff2_compress *.otf
@@ -36,7 +38,7 @@ jobs:
          ttfautohint /tmp/Picon-Regular.ttf Picon-Regular.ttf
          (cd svg ; tar cjf ../Picon-Regular.tar.bz2 *.svg)
          size(){ du -sh $1 | awk '{print $1"B"}';}
-         m4 -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
+         m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
          [ -z $GITHUB_ACTOR ] && exit
          mv .github/pages/* .
          git config user.name  "${GITHUB_ACTOR}"
@@ -46,3 +48,12 @@ jobs:
          git add .
          git commit -m "$(date -u) ${GITHUB_SHA}"
          git push origin_token --force
+         page=$(curl -v -u:${PERSONAL_TOKEN} -H "Content-Type:application/json" -d '{"tag_name": "'$tag'"}' https://api.github.com/repos/${GITHUB_REPOSITORY}/releases)
+         echo page is "$page"
+         upload_url=$(echo "$page" | jq -r .upload_url)
+         echo upload on $upload_url
+         for f in METADATA.pb Picon-*; do
+           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
+         done
+         
+         
