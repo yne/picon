@@ -1,26 +1,29 @@
-const TODO = {bProportion:9, achVendID:'!YNE'}
+/*
+Convert .pb files to OpenType.js FontDeclaration
+*/
 function parsePb(pb) {
-	const obj = JSON.parse('{'+('\n' + pb)
+	let obj, json = ('\n' + pb)
 		.replace(/([^{])\n([^}])/g,'$1,\n$2')
 		.replace(' {',':{')
-		.replace(/\n *([a-z_]+):/g,'"$1":')
-		+'}');
-	//{familyName: obj.name,weightClass: obj.fonts.weight,...obj, ...obj.fonts}
-	return {
-		familyName: obj.name,
-		styleName: obj.fonts.style_name,
-		postScriptName: obj.fonts.post_script_name,
-		version: obj.version,
-		designer: obj.designer,
-		designerUrl: obj.designer_url,
-		license: obj.license,
-		licenseURL: obj.license_url,
-		manufacturer: obj.manufacturer,
-		manufacturerURL: obj.manufacturer_url,
-		weightClass: obj.fonts.weight,
-		description: obj.description,
-		copyright: obj.fonts.copyright,
-		trademark: obj.fonts.trademark,
+		.replace(/\n *([a-z_]+):/g,'\n"$1":')
+		.replace(/_(url|\w)/g,(f,l)=>l.toUpperCase())
+		;
+	try {
+		obj = JSON.parse('{'+json+'}');
+		console.error("font METADATA=", obj)
+		return {
+			...obj, ...obj.fonts,
+			familyName: obj.name,
+			weightClass: obj.fonts.weight,
+			tables:{
+				os2:{
+					achVendID:obj.vendor,
+					bProportion:obj.bProportion
+				}
+			}
+		}
+	} catch {
+		console.error("bad METADATA:",json)
 	}
 }
 /*
@@ -87,7 +90,7 @@ function transform(glyphs) {
 	}
 	return glyphs
 		.map(([name, svg]) => [
-			name.split('.').map(e=>{console.error(e);return e}).map(n=>decodeURIComponent(n.replace(/^latin-/,''))),
+			name.split('.')/*.map(e=>{console.error(e);return e})*/.map(n=>decodeURIComponent(n.replace(/^latin-/,''))),
 			(svg.split('"')[5]||'').split(' ').filter(Boolean).reduce(toPath, new opentype.Path())
 		]).reduce((all, [names,path])=>{
 			names.forEach(name=>all.push([name,path]));
@@ -95,8 +98,8 @@ function transform(glyphs) {
 		},[])
 }
 
-function makeFont(checkdGlyph, metadata={}, advanceWidth=16) {
-	const notdefGlyph = new opentype.Glyph({name: '.notdef', advanceWidth, path: ['M2,3','4,5','6,3'].reduce(toPath, new opentype.Path())});
+function makeFont(checkdGlyph, info={}) {
+	const notdefGlyph = new opentype.Glyph({name: '.notdef', advanceWidth: info.unitsPerEm, path: ['M2,3','4,5','6,3'].reduce(toPath, new opentype.Path())});
 	const alphaGlyphs = "-abcdefghijklmnopqrstuvwxyz0123456789".split('').filter(c=>!checkdGlyph.find(([C])=>c==C)).map(c=>[c,new opentype.Path()]);
 	// fill required glyph (for ligature) with blank glyph (if not in the checkdGlyph)
 	const svgs = [...alphaGlyphs, ...checkdGlyph];
@@ -104,14 +107,13 @@ function makeFont(checkdGlyph, metadata={}, advanceWidth=16) {
 	const glyphs = [notdefGlyph, ...svgs.map(([fname, path], i) => {
 		const isLatin = (fname.length==1/* && fname.charCodeAt(0) <= 0xFF*/);
 		const unicode = isLatin ? fname.charCodeAt(0) : 0xE000+i;
-		console.error(isLatin, unicode.toString(16), fname)
-		const name = isLatin?'uni'+('000'+(fname.charCodeAt(0)).toString(16)).slice(-4):fname.replace(/-/g,'_')
-		const glyph = new opentype.Glyph({unicode, advanceWidth, path, name});
+		const name = isLatin?'uni'+('000'+(fname.charCodeAt(0)).toString(16).toUpperCase()).slice(-4):fname.replace(/-/g,'_')
+		console.error(isLatin, unicode.toString(16), fname, name)
+		const glyph = new opentype.Glyph({unicode, advanceWidth: info.unitsPerEm, path, name});
 		if(!isLatin)ligatures.push({sub: fname, by:glyph});
 		return glyph;
 	})]
-	const fontMetrics = {unitsPerEm: advanceWidth, ascender: advanceWidth, descender: -Number.EPSILON};
-	const font = new opentype.Font({...metadata,...fontMetrics, glyphs});
+	const font = new opentype.Font({...info, ascender: info.unitsPerEm, descender: -Number.EPSILON, glyphs});
 	ligatures.forEach(({sub,by}) => {
 		const liga = {
 			sub:sub.split('').map(e=>e.charCodeAt(0)).map(unicode=>glyphs.findIndex(g=>g.unicode==unicode)),

@@ -6,7 +6,7 @@
 <meta name=theme-color content="#F8F8F8">
 <meta name=viewport content="width=device-width, initial-scale=1">
 <script src=script.js></script>
-<script src="https://cdn.jsdelivr.net/npm/opentype.js" defer></script>
+<script src="opentype.js" defer></script>
 <link rel=stylesheet href=style.css>
 <link rel=manifest href="manifest.json">
 <link rel=icon type="image/x-icon" href="/picon/favicon.ico">
@@ -44,7 +44,7 @@ include(/tmp/README)
 		<input type=button onclick=highlightCheck(this.form,true) value=Add> /
 		<input type=button onclick=highlightCheck(form,false) value=Exclude>
 	</blockquote>
-	<span hidden class=fab title="Build you selection" onclick="let font=makeFont(transform(serializeForm(List)), parsePb(METADATA.innerText));document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));font.download()">
+	<span hidden class=fab title="Build you selection" onclick="let font=makeFont(transform(serializeForm(List)), parsePb(METADATA.innerHTML));document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));font.download()">
 		<output name=check></output>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M7,7 7,8 1,8 1,7 M3,4 3,1 5,1 5,4 7,4 4,7 1,4"></path></svg>
 	</span>

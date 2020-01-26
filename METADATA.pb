@@ -1,4 +1,5 @@
 name: "Picon"
+vendor: "!YNE"
 designer: "yne"
 designer_url: "https://github.com/yne"
 manufacturer: "yne"
@@ -13,7 +14,9 @@ fonts {
   name: "Picon"
   style: "normal"
   style_name: "Regular"
+  units_per_em: 16
   weight: 400
+  b_proportion: 9
   filename: "Picon-Regular.ttf"
   post_script_name: "Picon-Regular"
   full_name: "Picon Regular"

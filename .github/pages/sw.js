@@ -3,7 +3,7 @@ const cacheName = `picon-${version}`;
 //(grep -o 'http[^")'"']*" static/index.html ; ls static) | sed -E "s:(.*):'\1',:"
 const assets = [
 'https://unpkg.com/vue@2.6.11/dist/vue.min.js',
-'https://cdn.jsdelivr.net/npm/opentype.js',
+'/picon/opentype.js',
 '/picon/',
 '/picon/editor.html',
 '/picon/favicon.ico',
