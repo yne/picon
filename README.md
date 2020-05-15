@@ -12,10 +12,10 @@ Import it:
 
 Declare it the way you like it, here is some examples:
 ```css
-/* the classic */
+/* the safe */
 .picon { font-family:picon; }
-/* the courageous */
-picon { font-family:picon; }
+/* the brave */
+i { font-family:picon; }
 /* the markdown lover */
 del { font-family:picon; text-decoration: none;}
 ```
@@ -63,13 +63,13 @@ find -name '*.svg' -printf '%s\n' | awk '{s+=$0} END {printf s/NR}'
 
 | Iconset                                          | 🖼 | 📞 | 🔈 | 🕷️ |
 |---                                               |---|---|---|---|
-| [Clarity](https://clarity.design/icons)          | ![](.github/pages/compare/clarity-pic.png) | ![](.github/pages/compare/clarity-phone.png) | ![](.github/pages/compare/clarity-vol.png) | ![](.github/pages/compare/clarity-bug.png) |
-| [Feather](https://feathericons.com/)             | ![](.github/pages/compare/feather-pic.png) | ![](.github/pages/compare/feather-phone.png) | ![](.github/pages/compare/feather-vol.png) | ![](.github/pages/compare/feather-bug.png) |
-| [Fontawesome](https://fontawesome.com)           | ![](.github/pages/compare/fontawesome-pic.png) | ![](.github/pages/compare/fontawesome-phone.png) | ![](.github/pages/compare/fontawesome-vol.png) | ![](.github/pages/compare/fontawesome-bug.png) |
-| [Jam](https://jam-icons.com/)                    | ![](.github/pages/compare/jam-pic.png) | ![](.github/pages/compare/jam-phone.png) | ![](.github/pages/compare/jam-vol.png) | ![](.github/pages/compare/jam-bug.png) |
-| [Material](https://material.io/resources/icons/) | ![](.github/pages/compare/material-pic.png) | ![](.github/pages/compare/material-phone.png) | ![](.github/pages/compare/material-vol.png) | ![](.github/pages/compare/material-bug.png) |
-| [Picon](https://yne.fr/picon)                    | ![](.github/pages/compare/picon-pic.png) | ![](.github/pages/compare/picon-phone.png) | ![](.github/pages/compare/picon-vol.png) | ![](.github/pages/compare/picon-bug.png) |
-| [Entypo](http://entypo.com/)                     | ![](.github/pages/compare/entypo-pic.png) | ![](.github/pages/compare/entypo-phone.png) | ![](.github/pages/compare/entypo-vol.png) | ![](.github/pages/compare/entypo-bug.png) |
+| [Clarity](https://clarity.design/icons)          | ![pic-clarity](.github/pages/compare/clarity-pic.png)     | ![phone-clarity](.github/pages/compare/clarity-phone.png)     | ![vol-clarity](.github/pages/compare/clarity-vol.png)     | ![bug-clarity](.github/pages/compare/clarity-bug.png) |
+| [Feather](https://feathericons.com/)             | ![pic-feather](.github/pages/compare/feather-pic.png)     | ![phone-feather](.github/pages/compare/feather-phone.png)     | ![vol-feather](.github/pages/compare/feather-vol.png)     | ![bug-feather](.github/pages/compare/feather-bug.png) |
+| [Fontawesome](https://fontawesome.com)           | ![pic-fawesom](.github/pages/compare/fontawesome-pic.png) | ![phone-fawesom](.github/pages/compare/fontawesome-phone.png) | ![vol-fawesom](.github/pages/compare/fontawesome-vol.png) | ![bug-fawesom](.github/pages/compare/fontawesome-bug.png) |
+| [Jam](https://jam-icons.com/)                    | ![pic-jamicon](.github/pages/compare/jam-pic.png)         | ![phone-jamicon](.github/pages/compare/jam-phone.png)         | ![vol-jamicon](.github/pages/compare/jam-vol.png)         | ![bug-jamicon](.github/pages/compare/jam-bug.png) |
+| [Material](https://material.io/resources/icons/) | ![pic-materia](.github/pages/compare/material-pic.png)    | ![phone-materia](.github/pages/compare/material-phone.png)    | ![vol-materia](.github/pages/compare/material-vol.png)    | ![bug-materia](.github/pages/compare/material-bug.png) |
+| [Picon](https://yne.fr/picon)                    | ![pic-picon  ](.github/pages/compare/picon-pic.png)       | ![phone-picon  ](.github/pages/compare/picon-phone.png)       | ![vol-picon  ](.github/pages/compare/picon-vol.png)       | ![bug-picon  ](.github/pages/compare/picon-bug.png) |
+| [Entypo](http://entypo.com/)                     | ![pic-entypo ](.github/pages/compare/entypo-pic.png)      | ![phone-entypo ](.github/pages/compare/entypo-phone.png)      | ![vol-entypo ](.github/pages/compare/entypo-vol.png)      | ![bug-entypo ](.github/pages/compare/entypo-bug.png) |
 
 </details>
 

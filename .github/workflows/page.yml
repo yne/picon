@@ -24,8 +24,10 @@ jobs:
          rm -f /tmp/DATALIST /tmp/ICONLIST
          for f in svg/*.svg ; do
            name=$(basename "${f/.*}")
-           echo "<option>$name" >> /tmp/DATALIST
-           echo "<li id='$name' onclick=toggle(this,event)><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
+           #echo "<option>$name" >> /tmp/DATALIST
+           echo "" >> /tmp/DATALIST
+           #echo "<li id='$name' title='$name' onclick='toggle(this,event)'><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
+           echo "<img alt='$f' src='data:image/svg+xml,include($f)'/>" >> /tmp/ICONLIST
          done
          [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
          m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DTAG=$tag -DOWNER=${GITHUB_REPOSITORY/\/*} -DSHA=${GITHUB_SHA} < .github/pages/METADATA.m4 > METADATA.pb
