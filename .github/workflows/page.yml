@@ -24,10 +24,8 @@ jobs:
          rm -f /tmp/DATALIST /tmp/ICONLIST
          for f in svg/*.svg ; do
            name=$(basename "${f/.*}")
-           #echo "<option>$name" >> /tmp/DATALIST
-           echo "" >> /tmp/DATALIST
-           #echo "<li id='$name' title='$name' onclick='toggle(this,event)'><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
-           echo "<img alt='$f' src='data:image/svg+xml,include($f)'/>" >> /tmp/ICONLIST
+           echo "<option>$name</option>" >> /tmp/DATALIST
+           echo "<li id='$name' title='$name' onclick='toggle(this,event)'><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
          done
          [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
          m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DTAG=$tag -DOWNER=${GITHUB_REPOSITORY/\/*} -DSHA=${GITHUB_SHA} < .github/pages/METADATA.m4 > METADATA.pb
@@ -42,6 +40,8 @@ jobs:
          size(){ du -sh $1 | awk '{print $1"B"}';}
          m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
          [ -z $GITHUB_ACTOR ] && exit
+         message=$(git log -1 --pretty=format:"%s")
+         echo === PAGES ===
          mv .github/pages/* .
          git config user.name  "${GITHUB_ACTOR}"
          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
@@ -50,6 +50,8 @@ jobs:
          git add .
          git commit -m "$(date -u) ${GITHUB_SHA}"
          git push origin_token --force
+         [[ "$message" == "[WIP]"* ]] && exit;
+         echo === RELEASE ===
          page=$(curl -v -u:${PERSONAL_TOKEN} -H "Content-Type:application/json" -d '{"tag_name": "'$tag'"}' https://api.github.com/repos/${GITHUB_REPOSITORY}/releases)
          echo page is "$page"
          upload_url=$(echo "$page" | jq -r .upload_url)
