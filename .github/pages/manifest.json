@@ -1,5 +1,5 @@
 {
-	"start_url": "/picon/",
+	"start_url": "/picon/list",
 	"name": "PICON",
 	"icons": [{
 		"src": "logo-192.png",
@@ -14,5 +14,5 @@
 	"short_name": "short",
 	"background_color": "#FFFFFF",
 	"display": "standalone",
-	"description": "description"
+	"description": "The Pico Icon set"
 }

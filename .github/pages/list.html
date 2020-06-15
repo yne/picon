@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang=en>
+<meta charset=utf-8>
+<title>PICON - The Picon Icon Set - TAG </title>
+<meta name=description content="Easy Hackable Ligature based PicoIcon Font">
+<meta name=theme-color content=#F8F8F8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=manifest href=manifest.json>
+<link rel=stylesheet href=style.css>
+<link rel=icon type="image/x-icon" href=favicon.ico>
+<link rel=apple-touch-icon href=apple-touch-icon.png>
+<!--script src=list.js></script-->
+<script src="opentype.js" defer></script>
+<style>
+body{margin: 0;}
+.flex{display: flex;}
+.wrap{flex-wrap: wrap;}
+#icons>img{
+	--size:32px;
+	width:var(--size);
+	padding: calc(var(--size)/8)
+}
+#icons>img:hover {
+	cursor: pointer;
+	box-shadow: 0 0 calc(var(--size)/8);
+}
+.sticky {position: sticky;}
+.top {top: 0;}
+</style>
+<form id=List class=tile-l oninput=filter(this) onsubmit="return false">
+
+<nav class="flex sticky top">
+	<datalist id=names></datalist>
+	<input type=search name=q list=names onfocus="names.childElementCount||datalist(names)" placeholder="Filter 🔍" aria-label=filter>
+	<label><input type=checkbox onclick=highlightCheck(this.form,this.value)></label>
+</nav>
+		<blockquote hidden>
+			<label>
+				<output name=match></output> icon(s) found(s)
+				
+			</label>
+		</blockquote>
+<span hidden class=fab title="Build you selection" onclick="let font=makeFont(transform(serializeForm(List)), parsePb(METADATA.innerHTML));document.fonts.add(new FontFace(font.names.fontFamily.en, font.toArrayBuffer()));font.download()">
+	<output name=check></output>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M7,7 7,8 1,8 1,7 M3,4 3,1 5,1 5,4 7,4 4,7 1,4"></path></svg>
+</span>
+
+<div id=icons class="flex wrap"></div>
+</form>
+
+<script>
+let picons = [];
+const cache = file => localStorage[file] ? Promise.resolve(localStorage[file]) : fetch(file).then(r => r.text()).then(text => localStorage[file] = text);
+const el = (tag, props={}, ch=[]) => ch.reduce((e,c) => (e.appendChild(c),e),Object.assign(document.createElement(tag),props))
+const log = e => (console.log(e),e)
+const save = (icons) => picons = icons
+	.map(icon => ({...icon,
+		name:base(icon.path),
+		liga:base(icon.path).split('-').slice(-1)[0]
+	}))
+	.sort((a,b)=>a.path.localeCompare(b.path));//.map(log)
+const show = (icons) => (icons.forEach(icon => window.icons.append(el('img', {
+	alt: icon.path,
+	title: icon.name,
+	src: `data:image/svg+xml,${icon.data}`
+}))),list);
+const dupsliga = (icons) => icons.map(i=>i.liga).reduce((acc,val,i,all) => all.indexOf(val) == all.lastIndexOf(val) ? acc : acc.concat(val), []);
+const datalist = (icons,dl) => icons.forEach(icon => dl.append(el('option', {innerText:icon.name})));
+
+cache('list.json').then(JSON.parse).then(save).then(show);
+
+navigator.serviceWorker && navigator.serviceWorker.register('sw.js');
+</script>

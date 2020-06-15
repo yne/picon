@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang=en>
+<meta charset=utf-8>
+<title>PICON - The Picon Icon Set - TAG </title>
+<meta name=description content="Easy Hackable Ligature based PicoIcon Font">
+<meta name=theme-color content=#F8F8F8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=manifest href=manifest.json>
+<link rel=stylesheet href=style.css>
+<link rel=icon type="image/x-icon" href=favicon.ico>
+<link rel=apple-touch-icon href=apple-touch-icon.png>
+<style>input,button,select{font-size: 1em;}article style{display:block}</style>
+<article>
+<h1>Basic usage</h1>
+
+<p>First, we import picon and bind it to a <code>.picon</code> class:</p>
+
+<style lang=css>@font-face {
+	src: url(https://yne.fr/picon/Picon-Regular.woff2);
+	font-family: picon;
+}
+.picon{font-family: picon;}
+</style>
+<p>We can now use picon using <code>&lt;span class=picon&gt;app&lt;/span&gt;</code>: <span class=picon>app</span></p>
+
+<h1>Classless declaration</h1>
+
+<p>
+	<code>&lt;i&gt;app&lt;/i&gt;</code> <i>app</i> and
+	<code>&lt;del&gt;app&lt;/del&gt;</code> <del>app</del> works fine too.
+</p>
+<p>
+	Very usefull since markdown <code>~~app~~</code> are converted to <code>&lt;del&gt;app&lt;/del&gt;</code>
+</p>
+
+<style lang=css>i, del, .picon {
+	font-family: picon;
+	user-select: none;
+}
+i {font-style: normal;}
+del {text-decoration: none;}
+</style>
+
+<h2>Icons in <code>&lt;form&gt;</code> Elements</h2>
+
+<h3><code>&lt;input&gt;</code></h3>
+
+<p>support all button-ish types (button/reset/submit) but no <code>::after/::before</code> support, so you can't mix icon and regular text:</p>
+
+<input type=button class=picon value=trash />
+<input type=reset  class=picon value=cross />
+<input type=submit class=picon value=menu />
+
+<h3><code>&lt;button&gt;</code></h3>
+
+<p>Text + icon mix is supported : <button><i>pencil</i> Edit</button></p>
+
+<style lang=css>
+[data-picon-before]::before {
+	font-family: picon;
+	content: attr(data-picon-before);
+}
+</style>
+
+<h3><code>input::placeholder</code></h3>
+
+<p>
+<input class=picon-placeholder placeholder=person-bust>
+<input class=picon-placeholder placeholder=key type=password>
+</p>
+
+<style lang=css>.picon-placeholder::placeholder {
+	font-family: picon;
+}
+</style>
+
+<h3><code>&lt;input type=checkbox&gt;</code></h3>
+
+<p>click'em all:
+<label><input type=checkbox><i data-on=ballot-checked data-off=ballot-empty></i></label>
+<label><input type=checkbox><i data-on=toggle-right data-off=toggle-left></i></label>
+<label><input type=checkbox><i data-on=heart data-off=heart-broken></i></label>
+<label><input type=checkbox><i data-on=sort-asc data-off=sort-desc></i></label>
+<label><input type=checkbox><i data-on=visible-on data-off=visible-off></i></label>
+<label><input type=checkbox><i data-on=volume-loud data-off=volume-mute></i></label>
+<label><input type=checkbox><i data-on=plug-connected data-off=plug-disconnected></i></label>
+</p>
+
+<style class=code lang=css>[type=checkbox]{display: none;}
+[type=checkbox]:checked+[data-on]::before{
+	content:attr(data-on );
+}
+[type=checkbox]:not(:checked)+[data-off]::before{
+	content:attr(data-off);
+}
+</style>
+
+<h3><code>&lt;input type=radio&gt;</code></h3>
+
+<div>text-align:
+<label><input type=radio name=align title=left><i>text-left</i></label>
+<label><input type=radio name=align title=center><i>text-center</i></label>
+<label><input type=radio name=align title=right checked><i>text-right</i></label>
+<label><input type=radio name=align title=justify><i>text-justify</i></label>
+</div>
+
+<style lang=css>[type=radio]{display: none;}
+label>[type=radio]:not(:checked)+i{opacity:.5}
+</style>
+
+<p>Donate:
+<input type=number class=picon-placeholder style=width:3em placeholder=currency-piggy>
+<select class=picon>
+<option value=ETH>currency-ethereum</option>
+<option value=BTC>currency-bitcoin</option>
+<option value=EUR>currency-euro</option>
+<option value=PND>currency-pound</option>
+<option value=YEN>currency-yen</option>
+<option value=USD>currency-dollar</option>
+</select></p>
+
+
+<p>Rate the transation:
+<select class=picon>
+	<option>starstarstarstarstar
+	<option>starstarstarstar
+	<option>starstarstar
+	<option>starstar
+	<option>star
+	<option>
+</select></p>
+
+<p>Minimum Band support: <select class=picon>
+<option>band-2g
+<option>band-3g
+<option>band-4g
+<option>band-5g
+</select><button><i>tool-magnifier</i> Search</button></p>
+
+<h2>Animation</h2>
+
+<p>Spinning in the 90' <i class=hourglass></i></p>
+
+<style lang=css>@keyframes hourglass {
+	0% {content:'hourglass-1'}
+	10%{content:'hourglass-1'}
+	20%{content:'hourglass-2'}
+	30%{content:'hourglass-3'}
+	50%{content:'hourglass-4'}
+	70%{content:'hourglass-5'}
+	80%{content:'hourglass-6'}
+	90%{content:'hourglass-7'}
+	100%{content:'hourglass-8'}
+}
+.hourglass:after{
+	content: 'hourglass-0';
+	animation: hourglass 2s infinite;
+}
+</style>
+
+
+
+<h2>Attribut-based icon</h2>
+
+We can Display the language icon of a code block :
+
+<pre lang=html>&lt;pre lang=html&gt;code&lt;/pre&gt;</pre>
+
+<pre lang=js>console.log(i)</pre>
+
+<style lang=css>:root [lang]:before{
+	font-family:Picon;
+	content:'lang-' attr(lang);
+	float:right;
+	opacity: .5;
+}
+</style>
+
+<h2 id=stack>Icon stacking</h2>
+
+<p>
+	You can overlay more icon at specific positions and a specific color
+	<code>&lt;i&gt;file&lt;i&gt;?&lt;/i&gt;&lt;/i&gt;</code> = <i>file<i>?</i></i>
+</p>
+
+<ul style=font-size:1em>
+	<li><i>file<i>?</i></i> Unknow file</li>
+	<li><i>folder<i inv>arrow-down</i></i> Download folder</li>
+	<li><i>bell<i over inv>not</i></i> silence</li>
+	<li><i>mail-outline<i br>8</i></i> 8 Messages</li>
+	<li><i>smooking<i over inv>not</i></i> No smooking</li>
+	<li><i>image<i br>chain</i></i> Image URL</li>
+	<li><i>mail<i br>mail-attachment</i></i> Mail with attachment</li>
+	<li><i>file<i br>+</i></i> File Add</li>
+	<li><i>file<i br>star</i></i> File Create</li>
+	<li><i>folder<i br>+</i></i> Folder add</li>
+	<li><i>folder<i br>star</i></i> Folder create</li>
+	<li><i>bluetooth<i br>tool-magnifier</i></i> Search bluetooth</li>
+	<li><i>folder<i inv>image</i></i> Photo album</li>
+	<li><i>folder<i inv>device-gamepad</i></i> Photo album</li>
+	<li><i>call<i tr>arrow-forward</i></i> Photo album</li>
+	<li><i>call<i tr>chevron-right</i></i> Photo album</li>
+	<li><i>call<i tr>track-pause</i></i> Photo album</li>
+</ul>
+
+<style>i{position: relative;}
+i>i{
+	position: absolute;
+	font-size:.5em;
+	right:.5em;bottom:.5em;
+}
+i>i[tl]{top:0;left:0;}
+i>i[tr]{top:0;right:0;}
+i>i[bl]{bottom:0;left:0;}
+i>i[br]{bottom:0;right:0;}
+i>i[over]{top:0;left:0;font-size:1em;}
+i>i[inv]{color:white;}
+i>i:not([inv]){
+	text-shadow:
+		-.125em -.125em white,
+		-.125em .125em white,
+		.125em -.125em white,
+		.125em .125em white;
+}</style>
+</article>

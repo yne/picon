@@ -9,55 +9,54 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+      pages: .github/pages
+      NAME: Picon
+      TYPE: Regular
     steps:
     - uses: actions/checkout@v1
-    - name: Build
-      env:
-        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+    - name: Prepare
+      working-directory: ${{env.pages}}
       run: |
-         ### START ###
-         tag=$(date +v%y.%m.%d)
-         [ -f /tmp/README ] || jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
-           curl -sd @- https://api.github.com/markdown |
-           sed -r 's/<h(.)>(\w+)/<h\1 id=\2>\2/' |
-           sed -r 's@.github/pages/@@g' > /tmp/README
-         rm -f /tmp/DATALIST /tmp/ICONLIST
-         for f in svg/*.svg ; do
-           name=$(basename "${f/.*}")
-           echo "<option>$name</option>" >> /tmp/DATALIST
-           echo "<li id='$name' title='$name' onclick='toggle(this,event)'><img alt='$f' src='data:image/svg+xml,include($f)'/><code onclick=clip(this,event)>$name</code></li>" >> /tmp/ICONLIST
-         done
-         [ -f .github/pages/opentype.js ] || wget -qO .github/pages/opentype.js https://cdn.jsdelivr.net/npm/opentype.js
-         m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DTAG=$tag -DOWNER=${GITHUB_REPOSITORY/\/*} -DSHA=${GITHUB_SHA} < .github/pages/METADATA.m4 > METADATA.pb
-         node .github/pages/script.js METADATA.pb svg/*.svg > Picon-Regular.otf
-         command -v woff2_compress || sudo apt install -y woff2
-         woff2_compress *.otf
-         command -v fontforge      || sudo apt install -y fontforge
-         fontforge -lang=ff -c 'Open($1);Generate($2)' Picon-Regular.otf /tmp/Picon-Regular.ttf
-         command -v ttfautohint    || sudo apt install -y ttfautohint
-         ttfautohint /tmp/Picon-Regular.ttf Picon-Regular.ttf
-         (cd svg ; tar cjf ../Picon-Regular.tar.bz2 *.svg)
-         size(){ du -sh $1 | awk '{print $1"B"}';}
-         m4 -DREPO=https://github.com/${GITHUB_REPOSITORY} -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/template.html > index.html
-         [ -z $GITHUB_ACTOR ] && exit
-         message=$(git log -1 --pretty=format:"%s")
-         echo === PAGES ===
-         mv .github/pages/* .
-         git config user.name  "${GITHUB_ACTOR}"
-         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-         git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
-         git checkout -b gh-pages
-         git add .
-         git commit -m "$(date -u) ${GITHUB_SHA}"
-         git push origin_token --force
-         [[ "$message" == "[WIP]"* ]] && exit;
-         echo === RELEASE ===
-         page=$(curl -v -u:${PERSONAL_TOKEN} -H "Content-Type:application/json" -d '{"tag_name": "'$tag'"}' https://api.github.com/repos/${GITHUB_REPOSITORY}/releases)
-         echo page is "$page"
-         upload_url=$(echo "$page" | jq -r .upload_url)
-         echo upload on $upload_url
-         for f in METADATA.pb Picon-*; do
-           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
-         done
-         
-         
+        sudo apt install -y woff2 fontforge ttfautohint
+        wget https://cdn.jsdelivr.net/npm/opentype.js
+    - name: Build
+      working-directory: ${{env.pages}}
+      run: |
+        m4 -DNAME=$NAME -DTYPE=$TYPE -DREPO=https://github.com/${GITHUB_REPOSITORY} -DTAG=$(date +v%y.%m.%d) -DOWNER=${GITHUB_REPOSITORY/\/*} -DSHA=${GITHUB_SHA} < METADATA.pb.m4 |
+        tee METADATA.pb | node .list.js METADATA.pb ../../svg/*.svg |
+        tee list.json  | node picon.js > Picon-$TYPE.otf
+        woff2_compress *.otf
+        fontforge -lang=ff -c 'Open($1);Generate($2)' $NAME-$TYPE.otf /tmp/$NAME-$TYPE.ttf
+        ttfautohint /tmp/$NAME-$TYPE.ttf $NAME-$TYPE.ttf
+        (cd ../../svg/ ; tar cj *.svg) > $NAME-$TYPE.tar.bz2
+    - name: Redact
+      run: |
+        ### START ###
+        size(){ du -sh $1 | awk '{print $1"B"}';}
+        [ -f /tmp/README ] || jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
+          curl -sd @- https://api.github.com/markdown > /tmp/README
+        TAG=$(date +v%y.%m.%d)
+        m4 -DREPO=https://github.com/$GITHUB_REPOSITORY -DTAG=$TAG -DSVG_COUNT=$(ls svg/*|wc -l) -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/index.m4 > index.html
+    - name: Push
+      run: |
+        [ -z "$GITHUB_ACTOR" ] && exit
+        git config user.name  "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
+        git checkout -b gh-pages
+        git add .
+        git commit -m "$(date -u) ${GITHUB_SHA}"
+        git push origin_token --force
+    - name: Release
+      run: |
+        message=$(git log -1 --pretty=format:"%s")
+        [[ "$message" == "[WIP]"* ]] && exit;
+        page=$(curl -v -u:${PERSONAL_TOKEN} -H "Content-Type:application/json" -d '{"tag_name": "'$TAG'"}' https://api.github.com/repos/${GITHUB_REPOSITORY}/releases)
+        echo page is "$page"
+        upload_url=$(echo "$page" | jq -r .upload_url)
+        echo upload on $upload_url
+        for f in METADATA.pb Picon-*; do
+          curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
+        done

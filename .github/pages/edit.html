@@ -1,0 +1,94 @@
+<!doctype html>
+<title>SVG studio</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<style>
+	menu{display:flex;margin:0;padding:0;justify-content: center;}
+	menu>img{box-shadow:0 0 3px -1px;margin:auto}
+	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px)}
+	.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
+	.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
+	figure input{position:absolute;background:none;font-size:0;z-index:9}
+	figure input{border:1px solid #888;width:16px;height:16px;cursor:pointer;}
+	figure input:focus{outline: 3px solid #888;}
+</style>
+<main>
+	<menu>
+		<input type=file onchange="fr.readAsText(this.files[0])" style="margin:auto;width:5em;" />
+		<button onclick="alert(`USAGE:\narrows: move focused node\ndelete: delete focused node\nenter: duplicate focused node\nshift+[one of above] = apply to every node`)">help</button>
+		<input v-model.number=width max=256 min=2 size=2 type=number title=width />
+		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
+		<button @click="lines.splice(lines,0,[[2,4],[4,2],[6,4]])">L</button>
+		<button @click="lines=[]">clear</button>
+		<output>{{svg.length}}Bytes</output>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=4  height=4 title=4></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=16 height=16 title=16></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24></a>
+		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=32 height=32 title=32></a>
+	</menu>
+	<figure class=rel>
+		<img :src="'data:image/svg+xml;utf8,'+svg" width=100%>
+		<div class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
+			<span v-for="_ in width*height"></span>
+		</div>
+		<div v-for="points,line in lines">
+			<input v-for="point,p in points" :key=p :point=point
+				:style="{top:'calc('+(100*point[1]/height)+'% - 8px)',left:'calc('+(100*point[0]/width)+'% - 8px'}"
+				@contextmenu.prevent="prompt('x,y',point).split(',').forEach((v,i)=>$set(point,i,+v))"
+				@keydown.exact.delete="points.length>1&&points.splice(p,1)"
+				@keydown.exact.enter=points.splice(p,0,[point[0]-1,point[1]-1])
+				@keydown.exact.right=$set(point,0,point[0]+1) @keydown.exact.left=$set(point,0,point[0]-1)
+				@keydown.exact.down=$set(point,1,point[1]+1) @keydown.exact.up=$set(point,1,point[1]-1)
+				@keydown.exact.shift.delete=lines.splice(line,1)
+				@keydown.exact.shift.enter=lines.splice(line,0,JSON.parse(JSON.stringify([...points])))
+				@keydown.exact.shift.right="points.map(point=>$set(point,0,point[0]+1))"
+				@keydown.exact.shift.left="points.map(point=>$set(point,0,point[0]-1))"
+				@keydown.exact.shift.down="points.map(point=>$set(point,1,point[1]+1))"
+				@keydown.exact.shift.up="points.map(point=>$set(point,1,point[1]-1))"></coord-input>
+		</div>
+	</figure>
+</main>
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"> </script>
+<script>
+var v = new Vue({
+		el: "main",
+		watch: {
+			$data: {
+				handler: (data) => localStorage.data = JSON.stringify(data),
+				deep: true
+			}
+		},
+		mounted() {
+			let data = {}
+			try { data = JSON.parse(localStorage.data || '{}'); }
+			catch (e) { alert("LocalStorage is not Available, your work won't be saved") }
+			for (let k in data) { this.$data[k] = data[k]; }
+		},
+		data() {
+			return {
+				width: 8,
+				height: 8,
+				lines: [[[2, 4], [4, 2], [6, 4]]]
+			}
+		},
+		methods: {
+			prompt: prompt.bind(this),
+			load(svg) {
+				[,,this.width,this.height] = svg.attributes.viewBox.value.split(' ').map(n=>+n);
+				this.lines = svg.querySelector('path').attributes.d.value.split('M').filter(Boolean).map(M=>M.split(' ').filter(Boolean).map(coord=>coord.split(',').map(e=>+e)))
+				console.log(this.lines)
+			}
+		},
+		computed: {
+			svg() {
+				return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">' +
+					'<path d="' + this.lines.map(line => 'M' + line.join(' ')).join(' ') + '"></path>' +
+					'</svg>'
+			}
+		}
+});
+var fr = new FileReader();
+var parser = new DOMParser();
+fr.onload = (ev) => v.load(parser.parseFromString(ev.target.result, "text/xml").firstElementChild);
+</script>
+

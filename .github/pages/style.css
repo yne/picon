@@ -1,9 +1,4 @@
-/*
-codemirror-github-dark-theme/lib/codemirror-github-dark-theme.css
-github-ace-dark/github-dark.css
-github-ace-dark/blob/master/github-dark.css
-*/
- :root {
+:root {
 	--text: #404545;
 	--back: rgba(248,248,248,.9);
 	--primary: #af0000;
@@ -11,241 +6,43 @@ github-ace-dark/blob/master/github-dark.css
 	--radius: 4px;
 	--fab: 32px;
 }
-
 @media (prefers-color-scheme: dark) {
-	 :root {
+	:root {
 		--text: #F8F8F8;
 		--back: rgba(64,64,64,.9);
 		--primary: #ff98ab;
 	}
 	img[src^="data:image/svg"]{filter: invert(1);}
 }
-body {
+
+body{
 	font-family: Helvetica, Arial, Sans-Serif;
 	font-size: 16px;
 	color: var(--text);
 	background: var(--back);
-	padding: 1em;
 }
-input, select {
-	color:var(--text);
-}
-article, nav {
+article {
 	max-width: 576px;
 	margin: auto;
 }
-
- :target {
-	color: var(--primary)
-}
-
- :focus {
-	outline: 0;
-}
-[onclick] {
-	cursor:pointer;
-}
-[hidden] {
-	display: none !important;
-}
-#logo {
-	fill: var(--text);
-	display: block;
-	margin: auto;
-	max-width: 24em
-}
-
-h1+p {
-	text-align: center;
-}
-
-a,
-summary {
+a {
 	color: var(--primary);
 	text-decoration: none;
 }
-
-a:hover,
-summary:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-h1,
-h2,
-h3,
-h4 {
-	margin: 2em 0 0 0;
-	text-align: center;
-}
-
-h1 {
-	font-size: 2.0em;
-}
-
-h2 {
-	font-size: 1.5em;
-	box-shadow: 0 var(--radius) var(--radius) calc(var(--radius) * -1) black
-}
-
-h3 {
-	font-size: 1.0em
-}
+a:hover {text-decoration: underline;}
 /* pre colors stay white on black even in dark mode*/
-pre {
+style,pre,code{
 	background: #222;
 	color: #FFF;
-	padding: var(--radius);
+	padding: 1px .5em;
 	border-radius: var(--radius);
 	overflow: auto;
+	white-space: pre;
+	font-family: monospace;
+	tab-size: 2;
 }
-
 @font-face {
+	src: url(https://yne.fr/picon/Picon-Regular.woff2);
 	font-family: picon;
-	src: url(Picon-Regular.woff2);
 }
-
-del,
-.picon {
-	font-family: picon;
-	user-select: none;
-	vertical-align: middle;
-	text-decoration: none;
-}
-
-table {
-	margin: auto;
-	min-width: 256px;
-}
-
-nav {
-	position: sticky;
-	top: 0;
-	z-index: 2;
-	padding: 1em;
-	text-align:center;
-}
-nav .flex, input[type=button] {
-	background: var(--back);
-	border-radius: var(--radius);
-	border: 1px solid #888;
-	box-shadow: 0 2px 8px -3px rgba(0,0,0,.4);
-}
-nav .flex {
-	backdrop-filter:blur(4px);
-	display:flex;
-}
-nav .flex>* {
-	font-size:1.25em;
-	border:0;
-	background:none;
-	padding:.5em 1em;
-}
-nav .flex>[name]{
-	flex-grow:1;
-	width: 100%;
-}
-nav .flex>*:hover,
-nav .flex>*:focus{
-	box-shadow: 0 2px 8px -3px rgba(0,0,0,1);
-}
-nav blockquote {
-	
-}
-.fab {
-	position: fixed;
-	bottom: var(--fab);
-	right: var(--fab);
-	border-radius: var(--fab);
-	width: calc(var(--fab) * 2);
-	height: calc(var(--fab) * 2);
-	background: var(--primary);
-	color: var(--back);
-	font-size: var(--fab);
-	border: 0;
-	z-index:4;
-	display: flex;
-	flex-direction: column;
-}
-.fab output {font-size:.5em;margin: 4px 0 0 0;}
-.fab svg {
-	display:block;
-	fill: var(--back);
-	margin: 0 auto;
-	width:1em;
-}
-
-/* ICONLIST */
-
-#List.tile-s {
-	--size:8px;
-}
-#List.tile-m {
-	--size:16px;
-}
-#List.tile-l {
-	--size:32px;
-}
-#List.tile-xl {
-	--size:64px;
-}
-#List.list {
-	--size:32px;
-}
-#List.list li {
-	display: block;
-}
-#List.list code {
-	font-size: var(--size);
-}
-#List ul {
-	margin:0;
-	padding:0;
-	list-style:none;
-	user-select:none;
-	font-size:0px;
-}
-#List li {
-	display: inline-flex;
-	flex-direction: column;
-	margin: var(--radius);
-}
-#List li.check>img{
-	outline: 2px solid var(--primary);
-}
-#List li>img:hover {
-	box-shadow:0 0 5px var(--text)
-}
-#List img {
-	width:var(--size);
-	padding: 8px;
-	margin:auto;
-}
-#List code:hover {
-	color: var(--primary)
-}
-#List code {
-	font-size: 11px;
-	margin-top:.5em;
-	width:calc(var(--size) * 2);
-	max-width:calc(var(--size) * 2);
-	text-overflow: ellipsis;
-	text-align:center;
-	overflow: hidden;
-	white-space: pre;
-}
-#List code::before {
-	white-space: pre;
-	pointer-events: none;
-	position: absolute;
-	transform: translate(0, -3em);
-	background: var(--text);
-	color: var(--back);
-	border-radius: var(--radius);
-	padding: var(--radius);
-	z-index: 3;
-}
-
-#List code.copied::before {
-	content: "Copied!"
-}
+.picon{font-family:picon}
