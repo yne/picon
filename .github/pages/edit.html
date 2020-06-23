@@ -10,6 +10,10 @@
 	figure input{position:absolute;background:none;font-size:0;z-index:9}
 	figure input{border:1px solid #888;width:16px;height:16px;cursor:pointer;}
 	figure input:focus{outline: 3px solid #888;}
+	figure input.M{background:grey}
+	figure input.L{background:red}
+	figure input.C{background:blue}
+	figure input.Q{background:violet}
 </style>
 <main>
 	<menu>
@@ -17,8 +21,8 @@
 		<button onclick="alert(`USAGE:\narrows: move focused node\ndelete: delete focused node\nenter: duplicate focused node\nshift+[one of above] = apply to every node`)">help</button>
 		<input v-model.number=width max=256 min=2 size=2 type=number title=width />
 		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
-		<button @click="lines.splice(lines,0,[[2,4],[4,2],[6,4]])">L</button>
-		<button @click="lines=[]">clear</button>
+		<button @click="commands=commands.concat([{type:'M',x:2,y:4},{type:'L',x:4,y:2},{type:'L',x:6,y:4}])">L</button>
+		<button @click="commands=[]">clear</button>
 		<output>{{svg.length}}Bytes</output>
 		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=4  height=4 title=4></a>
 		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8></a>
@@ -26,31 +30,43 @@
 		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24></a>
 		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=32 height=32 title=32></a>
 	</menu>
+	{{toPathString(commands)}}
 	<figure class=rel>
 		<img :src="'data:image/svg+xml;utf8,'+svg" width=100%>
 		<div class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
 			<span v-for="_ in width*height"></span>
 		</div>
-		<div v-for="points,line in lines">
-			<input v-for="point,p in points" :key=p :point=point
-				:style="{top:'calc('+(100*point[1]/height)+'% - 8px)',left:'calc('+(100*point[0]/width)+'% - 8px'}"
-				@contextmenu.prevent="prompt('x,y',point).split(',').forEach((v,i)=>$set(point,i,+v))"
-				@keydown.exact.delete="points.length>1&&points.splice(p,1)"
-				@keydown.exact.enter=points.splice(p,0,[point[0]-1,point[1]-1])
-				@keydown.exact.right=$set(point,0,point[0]+1) @keydown.exact.left=$set(point,0,point[0]-1)
-				@keydown.exact.down=$set(point,1,point[1]+1) @keydown.exact.up=$set(point,1,point[1]-1)
-				@keydown.exact.shift.delete=lines.splice(line,1)
-				@keydown.exact.shift.enter=lines.splice(line,0,JSON.parse(JSON.stringify([...points])))
-				@keydown.exact.shift.right="points.map(point=>$set(point,0,point[0]+1))"
-				@keydown.exact.shift.left="points.map(point=>$set(point,0,point[0]-1))"
-				@keydown.exact.shift.down="points.map(point=>$set(point,1,point[1]+1))"
-				@keydown.exact.shift.up="points.map(point=>$set(point,1,point[1]-1))"></coord-input>
-		</div>
+		<input v-for="cmd,c in commands" :title=c :class=cmd.type
+			:style="{top:'calc('+(100*cmd.y/height)+'% - 8px)',left:'calc('+(100*cmd.x/width)+'% - 8px'}"
+			@contextmenu.prevent="[cmd.x,cmd.y]=prompt('x,y',[cmd.x,cmd.y]).split(',')"
+			@keydown.prevent.exact.delete="cmd.type!='M'&&commands.splice(c,1)"
+			@keydown.prevent.exact.enter=commands.splice(c,0,{...cmd})
+			@keydown.prevent.exact.m="commands.splice(c,0,{type:'M', x:cmd.x+1, y:cmd.y+1})"
+			@keydown.prevent.exact.l="commands.splice(c,0,{type:'L', x:cmd.x+1, y:cmd.y+1})"
+			@keydown.prevent.exact.q="commands.splice(c,0,{type:'Q', x:cmd.x+1, y:cmd.y+1, x1:0, y1:0})"
+			@keydown.prevent.exact.c="commands.splice(c,0,{type:'C', x:cmd.x+1, y:cmd.y+1, x1:0, y1:0, x2:0, y2:0})"
+			@keydown.prevent.exact.right=cmd.x++
+			@keydown.prevent.exact.left=cmd.x--
+			@keydown.prevent.exact.down=cmd.y++
+			@keydown.prevent.exact.up=cmd.y--
+			@keydown.prevent.exact.alt.right=" ('x1' in cmd)&&cmd.x1++"
+			@keydown.prevent.exact.alt.left="  ('x1' in cmd)&&cmd.x1--"
+			@keydown.prevent.exact.alt.down="  ('y1' in cmd)&&cmd.y1++"
+			@keydown.prevent.exact.alt.up="    ('y1' in cmd)&&cmd.y1--"
+			@keydown.prevent.exact.ctrl.right="('x2' in cmd)&&cmd.x2++"
+			@keydown.prevent.exact.ctrl.left=" ('x2' in cmd)&&cmd.x2--"
+			@keydown.prevent.exact.ctrl.down=" ('y2' in cmd)&&cmd.y2++"
+			@keydown.prevent.exact.ctrl.up="   ('y2' in cmd)&&cmd.y2--"
+			@keydown.prevent.exact.shift.delete=commands.splice(...groupRange(cmd,true))
+			@keydown.prevent.exact.shift.right="groupRange(cmd).forEach(cmd=>cmd.x++)"
+			@keydown.prevent.exact.shift.left="groupRange(cmd).forEach(cmd=>cmd.x--)"
+			@keydown.prevent.exact.shift.down="groupRange(cmd).forEach(cmd=>cmd.y++)"
+			@keydown.prevent.exact.shift.up="groupRange(cmd).forEach(cmd=>cmd.y--)">
 	</figure>
 </main>
-<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"> </script>
-<script>
-var v = new Vue({
+<script type=module>
+import '//unpkg.com/vue@2';
+new Vue({
 		el: "main",
 		watch: {
 			$data: {
@@ -68,21 +84,40 @@ var v = new Vue({
 			return {
 				width: 8,
 				height: 8,
-				lines: [[[2, 4], [4, 2], [6, 4]]]
+				commands: [
+					{type: "M", x: 2, y: 4},
+					{type: "L", x: 4, y: 2},
+					{type: "L", x: 6, y: 4},
+					{type: "C", x1: 1, y1: 2, x2: 3, y2: 4, x: 5, y: 6},
+				]
 			}
 		},
 		methods: {
 			prompt: prompt.bind(this),
+			toPathString: (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join(''),
+			toCommands: (str) => str.match(/([A-Za-z][.0-9,]+)/g).map(cmd => {
+				const coords = cmd.slice(1).split(',');
+				[x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)].map(Number);
+				return {type:cmd[0], x, y, x1, y1, x2, y2};
+			}),
+			groupRange(cmd,range=false) {
+				const pos = this.commands.indexOf(cmd);
+				for(var first = pos; first>0 && this.commands[first].type!='M'; first--);
+				for(var last = pos; last+1<this.commands.length && this.commands[last+1].type!='M'; last++);
+				//console.log(pos, '=>', first, last)
+				return range ? [first,last-first+1] : this.commands.slice(first, last+1);
+			},
 			load(svg) {
-				[,,this.width,this.height] = svg.attributes.viewBox.value.split(' ').map(n=>+n);
-				this.lines = svg.querySelector('path').attributes.d.value.split('M').filter(Boolean).map(M=>M.split(' ').filter(Boolean).map(coord=>coord.split(',').map(e=>+e)))
-				console.log(this.lines)
+				console.log(svg);
+				[,,this.width,this.height] = svg.attributes.viewBox.value.split(' ').map(n => +n);
+				this.commands = this.toCommands(svg.querySelector('path').attributes.d)
+				console.log(this.commands)
 			}
 		},
 		computed: {
 			svg() {
 				return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">' +
-					'<path d="' + this.lines.map(line => 'M' + line.join(' ')).join(' ') + '"></path>' +
+					'<path d="' + this.toPathString(this.commands) + '"></path>' +
 					'</svg>'
 			}
 		}
