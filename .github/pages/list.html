@@ -11,6 +11,7 @@
 <link rel=apple-touch-icon href=apple-touch-icon.png>
 <!--script src=list.js></script-->
 <script src="opentype.js" defer></script>
+<script src="picon.js" defer></script>
 <style>
 body{margin: 0;}
 .flex{display: flex;}
@@ -53,21 +54,71 @@ let picons = [];
 const cache = file => localStorage[file] ? Promise.resolve(localStorage[file]) : fetch(file).then(r => r.text()).then(text => localStorage[file] = text);
 const el = (tag, props={}, ch=[]) => ch.reduce((e,c) => (e.appendChild(c),e),Object.assign(document.createElement(tag),props))
 const log = e => (console.log(e),e)
-const save = (icons) => picons = icons
-	.map(icon => ({...icon,
-		name:base(icon.path),
-		liga:base(icon.path).split('-').slice(-1)[0]
-	}))
-	.sort((a,b)=>a.path.localeCompare(b.path));//.map(log)
-const show = (icons) => (icons.forEach(icon => window.icons.append(el('img', {
-	alt: icon.path,
-	title: icon.name,
-	src: `data:image/svg+xml,${icon.data}`
-}))),list);
+const show = ({glyphs,...font}) => glyphs.forEach(icon => window.icons.append(el('img', {
+	alt: icon.tags,
+	title: icon.ligatures,
+	id: icon.ligatures,
+	src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="' + icon.path.join(' ') + '"></path></svg>'
+})));
 const dupsliga = (icons) => icons.map(i=>i.liga).reduce((acc,val,i,all) => all.indexOf(val) == all.lastIndexOf(val) ? acc : acc.concat(val), []);
 const datalist = (icons,dl) => icons.forEach(icon => dl.append(el('option', {innerText:icon.name})));
 
-cache('list.json').then(JSON.parse).then(save).then(show);
+cache('picon.json').then(JSON.parse).then(show);
 
 navigator.serviceWorker && navigator.serviceWorker.register('sw.js');
+
+/*
+// DOM event related function
+@form = <li id="latin-a.à"><img class=check src="data:..."></li><li>...
+@return = [
+	[["latin-a.à"],"<svg ..."],
+	[["app"], "<svg ..."],
+	...
+]
+function serializeForm(form) {
+	return [...form.querySelectorAll('.check img')]
+	.map(path => [path.closest('li').id, path.src])
+}
+function filter(form,className="highlight") {
+	const all = form.querySelectorAll('li');
+	all.forEach(li=>li.hidden=false);
+	form.querySelector("blockquote").hidden=!form.q.value
+	if(!form.q.value)return;
+	const rule = `li:not([id*='${form.q.value}'])`;
+	const matched = form.querySelectorAll(rule)
+	matched.forEach(li=>li.hidden=true)
+	form.match.value = all.length - matched.length;
+}
+function updateCheck(form){
+	const nbChecked = form.querySelectorAll('.check').length
+	form.check.value=nbChecked
+	form.check.parentElement.hidden=!nbChecked
+}
+function highlightCheck(form, checked){
+	const list = form.querySelectorAll('li:not([hidden])')
+	list.forEach(li=>li.classList=checked?"check":'')
+	updateCheck(form)
+}
+let prevToggle=null;
+function toggle(li, event){
+	const form = li.closest('form');
+	const all = [...form.querySelectorAll('li')];
+	if (!prevToggle)prevToggle = li;
+	const [from, to] = [prevToggle,li].map(c=>all.findIndex(e=>c==e));
+	var els = event.shiftKey?all.slice(...(from > to ? [to,from] : [from+1,to+1])):[li];
+	els.map(cb=>cb.classList.toggle("check"))
+	prevToggle = li;
+	updateCheck(form)
+}
+function clip(a, event) {
+	event.stopPropagation();
+	const text = a.innerText;
+	if (!navigator.clipboard)
+		return alert(`No clipboard API to copy ${text}`);
+	setTimeout(() => a.classList.remove('copied'),1000);
+	navigator.clipboard.writeText(text).then(
+		res => a.classList.add('copied'),
+		err => alert(`Unable to copy ${text}\n`+err));
+}
+*/
 </script>

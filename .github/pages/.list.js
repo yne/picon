@@ -27,7 +27,7 @@ const buildJson = (pb,...svgs) => JSON.stringify({
 	glyphs: svgs.map(p => ({
 		basename: require('path').basename(p, '.svg'),
 		svg: require('fs').readFileSync(p, 'utf8')
-	})).map((p, i) => ({
+	})).sort((a,b)=> a.basename < b.basename ? -1 : (a.basename > b.basename ? 1 : 0)).map((p, i) => ({
 		tags: (p.basename.match(tagRegExp)||[]).map(tag=>tag.slice(0, -1)),
 		unicodes: (p.basename.match(/(%..)+/g)||[]).map(xx=>decodeURIComponent(xx).charCodeAt(0)),
 		ligatures: p.basename.replace(tagRegExp,'').replace(uniRegExp, '').split('.').filter(Boolean).map(r => decodeURIComponent(r)),

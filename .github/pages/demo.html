@@ -180,46 +180,42 @@ We can Display the language icon of a code block :
 
 <p>
 	You can overlay more icon at specific positions and a specific color
-	<code>&lt;i&gt;file&lt;i&gt;?&lt;/i&gt;&lt;/i&gt;</code> = <i>file<i>?</i></i>
+	<code>&lt;i&gt;file&lt;sub&gt;+&lt;/sub&gt;&lt;/i&gt;</code> = <i>file<sub>+</sub></i>
 </p>
 
 <ul style=font-size:1em>
-	<li><i>file<i>?</i></i> Unknow file</li>
-	<li><i>folder<i inv>arrow-down</i></i> Download folder</li>
-	<li><i>bell<i over inv>not</i></i> silence</li>
-	<li><i>mail-outline<i br>8</i></i> 8 Messages</li>
-	<li><i>smooking<i over inv>not</i></i> No smooking</li>
-	<li><i>image<i br>chain</i></i> Image URL</li>
-	<li><i>mail<i br>mail-attachment</i></i> Mail with attachment</li>
-	<li><i>file<i br>+</i></i> File Add</li>
-	<li><i>file<i br>star</i></i> File Create</li>
-	<li><i>folder<i br>+</i></i> Folder add</li>
-	<li><i>folder<i br>star</i></i> Folder create</li>
-	<li><i>bluetooth<i br>tool-magnifier</i></i> Search bluetooth</li>
-	<li><i>folder<i inv>image</i></i> Photo album</li>
-	<li><i>folder<i inv>device-gamepad</i></i> Photo album</li>
-	<li><i>call<i tr>arrow-forward</i></i> Photo album</li>
-	<li><i>call<i tr>chevron-right</i></i> Photo album</li>
-	<li><i>call<i tr>track-pause</i></i> Photo album</li>
+	<li><i>filter<sub>+</sub></i> Mail edit</li>
+	<li><i>mail-outline<sub>pencil</sub></i> File edit</li>
+	<li><i>mail-outline<sub>8</sub></i> 8 Unread</li>
+	<li><i>image<sub>chain</sub></i> Image URL</li>
+	<li><i>mail<sub>mail-attachment</sub></i> Mail attachment</li>
+	<li><i>bluetooth<sub>tool-magnifier</sub></i> Bluetooth Search</li>
+	<li><i>file<sub style=color:green>+</sub></i> File Add</li>
+	<li><i>folder<sub style=color:green>+</sub></i> Folder add</li>
+	<li><i>folder<sub>image</sub></i> Folder Image</li>
+	<li><i>folder<sub>device-gamepad</sub></i> Folder Game</li>
+	<li><i>folder<sub>arrow-down</sub></i> Folder Download</li>
+	<li><i>call<sup>arrow-forward</sup></i> Call forward</li>
+	<li><i>call<sup>chevron-left</sup></i> Call incoming</li>
+	<li><i>call<sup>chevron-right</sup></i> Call outgoing</li>
+	<li><i>call<sup>track-pause</sup></i> Call hold</li>
+	<li><i>call<sup>$</sup></i> Call price</li>
+	<li><i>file<i>?</i></i> File Unknow</li>
+	<li><i>bell<i>not</i></i> silence</li>
 </ul>
 
 <style>i{position: relative;}
-i>i{
+i>sup{right:0;top:0;}
+i>sub{right:0;bottom:0;}
+i>i{top:.5em;left:.5em;}
+i>*{
 	position: absolute;
 	font-size:.5em;
-	right:.5em;bottom:.5em;
-}
-i>i[tl]{top:0;left:0;}
-i>i[tr]{top:0;right:0;}
-i>i[bl]{bottom:0;left:0;}
-i>i[br]{bottom:0;right:0;}
-i>i[over]{top:0;left:0;font-size:1em;}
-i>i[inv]{color:white;}
-i>i:not([inv]){
 	text-shadow:
 		-.125em -.125em white,
-		-.125em .125em white,
-		.125em -.125em white,
-		.125em .125em white;
-}</style>
+		-.125em  .125em white,
+		 .125em -.125em white,
+		 .125em  .125em white;
+}
+</style>
 </article>
