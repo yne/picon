@@ -3,25 +3,23 @@
 	OpenType does not support 8x8 grid, and Y coordinate are inverted
 	We must translate to the nearest supported grid : 16*16
 */
-function normalize(p,w=16,h=16) {
+function normalize(p, w=16, h=16) {
 	let [x,y] = p.match(/[0-9.]+/g)
 	return [x*2, h-y*2]
 }
 const func = {
-	M:'moveTo',    L:'lineTo',
+	M:'moveTo',
+	L:'lineTo',
 	C:'curveTo',   c:'bezierCurveTo',
 	Q:'quadTo',    q:'quadraticCurveTo',
 	Z:'closePath', z:'closePath'
 };
-function toPath(path, str) {
-	path[func[str[0]]||'lineTo'](...normalize(str));
-	return path;
-}
+const toPath = (path, str) => (path[func[str[0]]||'lineTo'](...normalize(str)), path);
 function glyphName({unicodes:[u]=[],ligatures:[l]=[]}) {
 	return u ? 'uni' + ('000'+u.toString(16).toUpperCase()).slice(-4) : l;
 }
 function makeFont(opentype, {glyphs=[], ...font}) {
-	const notdefGlyph = {name: '.notdef', path: ['M2,3','4,5','6,3'], unicodes:[0]};
+	const notdefGlyph = {name: '.notdef', path: [['M',2,3],['L',4,5],['L',6,3]], unicodes:[0]};
 	/* list letters that'll be needed for our ligatures */
 	const ligaLetters = [...new Set(glyphs.reduce((c,g) => c += g.ligatures.join(''),""))];
 	/* generate an stub glyph for every missing but required letters */
