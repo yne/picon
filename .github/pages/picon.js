@@ -8,6 +8,7 @@ function normalize(p, w=16, h=16) {
 	return [x*2, h-y*2]
 }
 const func = {
+	' ':'lineTo',//backward compatibility
 	M:'moveTo',
 	L:'lineTo',
 	C:'curveTo',   c:'bezierCurveTo',
