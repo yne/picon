@@ -16,7 +16,7 @@ jobs:
       TYPE: Regular
       LOGO: <svg viewBox="0 0 16 16"><path d="M13,4 13,0 14,0 15,2 15,0 16,0 16,4 15,4 15,4 14,2 14,4 M9,4 9,0 12,0 12,4 M6,4 6,0 8,0 8,1 7,1 7,3 8,3 8,4 M0,4 0,0 3,0 3,2 1,3 1,4 M1,1 1,2 2,2 2,1 M10,1 10,3 11,3 11,1 M6,16 6.25,15 6,8 7.25,7 7.25,5 8.75,5 8.75,7 10,8 9.75,15 10,16 M9,9.5 9,9 7,9 7,9.5 M9,12 9,10 7,10 7,12 7.5,13 8.5,13 M4,4 4,0 5,0 5,4"></path></svg>
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Prerequist
       working-directory: ${{env.pages}}
       run: |
@@ -44,7 +44,19 @@ jobs:
         convert -background none  -density 5000 -resize 512x512 - logo-512.png <<< "$LOGO"
         convert -background white -density 5000 -resize 180x180 - apple-touch-icon.png <<< "$LOGO"
         convert -background none  -density 5000 -resize 48x48 - favicon.ico <<< "$LOGO"
-    - name: PagePush
+        # diff showcase
+        mkdir diff
+        CDN=https://raw.githubusercontent.com
+        CONV="-resize 8x8 -filter point -resize 64x64 -gravity center -extent 80x80"
+        for p in social/picture technology/phone-handset media/volume-up essential/bug    ; do curl -s "$CDN/renaudtertrais/clarity-icons-svg/master/src/$p-line.svg"  | convert - $CONV clarity-${p//\//_}.png ; done
+        for p in image          phone                    sound           bug              ; do curl -s "$CDN/hypermodules/entypo/master/src/Entypo/$p.svg"  | convert - $CONV entypo-$p.png ; done
+        for p in image          phone                    volume          x                ; do curl -s "$CDN/feathericons/feather/master/icons/$p.svg"  | convert - $CONV feather-$p.png ; done
+        for p in image          phone                    volume-off      bug              ; do curl -s "$CDN/FortAwesome/Font-Awesome/master/svgs/solid/$p.svg"  | convert - $CONV fontawesome-$p.png ; done
+        for p in picture-f      close-circle-f           volume          bug-f            ; do curl -s "$CDN/michaelampr/jam/master/icons/$p.svg"  | convert - $CONV jam-$p.png ; done
+        for p in image/photo    communication/phone      av/volume_up    action/bug_report; do curl -s "$CDN/google/material-design-icons/master/src/$p/materialiconssharp/24px.svg"  | convert - $CONV material-${p//\//_}.png ; done
+        for p in image          phone                    volume-1        bug              ; do curl -s "$CDN/teenyicons/teenyicons/master/src/solid/$p.svg"  | convert - $CONV teenyicons-$p.png ; done
+        for p in image          call                     volume          animal-bug       ; do curl -s "$CDN/yne/picon/master/svg/$p.svg"  | convert - $CONV picon-$p.png ; done
+    - name: GitHubPage
       run: |
         [ -z "$GITHUB_ACTOR" ] && exit
         git config user.name  "${GITHUB_ACTOR}"
@@ -54,7 +66,7 @@ jobs:
         git add .
         git commit -m "$(date -u) ${GITHUB_SHA}"
         git push origin_token --force
-    - name: Release
+    - name: GitHubRelease
       run: |
         message=$(git log -1 --pretty=format:"%s")
         [[ "$message" == "[WIP]"* ]] && exit;
@@ -65,3 +77,15 @@ jobs:
         for f in METADATA.pb Picon-*; do
           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
         done
+        curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/yne/picon |
+        jq '{name,version:"'$TAG'",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},publishConfig:{registry:"https://npm.pkg.github.com"},keywords:.topics}' > package.json
+    - name: NpmPackage
+      uses: actions/setup-node@v1
+      with: registry-url: 'https://registry.npmjs.org'
+    - run: npm publish --access public
+      env: NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: GitHubPackage
+      uses: actions/setup-node@v1
+      with: registry-url: 'https://npm.pkg.github.com'
+    - run: npm publish
+      env: NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

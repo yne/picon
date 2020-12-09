@@ -1,15 +1,15 @@
 <!doctype html>
 <title>SVG studio</title>
 <link rel="icon" id=favicon>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+	@media (hover: none) {.pc{display:none !important;}}
+	@media (hover: hover) {.touch{display:none !important;}}
 	.M{--color:grey}
 	.L{--color:red}
 	.Q{--color:violet}
 	.C{--color:blue}
-	:root{--size:16px}
-	body{margin:0}
-	nav{display:flex;gap:5px}
-	nav>*{flex:0}
+	body{margin:0;--size:16px}
 	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px)}
 	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
 	figure>.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
@@ -19,11 +19,12 @@
 	figure>input:focus{outline: 3px solid #888;}
 	</style>
 <main>
-	<nav>
-		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style="min-width:7em;margin:auto">
+	<nav style="display:flex;gap:5px">
+		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style=max-width:1px>
+		<button onclick="this.previousElementSibling.click()">&#8613;</button>
 		<button onclick="alert(`USAGE:\narrows: move focused node\nctrl+arrows: move curve\nalt+arrows: move cubic curve\ndelete: delete focused node\n\nshift+[one of above] = apply to the whole polygon`)">?</button>
-		<button @click="commands=commands.concat([{type:'M',x:2,y:4},{type:'L',x:4,y:2},{type:'L',x:6,y:4}])">L</button>
-		<button @click="commands=[]">clear</button>
+		<button @click="commands=commands.concat([{type:'M',x:2,y:4},{type:'L',x:3,y:4},{type:'L',x:3,y:5},{type:'L',x:2,y:5}])">&#9633;</button>
+		<button @click="commands=[]">&times;</button>
 		<input v-model.number=width  max=64 min=2 type=number title=width>
 		<input v-model.number=height max=64 min=2 type=number title=height>
 		<a v-for="i in [4,8,16,24,32]" :download=name :href=img><img :src=img :width=i :height=i :title=i></a>
@@ -34,40 +35,35 @@
 		<div class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
 			<span v-for="_ in width*height"></span>
 		</div>
-		<input :class=cmd.type :style=pos(cmd,1) v-for="cmd in commands.filter(c=>'x1' in c)" disabled>
-		<input :class=cmd.type :style=pos(cmd,2) v-for="cmd in commands.filter(c=>'x2' in c)" disabled>
-		<input :class=cmd.type :style=pos(cmd)   v-for="cmd,c in commands" @keydown="key(cmd,c,$event)"
-			@keydown.shift.delete=commands.splice(...groupRange(cmd,true))
-			@keydown.delete="commands.splice(c,1)">
+		<template v-for="lv in [1,2,'']">
+		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
+		</template>
 	</figure>
+	<nav class=touch style="display:grid; gap:5px; grid-template-columns: repeat(4, auto);">
+		<label v-for="mod in ['shift','ctrl', 'alt']">{{mod}}<input type=checkbox @mousedown.prevent=this.checked^=1 :ref=mod></label>
+		<button v-for="b in kbd" @mousedown.prevent="kbev({ctrlKey:$refs.ctrl[0].checked,altKey:$refs.alt[0].checked,shiftKey:$refs.shift[0].checked,keyCode:b[2],key:b[1]||b[0]})" v-html=b[0]></button>
+	</nav>
 </main>
 <script type=module>
 import './vue.js'; ////unpkg.com/vue@2
 new Vue({
 	el: "main",
 	mounted() {
-		try {
-			let data = JSON.parse(localStorage.data || '{}')['picon.json'];
-			for (let k in data) { this.$data[k] = data[k]; }
-		} catch (e) { alert("LocalStorage is not Available, your work won't be saved") }
+		try{Object.assign(this.$data, JSON.parse(localStorage.draft || '{}'))}catch{}
 	},
-	data() {
-		return {
-			name: "picon.svg",
-			width: 8,
-			height: 8,
-			commands: [
-				{type: "M", x: 2, y: 4},
-				{type: "L", x: 4, y: 2},
-				{type: "Q", x1: 1, y1: 2, x: 6, y: 4},
-				{type: "C", x1: 1, y1: 2, x2: 3, y2: 4, x: 5, y: 6},
-			]
-		}
-	},
+	data() { return { kbd:[['&#128269;', 'Enter'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39]],
+		name:"picon.svg", width: 8, height: 8, commands: this.toCommands('M2,4L4,2Q1,2,6,4C1,2,3,4,5,6')
+	}},
 	methods: {
+		kbev(opt={}, type="keydown"){
+			console.log(opt, this.$refs)
+			return document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
+		},
 		key(cmd, c, ev) {
 			if(ev.key == 'Enter') {
-				Object.keys(cmd).forEach(k=>cmd[k]=prompt(k, cmd[k]))
+				Object.assign(cmd, JSON.parse(prompt("", JSON.stringify(cmd))||'{}'))
+			} if(ev.key == 'Delete') {
+				ev.shiftKey?this.commands.splice(...this.groupRange(cmd,true)):this.commands.splice(c,1);
 			} if(~"mlqc".indexOf(ev.key)) {
 				const opts = {m:{},l:{},q:{x1: cmd.x+1, y1: cmd.y+1},c:{x1: cmd.x+1, y1: cmd.y+1, x2: cmd.x-1, y2: cmd.y-1}}
 				this.commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
@@ -78,10 +74,9 @@ new Vue({
 			} else return true //don't prevent (Tab, ctrl+r ...)
 			ev.preventDefault()
 		},
-		pos(cmd, n=''){return {
-			top: 'calc('+(100*cmd['y'+n] / this.height)+'% - calc(var(--size)/2))',
-			left:'calc('+(100*cmd['x'+n] / this.width )+'% - calc(var(--size)/2))'}},
-		cat: (file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file)),
+		rel:(ratio) => `calc(${100*ratio}% - calc(var(--size)/2))`,
+		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
+		cat:(file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file)),
 		toPathString: (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join(''),
 		toCommands: (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
 			const coords = cmd.slice(1).split(',').map(Number);
