@@ -1,92 +1,100 @@
 <!doctype html>
 <title>SVG studio</title>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="icon" id=favicon>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-	menu{display:flex;margin:0;padding:0;justify-content: center;}
-	menu>img{box-shadow:0 0 3px -1px;margin:auto}
-	figure{position:relative;margin:auto;max-width:calc(100vmin - 56px)}
-	.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
-	.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
-	figure input{position:absolute;background:none;font-size:0;z-index:9}
-	figure input{border:1px solid #888;width:16px;height:16px;cursor:pointer;}
-	figure input:focus{outline: 3px solid #888;}
-</style>
+	@media (hover: none) {.pc{display:none !important;}}
+	@media (hover: hover) {.touch{display:none !important;}}
+	.M{--color:grey}
+	.L{--color:red}
+	.Q{--color:violet}
+	.C{--color:blue}
+	body{margin:0;--size:16px}
+	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px)}
+	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
+	figure>.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
+	figure>input{position:absolute;background:var(--color);font-size:0;z-index:9}
+	figure>input{border:1px solid #888;width:var(--size);height:var(--size);border-radius:100%;cursor:pointer;}
+	figure>input:disabled{border:1px solid var(--color);background: none; user-select: none;}
+	figure>input:focus{outline: 3px solid #888;}
+	</style>
 <main>
-	<menu>
-		<input type=file onchange="fr.readAsText(this.files[0])" style="margin:auto;width:5em;" />
-		<button onclick="alert(`USAGE:\narrows: move focused node\ndelete: delete focused node\nenter: duplicate focused node\nshift+[one of above] = apply to every node`)">help</button>
-		<input v-model.number=width max=256 min=2 size=2 type=number title=width />
-		<input v-model.number=height max=256 min=2 size=2 type=number title=height />
-		<button @click="lines.splice(lines,0,[[2,4],[4,2],[6,4]])">L</button>
-		<button @click="lines=[]">clear</button>
-		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=8  height=8 title=8></a>
-		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=16 height=16 title=16></a>
-		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=24 height=24 title=24></a>
-		<hr/><a download :href="'data:image/svg+xml;utf8,'+svg"><img :src="'data:image/svg+xml;utf8,'+svg" width=32 height=32 title=32></a>
-	</menu>
+	<nav style="display:flex;gap:5px">
+		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style=max-width:1px>
+		<button onclick="this.previousElementSibling.click()">&#8613;</button>
+		<button onclick="alert(`USAGE:\narrows: move focused node\nctrl+arrows: move curve\nalt+arrows: move cubic curve\ndelete: delete focused node\n\nshift+[one of above] = apply to the whole polygon`)">?</button>
+		<button @click="commands=commands.concat([{type:'M',x:2,y:4},{type:'L',x:3,y:4},{type:'L',x:3,y:5},{type:'L',x:2,y:5}])">&#9633;</button>
+		<button @click="commands=[]">&times;</button>
+		<input v-model.number=width  max=64 min=2 type=number title=width>
+		<input v-model.number=height max=64 min=2 type=number title=height>
+		<a v-for="i in [4,8,16,24,32]" :download=name :href=img><img :src=img :width=i :height=i :title=i></a>
+		<textarea rows=1 readonly :title=img.length-24 style=flex:1>{{toPathString(commands)}}</textarea>
+	</nav>
 	<figure class=rel>
-		<img :src="'data:image/svg+xml;utf8,'+svg" width=100%>
+		<img :src=img width=100%>
 		<div class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
 			<span v-for="_ in width*height"></span>
 		</div>
-		<div v-for="points,line in lines">
-			<input v-for="point,p in points" :key=p :point=point
-				:style="{top:'calc('+(100*point[1]/height)+'% - 8px)',left:'calc('+(100*point[0]/width)+'% - 8px'}"
-				@contextmenu.prevent="prompt('x,y',point).split(',').forEach((v,i)=>$set(point,i,+v))"
-				@keydown.exact.delete="points.length>1&&points.splice(p,1)"
-				@keydown.exact.enter=points.splice(p,0,[point[0]-1,point[1]-1])
-				@keydown.exact.right=$set(point,0,point[0]+1) @keydown.exact.left=$set(point,0,point[0]-1)
-				@keydown.exact.down=$set(point,1,point[1]+1) @keydown.exact.up=$set(point,1,point[1]-1)
-				@keydown.exact.shift.delete=lines.splice(line,1)
-				@keydown.exact.shift.enter=lines.splice(line,0,JSON.parse(JSON.stringify([...points])))
-				@keydown.exact.shift.right="points.map(point=>$set(point,0,point[0]+1))"
-				@keydown.exact.shift.left="points.map(point=>$set(point,0,point[0]-1))"
-				@keydown.exact.shift.down="points.map(point=>$set(point,1,point[1]+1))"
-				@keydown.exact.shift.up="points.map(point=>$set(point,1,point[1]-1))"></coord-input>
-		</div>
+		<template v-for="lv in [1,2,'']">
+		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
+		</template>
 	</figure>
+	<nav class=touch style="display:grid; gap:5px; grid-template-columns: repeat(4, auto);">
+		<label v-for="mod in ['shift','ctrl', 'alt']">{{mod}}<input type=checkbox @mousedown.prevent=this.checked^=1 :ref=mod></label>
+		<button v-for="b in kbd" @mousedown.prevent="kbev({ctrlKey:$refs.ctrl[0].checked,altKey:$refs.alt[0].checked,shiftKey:$refs.shift[0].checked,keyCode:b[2],key:b[1]||b[0]})" v-html=b[0]></button>
+	</nav>
 </main>
 <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"> </script>
-<script>
-var v = new Vue({
-		el: "main",
-		watch: {
-			$data: {
-				handler: (data) => localStorage.data = JSON.stringify(data),
-				deep: true
-			}
+<script type=module>
+new Vue({
+	el: "main",
+	mounted() {
+		try{Object.assign(this.$data, JSON.parse(localStorage.draft || '{}'))}catch{}
+	},
+	data() { return { kbd:[['&#128269;', 'Enter'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39]],
+		name:"picon.svg", width: 8, height: 8, commands: this.toCommands('M2,4L4,2Q1,2,6,4C1,2,3,4,5,6')
+	}},
+	methods: {
+		kbev(opt={}, type="keydown"){
+			console.log(opt, this.$refs)
+			return document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
 		},
-		mounted() {
-			let data = {}
-			try { data = JSON.parse(localStorage.data || '{}'); }
-			catch (e) { alert("LocalStorage is not Available, your work won't be saved") }
-			for (let k in data) { this.$data[k] = data[k]; }
+		key(cmd, c, ev) {
+			if(ev.key == 'Enter') {
+				Object.assign(cmd, JSON.parse(prompt("", JSON.stringify(cmd))||'{}'))
+			} if(ev.key == 'Delete') {
+				ev.shiftKey?this.commands.splice(...this.groupRange(cmd,true)):this.commands.splice(c,1);
+			} if(~"mlqc".indexOf(ev.key)) {
+				const opts = {m:{},l:{},q:{x1: cmd.x+1, y1: cmd.y+1},c:{x1: cmd.x+1, y1: cmd.y+1, x2: cmd.x-1, y2: cmd.y-1}}
+				this.commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
+			} else if(ev.key.startsWith("Arrow")) {
+				const cmds = ev.shiftKey ? this.groupRange(cmd,/*true*/) : [cmd]
+				const attr = (ev.keyCode & 1 ? 'x':'y') + (ev.ctrlKey | ev.altKey*2 || '')
+				cmds.forEach(cmd=>attr in cmd?cmd[attr]=+cmd[attr]+(ev.keyCode>38)*2-1:0)
+			} else return true //don't prevent (Tab, ctrl+r ...)
+			ev.preventDefault()
 		},
-		data() {
-			return {
-				width: 8,
-				height: 8,
-				lines: [[[2, 4], [4, 2], [6, 4]]]
-			}
+		rel:(ratio) => `calc(${100*ratio}% - calc(var(--size)/2))`,
+		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
+		cat:(file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file)),
+		toPathString: (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join(''),
+		toCommands: (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
+			const coords = cmd.slice(1).split(',').map(Number);
+			const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
+			return JSON.parse(JSON.stringify({type:cmd[0].replace(/ /g,'L'), x, y, x1, y1, x2, y2}));//to remove undefined props
+		}),
+		groupRange(cmd,range=false) {
+			const pos = this.commands.indexOf(cmd);
+			for(var first = pos; first>0 && this.commands[first].type!='M'; first--);
+			for(var last = pos; last+1<this.commands.length && this.commands[last+1].type!='M'; last++);
+			return range ? [first,last-first+1] : this.commands.slice(first, last+1);
 		},
-		methods: {
-			prompt: prompt.bind(this),
-			load(svg) {
-				[,,this.width,this.height] = svg.attributes.viewBox.value.split(' ').map(n=>+n);
-				this.lines = svg.querySelector('path').attributes.d.value.split('M').filter(Boolean).map(M=>M.split(' ').filter(Boolean).map(coord=>coord.split(',').map(e=>+e)))
-				console.log(this.lines)
-			}
-		},
-		computed: {
-			svg() {
-				return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">' +
-					'<path d="' + this.lines.map(line => 'M' + line.join(' ')).join(' ') + '"></path>' +
-					'</svg>'
-			}
+		load(svg) {
+			this.commands = this.toCommands((svg.match(/ d=".*?"/g)||'').map(path => path.slice(4,-1))[0])
 		}
+	},
+	computed: {
+		img() { return favicon.href=`data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}"><path d="${this.toPathString(this.commands)}"></path></svg>`}
+	}
 });
-var fr = new FileReader();
-var parser = new DOMParser();
-fr.onload = (ev) => v.load(parser.parseFromString(ev.target.result, "text/xml").firstElementChild);
 </script>
-
