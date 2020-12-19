@@ -1,7 +1,14 @@
 <!doctype html>
 <title>SVG studio</title>
-<link rel="icon" id=favicon>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="M,L,Q,C: Create a Move,Line,Quadratic,Cubic Node
+arrows: move focused node
+ctrl+arrows: move quadratic/cubic curve
+alt+arrows: move cubic curve
+delete: delete focused node
+
+shift+[one of above] = apply to the whole group" id=usage>
+<link rel="icon" id=favicon>
 <style>
 	@media (hover: none) {.pc{display:none !important;}}
 	@media (hover: hover) {.touch{display:none !important;}}
@@ -10,29 +17,30 @@
 	.Q{--color:violet}
 	.C{--color:blue}
 	body{margin:0;--size:16px}
-	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px)}
+	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px);border:1px solid #DDD;}
 	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
 	figure>.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
-	figure>input{position:absolute;background:var(--color);font-size:0;z-index:9}
-	figure>input{border:1px solid #888;width:var(--size);height:var(--size);border-radius:100%;cursor:pointer;}
-	figure>input:disabled{border:1px solid var(--color);background: none; user-select: none;}
-	figure>input:focus{outline: 3px solid #888;}
+	figure>input{position:absolute;background:var(--color);font-size:0;z-index:9;outline: none;}
+	figure>input{border:1px solid transparent;width:var(--size);height:var(--size);border-radius:100%;cursor:pointer;}
+	figure>input:disabled{border-color:var(--color);background: none; user-select: none;}
+	figure>input:focus{border-radius:0;}
+	figure>input:focus+input{}
 	</style>
 <main>
 	<nav style="display:flex;gap:5px">
-		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style=max-width:1px>
-		<button onclick="this.previousElementSibling.click()">&#8613;</button>
-		<button onclick="alert(`USAGE:\narrows: move focused node\nctrl+arrows: move curve\nalt+arrows: move cubic curve\ndelete: delete focused node\n\nshift+[one of above] = apply to the whole polygon`)">?</button>
-		<button @click="commands=commands.concat([{type:'M',x:2,y:4},{type:'L',x:3,y:4},{type:'L',x:3,y:5},{type:'L',x:2,y:5}])">&#9633;</button>
+		<button onclick="alert(usage.content)">USAGE</button>
+		<button @click="commands=commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
+		<button @click="commands=commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
 		<button @click="commands=[]">&times;</button>
 		<input v-model.number=width  max=64 min=2 type=number title=width>
 		<input v-model.number=height max=64 min=2 type=number title=height>
-		<a v-for="i in [4,8,16,24,32]" :download=name :href=img><img :src=img :width=i :height=i :title=i></a>
-		<textarea rows=1 readonly :title=img.length-24 style=flex:1>{{toPathString(commands)}}</textarea>
+		<label><input type=checkbox v-model=grid>grid</label>
+		<a v-for="i in [4,8,16,24,32]" :download=name :href=img><img :src=img :width=i :height=i :title='img.length-24'></a>
+		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)">
 	</nav>
 	<figure class=rel>
 		<img :src=img width=100%>
-		<div class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
+		<div v-if=grid class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
 			<span v-for="_ in width*height"></span>
 		</div>
 		<template v-for="lv in [1,2,'']">
@@ -45,20 +53,22 @@
 	</nav>
 </main>
 <script type=module>
-import './vue.js'; ////unpkg.com/vue@2
-new Vue({
+import "https://unpkg.com/vue@2";//import './vue.js';
+const rel = (ratio) => `calc(${100*ratio}% - calc(var(--size)/2) - 2px)`;
+const cat = (file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file));
+const kbev = (opt={}, type="keydown") => document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
+const toPathString = (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join('');
+const toCommands = (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
+	const coords = cmd.slice(1).split(',').map(Number);
+	const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
+	return JSON.parse(JSON.stringify({type:cmd[0].replace(/ /g,'L'), x, y, x1, y1, x2, y2}));//to remove undefined props
+});
+const v = new Vue({
 	el: "main",
-	mounted() {
-		try{Object.assign(this.$data, JSON.parse(localStorage.draft || '{}'))}catch{}
-	},
-	data() { return { kbd:[['&#128269;', 'Enter'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39]],
-		name:"picon.svg", width: 8, height: 8, commands: this.toCommands('M2,4L4,2Q1,2,6,4C1,2,3,4,5,6')
+	data() { return { kbd:[['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']],
+		name:"picon.svg", width: 8, height: 8, grid:true, commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')
 	}},
-	methods: {
-		kbev(opt={}, type="keydown"){
-			console.log(opt, this.$refs)
-			return document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
-		},
+	methods: {rel,cat,toPathString,toCommands,kbev,
 		key(cmd, c, ev) {
 			if(ev.key == 'Enter') {
 				Object.assign(cmd, JSON.parse(prompt("", JSON.stringify(cmd))||'{}'))
@@ -72,29 +82,20 @@ new Vue({
 				const attr = (ev.keyCode & 1 ? 'x':'y') + (ev.ctrlKey | ev.altKey*2 || '')
 				cmds.forEach(cmd=>attr in cmd?cmd[attr]=+cmd[attr]+(ev.keyCode>38)*2-1:0)
 			} else return true //don't prevent (Tab, ctrl+r ...)
-			ev.preventDefault()
+			ev.preventDefault(location.hash=this.toPathString(this.commands))
 		},
-		rel:(ratio) => `calc(${100*ratio}% - calc(var(--size)/2))`,
 		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
-		cat:(file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file)),
-		toPathString: (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join(''),
-		toCommands: (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
-			const coords = cmd.slice(1).split(',').map(Number);
-			const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
-			return JSON.parse(JSON.stringify({type:cmd[0].replace(/ /g,'L'), x, y, x1, y1, x2, y2}));//to remove undefined props
-		}),
 		groupRange(cmd,range=false) {
 			const pos = this.commands.indexOf(cmd);
 			for(var first = pos; first>0 && this.commands[first].type!='M'; first--);
 			for(var last = pos; last+1<this.commands.length && this.commands[last+1].type!='M'; last++);
 			return range ? [first,last-first+1] : this.commands.slice(first, last+1);
 		},
-		load(svg) {
-			this.commands = this.toCommands((svg.match(/ d=".*?"/g)||'').map(path => path.slice(4,-1))[0])
-		}
+		load(svg) {return this.commands = this.toCommands((svg.match(/ d=".*?"/g)||'').map(path => path.slice(4,-1))[0])}
 	},
 	computed: {
 		img() { return favicon.href=`data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}"><path d="${this.toPathString(this.commands)}"></path></svg>`}
 	}
 });
+addEventListener('hashchange', ()=>v.commands=v.toCommands(location.hash.slice(1)), false);
 </script>
