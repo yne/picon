@@ -5,7 +5,7 @@
 		"description": "Pico-icon iconset",
 		"repository": {
 			"type": "git",
-			"url": "HOST/OWNER/NAME.git"
+			"url": "HOST/USER/NAME.git"
 		},
 		"keywords": [
 			"tiny",
@@ -20,12 +20,12 @@
 			"woff2",
 			"svg"
 		],
-		"author": "OWNER <OWNER@users.noreply.HOST>",
+		"author": "USER <USER@users.noreply.HOST>",
 		"license": "OFL",
 		"bugs": {
-			"url": "HOST/OWNER/NAME/issues"
+			"url": "HOST/USER/NAME/issues"
 		},
-		"homepage": "HOST/OWNER/NAME#readme"
+		"homepage": "HOST/USER/NAME#readme"
 	},
 	"manifest": {
 		"start_url": "/picon/list",
@@ -43,10 +43,10 @@
 	"metadata": {
 		"name": "NAME",
 		"vendor": "!YNE",
-		"designer": "OWNER",
-		"designerURL": "HOST/OWNER",
-		"manufacturer": "OWNER",
-		"manufacturerURL": "HOST/OWNER",
+		"designer": "USER",
+		"designerURL": "HOST/USER",
+		"manufacturer": "USER",
+		"manufacturerURL": "HOST/USER",
 		"license": "OFL",
 		"licenseURL": "https://scripts.sil.org/OFL",
 		"category": "MONOSPACE",

@@ -20,34 +20,7 @@ jobs:
         sudo apt install -y woff2 fontforge ttfautohint jq
         wget https://cdn.jsdelivr.net/npm/opentype.js
     - name: Build
-      run: |
-        for f in $(find -name '*.m4'); do
-          m4 -DHOST=https://github.com/ -DNAME=${GITHUB_REPOSITORY#*/} -DTYPE=$(basename $(dirname $f)) -DTAG=$(date +v%y.%m.%d) -DOWNER=${GITHUB_ACTOR} -DSHA=${GITHUB_SHA} -DSVG_COUNT=$(ls */*.svg|wc -l) <${f} >${f%.*}
-        done
-        for type in */ ; do
-          TYPE=${type///}
-          OUT=$(jq -r .postScriptName < ${TYPE}/manifest.json)
-          node .list.js package.json ${TYPE}/manifest.json *.svg > ${TYPE}.json
-          node build.js < ${TYPE}.json > $OUT.otf
-          fontforge -lang=ff -c 'Open($1);Generate($2)' $OUT.otf $OUT.nohint.ttf
-          ttfautohint $OUT.nohint.ttf $OUT.ttf
-          convert -density 8192 -resize 512x512 -background transparent apple*.svg ../apple.png
-        done
-        woff2_compress *.otf
-    - name: PageRedact
-      run: |
-        ### START ###
-        size(){ du -sh $1 | awk '{print $1"B"}';}
-        [ -f /tmp/README ] || jq -n --arg text "$(<README.md)" '{"text":$text,"mode":"gfm","context":"'$GITHUB_REPOSITORY'"}' |
-          curl -sd @- https://api.github.com/markdown > /tmp/README
-        TAG=$(date +v%y.%m.%d)
-        m4 -DREPO=https://github.com/$GITHUB_REPOSITORY -DTAG=$TAG -DWOFF2_SIZE=$(size *.woff2) -DBZ2_SIZE=$(size *.bz2) < .github/pages/index.m4 > index.html
-        convert -background none  -density 5000 -resize 192x192 - logo-192.png << favicon.svg
-        convert -background none  -density 5000 -resize 512x512 - logo-512.png << favicon.svg
-        convert -background white -density 5000 -resize 180x180 - apple-touch-icon.png << favicon.svg
-        convert -background none  -density 5000 -resize 48x48 - favicon.ico << favicon.svg
-        # diff showcase
-        mkdir diff
+      run: .github/workflow/build.sh
     - name: GitHubPage
       run: |
         [ -z "$GITHUB_ACTOR" ] && exit
