@@ -1,69 +1,132 @@
-The Ligature-based pico icon font.
+# The Pico-icon set
+
+- ~810 libre icons released as SVG, Sprite, PNG, ligatured Font, and JSON ([icomoon](https://icomoon.io/app) compatible), (see: [format comparaison](https://github.com/yne/picon/wiki/format))
+- Lightweight: Average SVGs are ~145 Bytes, that's 5 times lighter than Fontawesome (see: [size comparaison](https://github.com/yne/picon/wiki/size))
+- Designed on a 8px grid: to be readable at 8px 16px 24px 32px 48px ... (see: [render comparaison](https://github.com/yne/picon/wiki/render))
+- ~656100 icon composition possible (see: Advanced usage)
+- CDN backed
+
+# Basic Usage
 
 ```html
+<!-- SVG standalone -->
+<img src="//unpkg.com/picon/app.svg" alt="app">
+
+<!-- SVG Sprite -->
+<svg><use xlink:href="//unpkg.com/picon/.svg#app"></use></svg>
+
+<!-- Ligatured Font -->
 <style>
 @font-face {
-  font-family:picon;
-  src:url(//yne.fr/picon/Picon-Regular.woff2);
+  src: url(//unpkg.com/picon);
+  font-family: picon;
 }
-.picon { font-family:picon; }
+.picon { font-family: picon; }
 </style>
 <span class=picon>app</span>
 ```
 
-## Hackable
+# Advanced Usage
 
-Picon is under **[SIL Open Font License 1.1](https://github.com/yne/picon/blob/master/OFL.txt) Licencied**, so you can
+## Mardown compatibility
 
-- build it
-- use it
-- break it
-- sell it
+If you don't need the "strikeout" mardown feature (`~~app~~`) you can create a rule to show them as icons:
 
-## Pico sized
+```css
+del { font-family:picon; text-decoration: none;}
+```
 
-| Name                                             | Avg. SVGs sizes |
-|:----------                                       |             ---:|
-| [Picon](https://yne.fr/picon)                    |       144 Bytes |
-| [Feather](https://feathericons.com/)             |       378 Bytes |
-| [Material](https://material.io/resources/icons/) |       479 Bytes |
-| [Jam](https://jam-icons.com/)                    |       535 Bytes |
-| [teenyicons](https://teenyicons.com/)            |       597 Bytes |
-| [Fontawesome](https://fontawesome.com)           |       754 Bytes |
-| [Clarity](https://clarity.design/icons)          |       916 Bytes |
-| [Entypo](http://www.entypo.com/)                 |      1070 Bytes |
+## Composition
 
-## Pico readability (8x8)
+To stay lightweight Picon does not provide composed (call-in, call-out, call-forward) icons.
+Here is how to create any possible icon composition:
 
-| Iconset                                          | 🖼 | 📞 | 🔈 | 🕷️ |
-|---                                               |---|---|---|---|
-| [Clarity](https://clarity.design/icons)          | ![pic-clarity](.github/pages/compare/clarity-pic.png)     | ![phone-clarity](.github/pages/compare/clarity-phone.png)     | ![vol-clarity](.github/pages/compare/clarity-vol.png)     | ![bug-clarity](.github/pages/compare/clarity-bug.png) |
-| [Entypo](http://entypo.com/)                     | ![pic-entypo ](.github/pages/compare/entypo-pic.png)      | ![phone-entypo ](.github/pages/compare/entypo-phone.png)      | ![vol-entypo ](.github/pages/compare/entypo-vol.png)      | ![bug-entypo ](.github/pages/compare/entypo-bug.png) |
-| [Feather](https://feathericons.com/)             | ![pic-feather](.github/pages/compare/feather-pic.png)     | ![phone-feather](.github/pages/compare/feather-phone.png)     | ![vol-feather](.github/pages/compare/feather-vol.png)     | ![bug-feather](.github/pages/compare/feather-bug.png) |
-| [Fontawesome](https://fontawesome.com)           | ![pic-fawesom](.github/pages/compare/fontawesome-pic.png) | ![phone-fawesom](.github/pages/compare/fontawesome-phone.png) | ![vol-fawesom](.github/pages/compare/fontawesome-vol.png) | ![bug-fawesom](.github/pages/compare/fontawesome-bug.png) |
-| [Jam](https://jam-icons.com/)                    | ![pic-jamicon](.github/pages/compare/jam-pic.png)         | ![phone-jamicon](.github/pages/compare/jam-phone.png)         | ![vol-jamicon](.github/pages/compare/jam-vol.png)         | ![bug-jamicon](.github/pages/compare/jam-bug.png) |
-| [Material](https://material.io/resources/icons/) | ![pic-materia](.github/pages/compare/material-pic.png)    | ![phone-materia](.github/pages/compare/material-phone.png)    | ![vol-materia](.github/pages/compare/material-vol.png)    | ![bug-materia](.github/pages/compare/material-bug.png) |
-| [Picon](https://yne.fr/picon)                    | ![pic-picon  ](.github/pages/compare/picon-pic.png)       | ![phone-picon  ](.github/pages/compare/picon-phone.png)       | ![vol-picon  ](.github/pages/compare/picon-vol.png)       | ![bug-picon  ](.github/pages/compare/picon-bug.png) |
-| [Teenyicons](https://teenyicons.com/)            |   |
+- Same size overlay :
+```html
+<style>
+/* stack same level space-separated icons */
+.picon {word-spacing: -2em;}
+/* stack smaller top/bottom icon */
+.picon>sup,.picon>sub{
+	font-size: .5em;
+	margin-left: -1em;
+}
+.picon>sup{vertical-align:text-top;}
+.picon>sub{vertical-align:text-bottom;}
+.green{color: #080;}
+.orange{color: #F80;}
+.revert{color: #fff;mix-blend-mode:exclusion;}
+</style>
+<span class=picon>wifi-0 not</span>
+<span class=picon>wifi-0<sub>+</sub></span>
+<span class=picon>wifi-0<sup>+</sup></span>
+```
 
-## SVG vs Font
+```css
+body{
+	font-size: 96px;
+}
+h1 {
+	background: linear-gradient(#30CFD0, #330867);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+```
 
-If want to have icons on your website, you may hesistate between using a couple of SVG, or importing a for or simply use unicode glyphs.
+# HTML integration
 
-Picon is available as SVGs or as a font. But font format offer the following advantages:
+As opposed to SVG, font icons can be used in text-only elements:
 
-- it will assure you to have a **reproducible** result on any plateform (unlike unicode).
-- it can bundle many icons while being **lightweight** because of it binary and compressed format (unlike SVG).
-- it can be used in **text-only** section like input placeholder or pseudo element (unlike SVG).
-- it can be **colored** to match your style (unlike unicode or SVG that needs to be inlined in your DOM).
-- it can have any brand logo or **custom icon** you may need (unlike Unicode)
+```html
 
-|Criteria     | Uni | SVG | Font|
-|:------------|:---:|:---:|:---:|
-|Coloration   |  ✗  |  ✗  |  ✓  |
-|Lightweight  |  ✓  |  ✗  |  ✓  |
-|Reproductible|  ✗  |  ✓  |  ✓  |
-|Customizable |  ✗  |  ✓  |  ✓  |
-|Text-based   |  ✓  |  ✗  |  ✓  |
-|Multi-color  |  ✓  |  ✓  |  ✗  |
+<input type=reset class=picon value=cross>
 
+<select>
+	<optgroup label=iconless>
+		<option>wifi-0
+	</optgroup>
+	<optgroup class=picon label="wifi-0">
+		<option>wifi-0
+		<option>wifi-4
+	</optgroup>
+</select>
+```
+
+It can also react to elements states/attributes.
+
+For example it can automatically display the corresponding language icon to a `<pre>` code element:
+
+```html
+<pre lang=js>{}</pre>
+<style>
+pre[lang]:after{
+	font-family: picon;
+	content: attr(lang);
+	float: right;
+}
+</style>
+```
+
+# Animation
+
+```html
+<style>
+@keyframes hourglass {
+	0%,100%{content:'hourglass0'}
+	10%{content:'hourglass1'}
+	20%{content:'hourglass2'}
+	20%{content:'hourglass3'}
+	40%{content:'hourglass4'}
+	20%{content:'hourglass5'}
+	60%{content:'hourglass6'}
+	20%{content:'hourglass7'}
+	80%{content:'hourglass8'}
+}
+.wait:after{
+	font-family: picon;
+	content: 'hourglass-0';
+	animation: hourglass 1s infinite;
+}
+</style>
+<input type=submit disabled class=wait>
+```

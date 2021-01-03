@@ -11,7 +11,7 @@
 <link rel=apple-touch-icon href=apple-touch-icon.png>
 <!--script src=list.js></script-->
 <script src="opentype.js" defer></script>
-<script src="picon.js" defer></script>
+<script src="build.js" defer></script>
 <style>
 body{margin: 0;}
 .flex{display: flex;}
@@ -60,7 +60,7 @@ const show = ({glyphs,...font}) => glyphs.forEach(icon => window.icons.append(el
 	id: icon.ligatures,
 	src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="' + icon.path.join(' ') + '"></path></svg>'
 })));
-const dupsliga = (icons) => icons.map(i=>i.liga).reduce((acc,val,i,all) => all.indexOf(val) == all.lastIndexOf(val) ? acc : acc.concat(val), []);
+//const dupsliga = (icons) => icons.map(i=>i.liga).reduce((acc,val,i,all) => all.indexOf(val) == all.lastIndexOf(val) ? acc : acc.concat(val), []);
 const datalist = (icons,dl) => icons.forEach(icon => dl.append(el('option', {innerText:icon.name})));
 
 cache('picon.json').then(JSON.parse).then(show);

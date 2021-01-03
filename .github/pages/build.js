@@ -50,7 +50,7 @@ function makeFont(opentype, {glyphs=[], ...font}) {
 }
 
 if (typeof process !== "undefined") {
-	opentype = require("./opentype.js");//Promise.resolve(require("./opentype.js"))
+	const opentype = require("./opentype.js");//Promise.resolve(require("./opentype.js"))
 	const json = JSON.parse(require('fs').readFileSync(process.argv[2], 'utf8'));
 	process.stdout.write(Buffer.from(makeFont(opentype, json).toArrayBuffer()))
 }

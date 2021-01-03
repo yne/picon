@@ -3,12 +3,12 @@
 <meta charset=utf-8>
 <title>PICON - The Picon Icon Set - TAG </title>
 <meta name=description content="Easy Hackable Ligature based PicoIcon Font">
-<meta name=theme-color content=#F8F8F8>
+<meta name=theme-color content="#F8F8F8">
 <meta name=viewport content="width=device-width,initial-scale=1">
-<link rel=manifest href=manifest.json>
-<link rel=stylesheet href=style.css>
-<link rel=icon type="image/x-icon" href=favicon.ico>
-<link rel=apple-touch-icon href=apple-touch-icon.png>
+<link rel=manifest href="manifest.json">
+<link rel=stylesheet href="style.css">
+<link rel=icon href="favicon.svg">
+<link rel=apple-touch-icon href="apple-touch-icon.png">
 <style>
 table {margin: auto;min-width: 256px;}
 [aria-label=logo]>svg{fill: var(--text);display: block;margin: auto;max-width: 24em}
