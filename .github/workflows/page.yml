@@ -15,12 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Prerequist
-      working-directory: ${{env.pages}}
       run: |
         sudo apt install -y woff2 fontforge ttfautohint jq
-        wget https://cdn.jsdelivr.net/npm/opentype.js
     - name: Build
-      run: .github/workflow/build.sh
+      run: make
     - name: GitHubPage
       run: |
         [ -z "$GITHUB_ACTOR" ] && exit
