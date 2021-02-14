@@ -26,11 +26,10 @@ OUTPUT
 	...
 ]
 **/
-
-process.stdout.write(JSON.stringify((metadata,...svgs) => ({
+process.stdout.write(JSON.stringify(((metadata,...svgs) => ({
 	IcoMoonType: "selection",
 	height: 8,
-	metadata: require('fs').readFileSync(metadata),
+	metadata: JSON.parse(require('fs').readFileSync(metadata)),
 	icons: svgs.map(p => ({
 			props: require('path').basename(p, '.svg').split('.'),
 			data: require('fs').readFileSync(p, 'utf8')
@@ -53,5 +52,5 @@ process.stdout.write(JSON.stringify((metadata,...svgs) => ({
 			_unicodes.length ? _unicodes.map(u => ({icon:{defaultCode:u, ...icon},properties})) : [{icon:{defaultCode:0xE000+idx, ...icon}, properties}]
 		).flat()
 		.sort((a, b) => a.defaultCode - b.defaultCode)
-})(...process.argv.slice(2)), /* indent JSON with 2 spaces: */null, 2))
+}))(...process.argv.slice(2)), null, 2))
 

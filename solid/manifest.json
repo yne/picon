@@ -1,0 +1,20 @@
+{
+  "style": "normal",
+  "styleName": "solid",
+  "filename": "picon-solid.ttf",
+  "postScriptName": "picon-solid",
+  "familyName": "picon",
+  "unitsPerEm": 16,
+  "bProportion": 9,
+  "description": "Easy Hackable PicoIcon Set",
+  "version": "Version TAG; git-SHA-release",
+  "fullName": "picon solid",
+  "weightClass": 400,
+  "copyright": "Copyright 2020 The picon Project Authors (HOST/REPO/graphs/contributors with Reserved Font Name \"picon\")",
+  "trademark": "picon (tm)",
+  "tables": {
+    "os2": {
+      "achVendID": "!YNE"
+    }
+  }
+}

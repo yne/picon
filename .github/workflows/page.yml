@@ -21,11 +21,10 @@ jobs:
       run: make
     - name: GitHubPage
       run: |
-        [ -z "$GITHUB_ACTOR" ] && exit
         git config user.name  "${GITHUB_ACTOR}"
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
-        git checkout -b gh-pages
+        git checkout -b pages
         git add .
         git commit -m "$(date -u) ${GITHUB_SHA}"
         git push origin_token --force
