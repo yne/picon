@@ -1,19 +1,28 @@
 {
-  "style": "normal",
-  "styleName": "solid",
-  "filename": "picon-solid.ttf",
-  "postScriptName": "picon-solid",
   "familyName": "picon",
+  "styleName": "Regular",
+  "fontSubfamily": "Monospace",
+  "preferredSubfamily": "Monospace",
+  "filename": "picon-Regular.ttf",
+  "postScriptName": "picon-Regular",
   "unitsPerEm": 16,
-  "bProportion": 9,
+  "ascender": 16,
+  "descender": 0,
+  "license": "OFL",
+  "licenseURL": "https://scripts.sil.org/OFL",
+  "designer": "OWNER",
+  "designerURL": "REPO",
+  "manufacturer": "OWNER",
+  "manufacturerURL": "REPO",
   "description": "Easy Hackable PicoIcon Set",
-  "version": "Version TAG; git-SHA-release",
+  "version": "Version 1.0; git-deadbeef-release",
   "fullName": "picon solid",
   "weightClass": 400,
-  "copyright": "Copyright 2020 The picon Project Authors (HOST/REPO/graphs/contributors with Reserved Font Name \"picon\")",
+  "copyright": "Copyright 2020 The picon Project Authors (HOST/REPO/graphs/contributors with Font Name \"picon\")",
   "trademark": "picon (tm)",
   "tables": {
     "os2": {
+      "bProportion": 9,
       "achVendID": "!YNE"
     }
   }

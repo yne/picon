@@ -26,6 +26,7 @@ OUTPUT
 	...
 ]
 **/
+const log = (str) => (console.error(str),str)
 process.stdout.write(JSON.stringify(((metadata,...svgs) => ({
 	IcoMoonType: "selection",
 	height: 8,
@@ -43,14 +44,14 @@ process.stdout.write(JSON.stringify(((metadata,...svgs) => ({
 			},
 			properties: {
 				ligatures: props.filter(p=>p.match(/^[a-z]/)).join(', '),
-				name: props[0]
+				name: props[0].startsWith('%') ? null : props[0].replace(/^\d/,s=>'_'+s)
 			}
 		}))
 		// iconmoon json expect only 1 unicode per glyph
 		// split our unicodes into multiple glyphs with .defaultCode:int
 		.map(({_unicodes, icon, properties}, idx) =>
 			_unicodes.length ? _unicodes.map(u => ({icon:{defaultCode:u, ...icon},properties})) : [{icon:{defaultCode:0xE000+idx, ...icon}, properties}]
-		).flat()
-		.sort((a, b) => a.defaultCode - b.defaultCode)
+		).flat().map(el => ({...el, properties:{...el.properties, name: el.properties.name || 'uni'+('0000'+el.icon.defaultCode.toString(16).toUpperCase()).slice(-4)}}))
+		.sort((a, b) => a.icon.defaultCode - b.icon.defaultCode)
 }))(...process.argv.slice(2)), null, 2))
 
