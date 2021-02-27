@@ -1,4 +1,3 @@
-#!/usr/bin/awk /[S]TART/,0
 name: page
 
 on:
@@ -19,35 +18,43 @@ jobs:
         sudo apt install -y woff2 fontforge ttfautohint jq
     - name: Build
       run: make
-    - name: GitHubPage
-      run: |
-        git config user.name  "${GITHUB_ACTOR}"
-        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-        git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
-        git checkout -b pages
-        git add .
-        git commit -m "$(date -u) ${GITHUB_SHA}"
-        git push origin_token --force
     - name: GitHubRelease
       run: |
+        TAG=$(date +v%y.%m.%d)
         message=$(git log -1 --pretty=format:"%s")
         [[ "$message" == "[WIP]"* ]] && exit;
         page=$(curl -v -u:${PERSONAL_TOKEN} -H "Content-Type:application/json" -d '{"tag_name": "'$TAG'"}' https://api.github.com/repos/${GITHUB_REPOSITORY}/releases)
         echo page is "$page"
         upload_url=$(echo "$page" | jq -r .upload_url)
         echo upload on $upload_url
-        for f in METADATA.pb Picon-*; do
+        for f in [[:lower:]]*.*; do
           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
         done
         curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/yne/picon |
-        jq '{name,version:"'$TAG'",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},publishConfig:{registry:"https://npm.pkg.github.com"},keywords:.topics}' > package.json
-    - name: NpmPackage
-      uses: actions/setup-node@v1
-      with: registry-url: 'https://registry.npmjs.org'
+        jq '{name,version:"'$TAG'",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
+    # NpmPackage
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
     - run: npm publish --access public
-      env: NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: GitHubPackage
-      uses: actions/setup-node@v1
-      with: registry-url: 'https://npm.pkg.github.com'
-    - run: npm publish
-      env: NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+#    - name: GitHubPackage
+#      uses: actions/setup-node@v1
+#      with:
+#        scope: '@yne'
+#        registry-url: 'https://npm.pkg.github.com'
+#    - run: npm publish
+#      env:
+#        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#    - name: GitHubPage
+#      run: |
+#        git config user.name  "${GITHUB_ACTOR}"
+#        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+#        git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
+#        git checkout -b pages
+#        git add .
+#        git commit -m "$(date -u) ${GITHUB_SHA}"
+#        git push origin_token --force
