@@ -30,8 +30,8 @@ jobs:
         for f in [[:lower:]]*.*; do
           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
         done
-        curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/yne/picon |
-        jq '{name,version:"'$TAG'",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
+        curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/${GITHUB_REPOSITORY} |
+        jq '{name,version:"'$TAG'",main:"solid.all.woff2",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
     # NpmPackage
     - uses: actions/setup-node@v2
       with:
@@ -43,7 +43,6 @@ jobs:
 #    - name: GitHubPackage
 #      uses: actions/setup-node@v1
 #      with:
-#        scope: '@yne'
 #        registry-url: 'https://npm.pkg.github.com'
 #    - run: npm publish
 #      env:
