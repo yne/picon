@@ -8,6 +8,7 @@ all:  solid/solid.min.woff2 solid/solid.all.woff2 solid/solid.all.ttf solid/soli
 %.all.json:    ; node .github/workflows/icomoon.js $(dir $@)manifest.json $(dir $@)*.*.svg > $@
 %.min.json: %.all.json ; jq 'del(.icons[]|select(.icon.tags|index("latin")))' <$^ > $@
 %.otf: %.json .github/pages/opentype.js ; node .github/pages/build.js <$< >$@
+%.pb: %.pb.m4  ; m4 -D JSONS="($(shell ls -m */manifest.json))" <$^ >$@
 
 # external deps
 .github/pages/opentype.js:; wget https://cdn.jsdelivr.net/npm/opentype.js@1.3.3/dist/opentype.js -O $@
