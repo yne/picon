@@ -28,7 +28,7 @@ to get the app ~~app~~ icon
 
 ## Hackable
 
-Picon is under **[SIL Open Font License 1.1](https://github.com/yne/picon/blob/master/OFL.txt) Licencied**, so you can
+Picon is under **[SIL Open Font License 1.1](https://github.com/yne/picon/blob/master/OFL.txt) licenced**, so you can
 
 - rebuild your own version
 - use it in any commercial project
@@ -75,11 +75,11 @@ find -name '*.svg' -printf '%s\n' | awk '{s+=$0} END {printf s/NR}'
 
 ## Font
 
-If want to have icons on your website, you may hesistate between using a couple of SVG, or importing a for or simply use unicode glyphs.
+If want to have icons on your website, you may hesitate between using a couple of SVG, or importing a for or simply use unicode glyphs.
 
 Picon is available as SVGs or as a font. But font format offer the following advantages:
 
-- it will assure you to have a **reproducible** result on any plateform (unlike unicode).
+- it will assure you to have a **reproducible** result on any platform (unlike unicode).
 - it can bundle many icons while being **lightweight** because of it binary and compressed format (unlike SVG).
 - it can be used in **text-only** section like input placeholder or pseudo element (unlike SVG).
 - it can be **colored** to match your style (unlike unicode or SVG that needs to be embedded to do that).
@@ -142,7 +142,7 @@ Any HTML element that display text (reset button, select ...) can also display P
 </details>
 
 <details>
-<summary>attribut based icon</summary>
+<summary>attribute based icon</summary>
 
 Display the language icon of a `<pre lang=js>var i=0</pre>` :
 
