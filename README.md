@@ -10,10 +10,10 @@
 
 ```html
 <!-- SVG standalone -->
-<img src="//unpkg.com/picon/app.svg" alt="app">
+<img src="//unpkg.com/picon/solid/app.svg" alt="app">
 
 <!-- SVG Sprite -->
-<svg><use xlink:href="//unpkg.com/picon/.svg#app"></use></svg>
+<svg><use xlink:href="//unpkg.com/picon/solid.svg#app"></use></svg>
 
 <!-- Ligatured Font -->
 <style>
