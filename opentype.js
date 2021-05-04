@@ -4979,7 +4979,6 @@
 	        var dx = (void 0);
 	        var dy = (void 0);
 	        var cmd = path.commands[i];
-					//console.error(`start at : ${x} ${y}:`, cmd);
 	        if (cmd.type === 'Q') {
 	            // CFF only supports bézier curves, so convert the quad to a bézier.
 	            var _13 = 1 / 3;
@@ -5020,7 +5019,6 @@
 	            var dy2 = Math.round(cmd.y2 - cmd.y1);
 	            dx = Math.round(cmd.x - cmd.x2);
 	            dy = Math.round(cmd.y - cmd.y2);
-							//console.error(cmd.x ,'-', cmd.x2, '=', dx);
 	            ops.push({name: 'dx1', type: 'NUMBER', value: dx1});
 	            ops.push({name: 'dy1', type: 'NUMBER', value: dy1});
 	            ops.push({name: 'dx2', type: 'NUMBER', value: dx2});
@@ -5034,7 +5032,7 @@
 
 	        // Contours are closed automatically.
 	    }
-			//console.error(ops);
+
 	    ops.push({name: 'endchar', type: 'OP', value: 14});
 	    return ops;
 	}
@@ -7097,11 +7095,11 @@
 	        names.postScriptName = {en: postScriptName};
 	    }
 
-	    if (names.preferredFamily === undefined) {
+	    if (!names.preferredFamily) {
 	        names.preferredFamily = font.names.fontFamily;
 	    }
 
-	    if (names.preferredSubfamily === undefined) {
+	    if (!names.preferredSubfamily) {
 	        names.preferredSubfamily = font.names.fontSubfamily;
 	    }
 

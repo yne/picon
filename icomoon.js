@@ -27,6 +27,7 @@ OUTPUT
 ]
 **/
 const log = (str) => (console.error(str), str);
+const colorTag = /^#[0-9a-f]{3}$/
 process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 	IcoMoonType: "selection",
 	height: 32, // preview size
@@ -38,13 +39,14 @@ process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 		.map(({ props, data }, idx) => ({
 			_unicodes: props.filter(p => p.startsWith('%')).map(xx => decodeURIComponent(xx).charCodeAt(0)),
 			icon: {
-				tags: props.filter(p => p.startsWith('#')).map(h => h.slice(1)),
+				color: props.find(p => p.match(colorTag))||'#000',
+				tags: props.filter(p => p.startsWith('#') && !p.match(colorTag)).map(h => h.slice(1)),
 				grid: +(data.match(/ viewBox="\d+ \d+ \d+ (\d+)"/) || [16]).slice(-1)[0],
 				paths: [...data.matchAll(/ d="(.*?)"/g)].map(d => d[1])
 			},
-			properties: {
-				ligatures: props.filter(p => p.match(/^[a-z]/)).join(', '),
-				name: props[0].startsWith('%') ? null : props[0].replace(/^\d/, s => '_' + s)
+			properties: props[0].startsWith('%') ?  {ligatures:''} : {
+				ligatures: props.filter(p => p.match(/^[0-9a-z]/)).join(', '),
+				name: props[0].replace(/^\d/, s => '_' + s) /* null will generate uniNNN name later */
 			}
 		}))
 		// iconmoon json expect only 1 unicode per glyph
