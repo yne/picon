@@ -10,15 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-      pages: .github/pages
     steps:
     - uses: actions/checkout@v2
     - name: Prerequist
-      run: |
-        sudo apt install -y woff2 fontforge ttfautohint jq
+      run: sudo apt install -y woff2 fontforge ttfautohint jq inkscape # better svg rendering for montage
     - name: Build
-      run: make all METADATA.pb
-    - name: GitHubRelease
+      run: |
+        make all METADATA.pb solid.png
+        for svg in solid/*.svg; do echo $svg | sed 's|[.].*|.svg|;s|^.*/|solid/|' | xargs mv $svg; done
+        ls solid/*.svg | sed s/.svg/.png/ | xargs make
+    - name: Release
       run: |
         TAG=$(date +v%y.%m.%d)
         message=$(git log -1 --pretty=format:"%s")
@@ -27,33 +28,27 @@ jobs:
         echo page is "$page"
         upload_url=$(echo "$page" | jq -r .upload_url)
         echo upload on $upload_url
-        for f in [[:lower:]]*.*; do
+        for f in solid.*; do
           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
         done
         curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/${GITHUB_REPOSITORY} |
         jq '{name,version:"'$TAG'",main:"solid.all.woff2",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
+    - name: Page
+      run: |
+        git config user.name  "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
+        git checkout -b gh-pages
+        git add .
+        git commit -m "$(date -u) ${GITHUB_SHA}"
+        git push origin_token --force
     # NpmPackage
     - uses: actions/setup-node@v2
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: npm publish --access public
+    - name: NPM
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-#    - name: GitHubPackage
-#      uses: actions/setup-node@v1
-#      with:
-#        registry-url: 'https://npm.pkg.github.com'
-#    - run: npm publish
-#      env:
-#        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#    - name: GitHubPage
-#      run: |
-#        git config user.name  "${GITHUB_ACTOR}"
-#        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-#        git remote add origin_token "https://x-access-token:${PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.git"
-#        git checkout -b pages
-#        git add .
-#        git commit -m "$(date -u) ${GITHUB_SHA}"
-#        git push origin_token --force

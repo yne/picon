@@ -1,83 +1,104 @@
 # The Pico-icon set
 
-[![preview](https://unpkg.com/picon/picon.png)](list.html)
+[![preview](https://raw.githubusercontent.com/yne/picon/gh-pages/solid.png)](list.html)
 
-[Icon list](./list.html) | [Download](./releases) | [Editor](./edit.html)
+[Download](https://github.com/yne/picon/releases) | [Icon finder](https://yne.fr/picon/list) | [Editor](https://yne.fr/picon/edit)
 
-- ~850 libre icons released as ligatured Font, SVG, PNG, and [icomoon](https://icomoon.io/app) project, (see: [format comparaison](./wiki/format))
-- Lightweight: Average SVGs are ~145 Bytes, that's 5 times lighter than Fontawesome (see: [size comparaison](https://github.com/yne/picon/wiki/size))
-- Designed on a 8px grid: to be readable at 8px 16px 24px 32px 48px ... (see: [render comparaison](https://github.com/yne/picon/wiki/render))
-- Thousand of icon composition possible (see: [composition](#Composition))
+- ~850 libre icons released as ligatured Font, SVG, PNG, and JSON [icomoon](https://icomoon.io/app) project, [compare](https://github.com/yne/picon/wiki/format)
+- Hackable: Remove any useless icon using the [Icomoon](https://icomoon.io/app) app (`min` variant already available if you don't want care about ASCII glyphs)
+- Lightweight: Average SVGs are 5x lighter than Fontawesome, [source](https://github.com/yne/picon/wiki/size)
+- Designed on a 8px grid: to be readable at 8px 16px 24px 32px 48px ... [demo](https://github.com/yne/picon/wiki/render)
+- Thousand of icon [composition](#composition) possible
 - CDN backed via [unpkg.com](https://unpkg.com/picon) and [jsdelivr.net](https://cdn.jsdelivr.net/npm/picon)
 
 # Usage
 
 ```html
-<!-- SVG standalone -->
+<!-- SVG: for casual usage -->
 <img src="//unpkg.com/picon/solid/app.svg" alt="app">
 
-<!-- SVG Sprite -->
+<!-- Sprites: for massive usage -->
 <svg><use xlink:href="//unpkg.com/picon/solid.svg#app"></use></svg>
 
-<!-- Ligatured Font -->
+<!-- Font: for ligature junky -->
 <style>
 @font-face {
-  src: url(//unpkg.com/picon);
+  src: url(https://unpkg.com/picon);
   font-family: picon;
 }
 .picon { font-family: picon; }
 </style>
+
 <span class=picon>app</span>
 ```
 
-# Usage in Mardown environment
+# Mardown Usage
 
-If you don't need the `~~strikeout~~` mardown feature you can create a rule to show them as icons:
+If you don't need the `~~strikeout~~` mardown feature you can create a rule to show striked text as icons:
 
 ```css
-del { font-family:picon; text-decoration: none;}
+del {
+	font-family:picon; 
+	text-decoration: none;
+}
 ```
 
 # Composition
 
-To stay lightweight Picon does not provide composed (call-in, call-out, call-forward) icons.
-Here is how to create any possible icon composition:
+To stay lightweight, Picon does not provide composed (call-in, call-out, call-forward) icons.
+Following the mardown `<del>` example, you can compose using:
 
-- Same size overlay :
 ```html
 <style>
-/* stack same level space-separated icons */
-.picon {word-spacing: -2em;}
-/* stack smaller top/bottom icon */
-.picon>sup,.picon>sub{
-	font-size: .5em;
-	margin-left: -1em;
+del {
+	font-family: picon;
+	word-spacing: -2em; /* Same size overlay */
+	text-decoration: none; /* un-strike */
+	text-shadow:/* white halo */
+	-1px -1px 0 white,
+	-1px -0px 0 white,
+	-1px  1px 0 white,
+	-0px -1px 0 white,
+	-0px -0px 0 white,
+	-0px  1px 0 white,
+	 1px -1px 0 white,
+	 1px -0px 0 white,
+	 1px  1px 0 white;
 }
-.picon>sup{vertical-align:text-top;}
-.picon>sub{vertical-align:text-bottom;}
-.green{color: #080;}
-.orange{color: #F80;}
-.revert{color: #fff;mix-blend-mode:exclusion;}
+del>sup,del>sub{
+	font-size: .5em; /* twice smaller */
+	margin-left: -1em; /* right side*/
+}
+del>sup{vertical-align:text-top;}
+del>sub{vertical-align:text-bottom;}
 </style>
-<span class=picon>wifi-0 not</span>
-<span class=picon>wifi-0<sub>+</sub></span>
-<span class=picon>wifi-0<sup>+</sup></span>
 ```
 
-```css
-body{
-	font-size: 96px;
-}
-h1 {
-	background: linear-gradient(#30CFD0, #330867);
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
+> Note: replace `del` with `.picon` if you prefere
+
+you can now associate any [parent](list#parent) with any [child](list#child%7Carrow%7Clang) icon:
+
+```html
+<del>microphone not</del>
+<del>wifi4<sub>!</sub></del>
+<del>printer<sub>magnifier</sub></del>
+<del>bluetooth<sub>add</sub></del>
+<del>gsm0<sub>chain</sub></del>
+<del>wifi4<sub>5g</sub></del>
+<del>lock<sub>warning</sub></del>
+<del>file<sub>attachment</sub></del>
+<del>calendar<sub>add</sub></del>
+<del>battery<sub>bolt</sub></del>
+<del>file<sub>markdown</sub></del>
+<del>call<sup>rightward</sup></del>
+<del>drive<sub>wrench</sub></del>
+<del>screen<sub>colors</sub></del>
+<del>picture<sub>contrast</sub></del>
 ```
 
-# HTML integration
+# HTML text element
 
-As opposed to SVG, font icons can be used in text-only elements:
+As opposed to SVG, ligatured font can be used in text-only elements (`<option>`, `<input>` ...):
 
 ```html
 
@@ -85,21 +106,28 @@ As opposed to SVG, font icons can be used in text-only elements:
 
 <select>
 	<optgroup label=iconless>
-		<option>wifi-0
+		<option>wifi0
 	</optgroup>
-	<optgroup class=picon label="wifi-0">
-		<option>wifi-0
-		<option>wifi-4
+	<optgroup class=picon label="wifi0">
+		<option>wifi0
+		<option>wifi4
 	</optgroup>
 </select>
 ```
 
-It can also react to elements states/attributes.
+# Pseudo-element
 
-For example it can automatically display the corresponding language icon to a `<pre>` code element:
+Font can react from states and attributes.
+
+For example it can automatically display the corresponding language icon to a `<pre>` element:
 
 ```html
-<pre lang=js>{}</pre>
+<pre lang=js>
+function example(){
+	return 0;
+}
+</pre>
+
 <style>
 pre[lang]:after{
 	font-family: picon;
@@ -108,45 +136,67 @@ pre[lang]:after{
 }
 </style>
 ```
+
+It can also help to unify browser style for input typefile/checkbox/radio:
+
+```html
+<input type=file data-before=file style=width:1em>
+<input type=checkbox data-before=ballot data-before-checked=checked style=appearance:none>
+<input type=radio data-before=false data-before-checked=true style=appearance:none>
+<style>
+[data-before-checked]:checked::before{
+	font-family: picon;
+	content: attr(data-before-checked);
+}
+[data-before]::before{
+	font-family: picon;
+	content: attr(data-before);
+}
+</style>
+```
+
 # Color gradient
 
 ```html
 <style>
-	.rainbow{
-		background: linear-gradient(
-		#5eb544 00.0% 37.5%,
-		#f5b226 37.5% 50.0%,
-		#ed7e1e 50.0% 62.5%,
-		#d9383c 62.5% 75.0%,
-		#913b92 75.0% 87.5%,
-		#0098d5 87.5% 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-	}
+.rainbow{
+	background: linear-gradient(
+	#5eb544 00.0% 37.5%,
+	#f5b226 37.5% 50.0%,
+	#ed7e1e 50.0% 62.5%,
+	#d9383c 62.5% 75.0%,
+	#913b92 75.0% 87.5%,
+	#0098d5 87.5% 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 <style>
-<input class="picon rainbow">
+<input type=search class="picon rainbow">
 ```
 
 # Animation
 
+Add a hourglass spinner to any disabled submit input
+
 ```html
 <style>
 @keyframes hourglass {
-	0%,100%{content:'hourglass0'}
-	10%{content:'hourglass1'}
-	20%{content:'hourglass2'}
+	0%,100%{content:'hourglass1'}
+	10%{content:'hourglass2'}
 	20%{content:'hourglass3'}
-	40%{content:'hourglass4'}
+	20%{content:'hourglass4'}
+	40%{content:'hourglass5'}
 	20%{content:'hourglass5'}
 	60%{content:'hourglass6'}
 	20%{content:'hourglass7'}
 	80%{content:'hourglass8'}
 }
-.wait:after{
+input[type=submit]:disabled::after{
 	font-family: picon;
-	content: 'hourglass-0';
+	content: 'hourglass1';
 	animation: hourglass 1s infinite;
 }
 </style>
-<input type=submit disabled class=wait>
+<input type=submit disabled>
 ```
+
