@@ -32,21 +32,26 @@
 <span class=picon>app</span>
 ```
 
-# Mardown Usage
+> Tips: Always use a versioned CDN url (ex: `https://unpkg.com/picon@21.5.5`) for production
+
+# Mardown Integration
 
 If you don't need the `~~strikeout~~` mardown feature you can create a rule to show striked text as icons:
 
 ```css
-del {
+del, s {
 	font-family:picon; 
 	text-decoration: none;
 }
 ```
 
+[Live Demo](https://codepen.io/qxc32034/pen/PopoOzZ)
+
 # Composition
 
-To stay lightweight, Picon does not provide composed (call-in, call-out, call-forward) icons.
-Following the mardown `<del>` example, you can compose using:
+To stay lightweight, Picon does not provide any composed icons like `call-in`, `call-out`, `call-forward`.
+
+Following the previous Mardown `<del>` example, you can compose using:
 
 ```html
 <style>
@@ -74,7 +79,7 @@ del>sub{vertical-align:text-bottom;}
 </style>
 ```
 
-> Note: replace `del` with `.picon` if you prefere
+> Note: replace `del` with `s` or `.picon` according to your Mardown processor
 
 you can now associate any [parent](list#parent) with any [child](list#child%7Carrow%7Clang) icon:
 
@@ -96,12 +101,13 @@ you can now associate any [parent](list#parent) with any [child](list#child%7Car
 <del>picture<sub>contrast</sub></del>
 ```
 
+[Live Demo](https://codepen.io/qxc32034/pen/PopoOzZ)
+
 # HTML text element
 
 As opposed to SVG, ligatured font can be used in text-only elements (`<option>`, `<input>` ...):
 
 ```html
-
 <input type=reset class=picon value=cross>
 
 <select>
@@ -114,6 +120,8 @@ As opposed to SVG, ligatured font can be used in text-only elements (`<option>`,
 	</optgroup>
 </select>
 ```
+
+[Live Demo](https://codepen.io/qxc32034/pen/zYZYPra)
 
 # Pseudo-element
 
@@ -129,13 +137,15 @@ function example(){
 </pre>
 
 <style>
-pre[lang]:after{
+pre[lang]::before{
 	font-family: picon;
 	content: attr(lang);
 	float: right;
 }
 </style>
 ```
+
+[Live Demo](https://codepen.io/qxc32034/pen/XWMWzWE)
 
 It can also help to unify browser style for input typefile/checkbox/radio:
 
@@ -144,16 +154,18 @@ It can also help to unify browser style for input typefile/checkbox/radio:
 <input type=checkbox data-before=ballot data-before-checked=checked style=appearance:none>
 <input type=radio data-before=false data-before-checked=true style=appearance:none>
 <style>
-[data-before-checked]:checked::before{
-	font-family: picon;
-	content: attr(data-before-checked);
-}
 [data-before]::before{
 	font-family: picon;
 	content: attr(data-before);
 }
+[data-before-checked]:checked::before{
+	font-family: picon;
+	content: attr(data-before-checked);
+}
 </style>
 ```
+
+[Live Demo](https://codepen.io/qxc32034/pen/wvJvrVM)
 
 # Color gradient
 
@@ -174,29 +186,38 @@ It can also help to unify browser style for input typefile/checkbox/radio:
 <input type=search class="picon rainbow">
 ```
 
+[Live Demo](https://codepen.io/qxc32034/pen/ZEeEXNX)
+
 # Animation
 
-Add a hourglass spinner to any disabled submit input
+Add a hourglass spinner to any disabled button
 
 ```html
 <style>
+@font-face {
+  src: url(https://unpkg.com/picon);
+  font-family: picon;
+}
 @keyframes hourglass {
-	0%,100%{content:'hourglass1'}
+	0%{content:'hourglass1'}
 	10%{content:'hourglass2'}
 	20%{content:'hourglass3'}
-	20%{content:'hourglass4'}
+	30%{content:'hourglass4'}
 	40%{content:'hourglass5'}
-	20%{content:'hourglass5'}
+	50%{content:'hourglass5'}
 	60%{content:'hourglass6'}
-	20%{content:'hourglass7'}
+	70%{content:'hourglass7'}
 	80%{content:'hourglass8'}
 }
-input[type=submit]:disabled::after{
+button:disabled::after{
 	font-family: picon;
 	content: 'hourglass1';
 	animation: hourglass 1s infinite;
 }
 </style>
-<input type=submit disabled>
+<button onclick="disabled=true">Upload</button>
 ```
 
+[Live Demo](https://codepen.io/qxc32034/pen/yLMLzwb)
+
+> Note: `::before` and `::after` pseudo-element only work on HTML elements that accept children (`<input>` with `type` set to `text`,`button`)
