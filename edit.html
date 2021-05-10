@@ -1,6 +1,6 @@
 <!doctype html>
 <title>SVG studio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="description" content="M,L,Q,C: Create a Move,Line,Quadratic,Cubic Node
 arrows: move focused node
 ctrl+arrows: move quadratic/cubic curve
@@ -27,15 +27,15 @@ shift+[one of above] = apply to the whole group" id=usage>
 	figure>input:focus+input{}
 	</style>
 <main>
-	<nav style="display:flex;gap:5px">
-		<button onclick="alert(usage.content)">USAGE</button>
+	<nav style="display:flex">
+		<button onclick="alert(usage.content)">?</button>
 		<button @click="commands=commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
 		<button @click="commands=commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
 		<button @click="commands=[]">&times;</button>
 		<input v-model.number=width  max=64 min=2 type=number title=width>
 		<input v-model.number=height max=64 min=2 type=number title=height>
-		<label><input type=checkbox v-model=grid>grid</label>
-		<a v-for="i in [4,8,16,24,32]" :download=name :href=img><img :src=img :width=i :height=i :title='img.length-24'></a>
+		<label><input type=checkbox v-model=grid>#</label>
+		<a v-for="i in [4,8,16,24]" style=margin-left:4px :download=name :href=img><img :src=img :width=i :height=i :title='img.length-24'></a>
 		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)">
 	</nav>
 	<figure class=rel>

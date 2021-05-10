@@ -1,5 +1,7 @@
+.PHONY: all serve clean
 all: solid.min.woff2 solid.all.woff2 solid.tar.bz2 solid.svg solid.all.json # solid.png
 clean:; rm -f *.svg *.ttf *.otf *.woff2 *.pb *.json *.tar.bz2 *.png
+serve:all; python3 -m http.server
 
 %.ttf: %.n.ttf ; ttfautohint $^ $@
 %.n.ttf: %.otf ; fontforge -lang=ff -c 'Open("$^");Generate("$@")'
