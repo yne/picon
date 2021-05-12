@@ -1,0 +1,25 @@
+{
+  "name": "picon",
+  "version": "v21.05.12",
+  "main": "solid.all.woff2",
+  "description": "Hackable Ligature Pico icoN set",
+  "homepage": "https://yne.github.io/picon",
+  "author": "yne",
+  "license": "ofl-1.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yne/picon.git"
+  },
+  "keywords": [
+    "svg",
+    "unicode",
+    "font",
+    "icons",
+    "font-icons",
+    "ligatures",
+    "woff2",
+    "webfont",
+    "picon",
+    "ligature"
+  ]
+}
