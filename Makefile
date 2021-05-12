@@ -7,7 +7,7 @@ serve:all; python3 -m http.server
 %.n.ttf: %.otf ; fontforge -lang=ff -c 'Open("$^");Generate("$@")'
 %.woff2: %.otf ; woff2_compress $^
 %.tar.bz2: %   ; tar cj --transform='s|[.].*|.svg|;s|^.*/||' $^/*.svg > $@
-%.png:      %  ; montage -background none -density 216 -geometry +4+4 $^/*.svg $@
+%.png:      %  ; montage -background none -density 288 -geometry +4+4 $^/*.svg $@
 %.png:  %.svg  ; convert -background none -density 2304 $^ $@
 %.all.json: %  ; node icomoon.js $^/manifest.json $^/*.svg > $@
 %.min.json: %.all.json ; jq 'del(.icons[]|select(.icon.tags|index("latin")))' <$^ > $@
