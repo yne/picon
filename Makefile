@@ -1,22 +1,23 @@
 .PHONY: all serve clean
-all: solid.min.woff2 solid.all.woff2 solid.tar.bz2 solid.svg solid.all.json # solid.png
-clean:; rm -f *.svg *.ttf *.otf *.woff2 *.pb *.json *.tar.bz2 *.png
+need := solid.woff2 solid.tar.bz2 solid.svg solid.json \
+        flags.woff2 flags.tar.bz2 flags.svg flags.json# solid.png are too slow
+all: $(need)
+clean:; rm -f $(need) # opentype.js
 serve:all; python3 -m http.server
 
 %.ttf: %.n.ttf ; ttfautohint $^ $@
 %.n.ttf: %.otf ; fontforge -lang=ff -c 'Open("$^");Generate("$@")'
 %.woff2: %.otf ; woff2_compress $^
-%.tar.bz2: %   ; tar cj --transform='s|[.].*|.svg|;s|^.*/||' $^/*.svg > $@
-%.png:      %  ; montage -background none -density 288 -geometry +4+4 $^/*.svg $@
-%.png:  %.svg  ; convert -background none -density 2304 $^ $@
-%.all.json: %  ; node icomoon.js $^/manifest.json $^/*.svg > $@
-%.min.json: %.all.json ; jq 'del(.icons[]|select(.icon.tags|index("latin")))' <$^ > $@
-%.svg: %.all.json ; jq -r < $^ '"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"0\" height=\"0\">\n" + (.icons | map("<symbol viewBox=\"0 0 \(.icon.grid) \(.icon.grid)\" id=\"\(.properties.name)\"><path d=\"\(.icon.paths[0])\"></path></symbol>") | join("\n")) + "\n</svg>"' > $@
+%.bz2: %       ; bzip2 -z9 <$^ >$@
+%.tar: %       ; tar -c --transform='s|[.].*|.svg|;s|^.*/||' $^/*.svg > $@
+%.png: %       ; montage -background none -density 288 -geometry +4+4 $^/*.svg $@
+%.png: %.svg   ; convert -background none -density 2304 $^ $@
+%.json:%       ; node icomoon.js $^/manifest.json $^/*.svg > $@
+%.svg: %.json  ; jq -r < $^ '"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"0\" height=\"0\">\n" + (.icons | map("<symbol viewBox=\"0 0 \(.icon.grid) \(.icon.grid)\" id=\"\(.properties.name)\">\([.icon.paths,.icon.colors]|transpose|map("<path d=\""+.[0]+"\" fill=\""+.[1]+"\"></path>")|join(""))</symbol>") | join("\n")) + "\n</svg>"' | sed 's/ fill=""//' > $@
+%.pb:  %.pb.m4 ; m4 -D JSONS="($(shell ls -m */manifest.json))" <$^ >$@
 %.otf: %.json opentype.js ; node otf.js <$< >$@
-%.pb: %.pb.m4  ; m4 -D JSONS="($(shell ls -m */manifest.json))" <$^ >$@
 
-# external deps (todo: upstream fix)
-opentype.js:; curl https://cdn.jsdelivr.net/npm/opentype.js@1.3.3/dist/opentype.js | sed 's/: \(_13.*1\)/: Math.round(\1)/g' >$@
+opentype.js:; curl https://raw.githubusercontent.com/opentypejs/opentype.js/master/dist/$@ -o $@
 
 # override auto github README pages with custom mage
 #index.html: README.md   ; curl -s -HContent-Type:text/x-markdown https://api.github.com/markdown/raw --data-binary @- <$^ | sed s/user-content-// >$@

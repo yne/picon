@@ -39,10 +39,11 @@ process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 		.map(({ props, data }, idx) => ({
 			_unicodes: props.filter(p => p.startsWith('%')).map(xx => decodeURIComponent(xx).charCodeAt(0)),
 			icon: {
-				color: props.find(p => p.match(colorTag))||undefined,
+				color: props.find(p => p.match(colorTag))||undefined, //color **hint** for webap (won't be in COLR table)
 				tags: props.filter(p => p.startsWith('#') && !p.match(colorTag)).map(h => h.slice(1)),
 				grid: +(data.match(/ viewBox="\d+ \d+ \d+ (\d+)"/) || [16]).slice(-1)[0],
-				paths: [...data.matchAll(/ d="(.*?)"/g)].map(d => d[1])
+				paths: [...data.matchAll(/<path (.*?)>/g)].map(([_,attr]) => (attr.match(/d="(.*?)"/)||[])[1]),
+				colors: [...data.matchAll(/<path (.*?)>/g)].map(([_,attr]) => (attr.match(/fill="(.*?)"/)||[])[1]) // COLRv0 null=text-color
 			},
 			properties: props[0].startsWith('%') ?  {ligatures:''} : {
 				ligatures: props.filter(p => p.match(/^[0-9a-z]/)).join(', '),

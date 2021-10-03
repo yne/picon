@@ -4,10 +4,10 @@
 
 [Download](https://github.com/yne/picon/releases) | [Icon finder](https://yne.fr/picon/list) | [Editor](https://yne.fr/picon/edit)
 
-- ~850 libre icons released as ligatured Font, SVG, PNG, and JSON [icomoon](https://icomoon.io/app) project, [compare](https://github.com/yne/picon/wiki/format)
-- Hackable: Remove any useless icon using the [Icomoon](https://icomoon.io/app) app (`min` variant already available if you don't want care about ASCII glyphs)
+- ~900 libre icons released as ligatured Font, SVG, PNG, and JSON [icomoon](https://icomoon.io/app) project, [compare](https://github.com/yne/picon/wiki/format)
+- Hackable: Update or remove any svg, then simply rebuild with `make all`! You can also use [Icomoon](https://icomoon.io/app) (can't handle coloring).
 - Lightweight: Average SVGs are 5x lighter than Fontawesome, [source](https://github.com/yne/picon/wiki/size)
-- Designed on a 8px grid: to be readable at 8px 16px 24px 32px 48px ... [demo](https://github.com/yne/picon/wiki/render)
+- Designed on a 8-grid: to be readable at 8px 16px 24px 32px 48px ... [demo](https://github.com/yne/picon/wiki/render)
 - Thousand of icon [composition](#composition) possible
 - CDN backed via [unpkg.com](https://unpkg.com/picon) and [jsdelivr.net](https://cdn.jsdelivr.net/npm/picon)
 

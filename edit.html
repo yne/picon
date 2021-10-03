@@ -2,12 +2,10 @@
 <title>SVG studio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="description" content="M,L,Q,C: Create a Move,Line,Quadratic,Cubic Node
-arrows: move focused node
-ctrl+arrows: move quadratic/cubic curve
-alt+arrows: move cubic curve
+arrows: move focused node (+alt:cubic node) (+ctrl:quadratic node)
 delete: delete focused node
 
-shift+[one of above] = apply to the whole group" id=usage>
+shift+[one of above] = apply to the whole shape" id=usage>
 <link rel="icon" id=favicon>
 <style>
 	@media (hover: none) {.pc{display:none !important;}}
@@ -17,6 +15,7 @@ shift+[one of above] = apply to the whole group" id=usage>
 	.Q{--color:violet}
 	.C{--color:blue}
 	body{margin:0;--size:16px}
+	nav>input:invalid{border-color: red;}
 	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px);border:1px solid #DDD;}
 	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
 	figure>.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
@@ -35,10 +34,12 @@ shift+[one of above] = apply to the whole group" id=usage>
 		<button @click="layers[level].commands=[]">&times;</button>
 		<input v-model.number=width  max=64 min=2 type=number title=width>
 		<input v-model.number=height max=64 min=2 type=number title=height>
-		<select v-model="level"><option v-for="(layer,l) in layers" :value=l :style="{background:layer.color}">{{l}}</option></select>
-		<input type="color" v-model="layers[level].color">
-		<button @click="layers=layers.concat({color:'#008888',commands:[]})">+</button>
-		<button @click="layers.splice(level,1);level=Math.min(level,layers.length-1)" v-if="layers.length>1">-</button>
+		<input v-model.number=level :max=layers.length-1 min=0 type=number title=layer>
+		<template v-for="(l, i) in layers">
+			<input v-model="l.color" :style="{background:l.color,opacity:i==level?1:.5}" size=4 placeholder=text-color @focus="level=i" pattern='#[a-f0-9]{6}'>
+			<button @click="layers.splice(i,1);level=Math.min(level,layers.length-1)" :disabled="layers.length<=1">-</button>
+		</template>
+		<button @click="layers=layers.concat({color:'#ff0000',commands:[]})">+</button>
 		<a v-for="i in [4,8,16,24]" style=margin-left:4px :download=name :href=img><img :src=img :width=i :height=i :title='img.length-24'></a>
 	</nav>
 	<figure class=rel>
@@ -52,7 +53,7 @@ shift+[one of above] = apply to the whole group" id=usage>
 	</figure>
 	<nav class=touch style="display:grid; gap:5px; grid-template-columns: repeat(4, auto);">
 		<label v-for="mod in ['shift','ctrl', 'alt']">{{mod}}<input type=checkbox @mousedown.prevent=this.checked^=1 :ref=mod></label>
-		<button v-for="b in kbd" @mousedown.prevent="kbev({ctrlKey:$refs.ctrl[0].checked,altKey:$refs.alt[0].checked,shiftKey:$refs.shift[0].checked,keyCode:b[2],key:b[1]||b[0]})" v-html=b[0]></button>
+		<button v-for="b in osk" @mousedown.prevent="kbev({ctrlKey:$refs.ctrl[0].checked,altKey:$refs.alt[0].checked,shiftKey:$refs.shift[0].checked,keyCode:b[2],key:b[1]||b[0]})" v-html=b[0]></button>
 	</nav>
 </main>
 <script type=module>
@@ -67,11 +68,10 @@ const toCommands = (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
 	const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
 	return JSON.parse(JSON.stringify({type:cmd[0].replace(/ /g,'L'), x, y, x1, y1, x2, y2}));//to remove undefined props
 });
+const osk = [['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']];
 const v = new Vue({
 	el: "main",
-	data() { return { kbd:[['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']],
-		name:"picon.svg", width: 8, height: 8, level:0, layers:[{color:'#008888', commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')}]
-	}},
+	data() { return { osk, lv:0, name:"picon.svg", width: 8, height: 8, layers:[{color:'', commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')}]}},
 	methods: {rel,cat,toPathString,toCommands,kbev,
 		key(cmd, c, ev) {
 			if(ev.key == 'Enter') {
@@ -85,6 +85,8 @@ const v = new Vue({
 				const cmds = ev.shiftKey ? this.groupRange(cmd,/*true*/) : [cmd]
 				const attr = (ev.keyCode & 1 ? 'x':'y') + (ev.ctrlKey | ev.altKey*2 || '')
 				cmds.forEach(cmd=>attr in cmd?cmd[attr]=+cmd[attr]+(ev.keyCode>38)*2-1:0)
+			} else if(ev.key.startsWith("Page")) {
+				this.level += ev.keyCode == 33 ? 1 : -1;
 			} else return true //don't prevent (Tab, ctrl+r ...)
 			ev.preventDefault();/*location.hash=this.toPathString(this.commands)*///TODO
 		},
@@ -98,6 +100,7 @@ const v = new Vue({
 		load(svg) { return this.layers = [...(new DOMParser()).parseFromString(svg, mime).querySelectorAll('path')].map(path => ({commands:this.toCommands(path.attributes.d.value), color:path.attributes.fill?.value}));}
 	},
 	computed: {
+		level:{get(){return this.lv}, set(val){this.lv = Math.max(0, Math.min(val, this.layers.length - 1));}},
 		img() { return favicon.href=`data:${mime},<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}">`+
 			this.layers.map(layer=>`<path d="${this.toPathString(layer.commands)}"${layer.color?' fill="'+encodeURIComponent(layer.color)+'"':''}></path>`).join('')+
 			`</svg>`}

@@ -1,0 +1,31 @@
+{
+  "fullName": "Picon Flags",
+  "familyName": "Picon",
+  "styleName": "Flags",
+  "fontFamily": "",
+  "fontSubfamily": "",
+  "preferredFamily": "",
+  "preferredSubfamily": "",
+  "filename": "Picon-Flags.ttf",
+  "postScriptName": "Picon-Flags",
+  "unitsPerEm": 16,
+  "ascender": 16,
+  "descender": 0,
+  "license": "OFL",
+  "licenseURL": "https://scripts.sil.org/OFL",
+  "designer": "yne",
+  "designerURL": "https://github.com/yne",
+  "manufacturer": "yne",
+  "manufacturerURL": "https://github.com/yne",
+  "description": "Easy Hackable PicoIcon Set",
+  "version": "Version 21.02.27; git-deadbeef-release",
+  "weightClass": 400,
+  "copyright": "Copyright 2021 The Picon Project Authors (https://github.com/yne/picon/graphs/contributors with Font Name \"Picon\")",
+  "trademark": "Picon (tm)",
+  "tables": {
+    "os2": {
+      "bProportion": 9,
+      "achVendID": "!YNE"
+    }
+  }
+}
