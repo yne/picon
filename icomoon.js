@@ -39,7 +39,7 @@ process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 		.map(({ props, data }, idx) => ({
 			_unicodes: props.filter(p => p.startsWith('%')).map(xx => decodeURIComponent(xx).charCodeAt(0)),
 			icon: {
-				color: props.find(p => p.match(colorTag))||'#000',
+				color: props.find(p => p.match(colorTag))||undefined,
 				tags: props.filter(p => p.startsWith('#') && !p.match(colorTag)).map(h => h.slice(1)),
 				grid: +(data.match(/ viewBox="\d+ \d+ \d+ (\d+)"/) || [16]).slice(-1)[0],
 				paths: [...data.matchAll(/ d="(.*?)"/g)].map(d => d[1])

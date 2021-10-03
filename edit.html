@@ -24,27 +24,30 @@ shift+[one of above] = apply to the whole group" id=usage>
 	figure>input{border:1px solid transparent;width:var(--size);height:var(--size);border-radius:100%;cursor:pointer;}
 	figure>input:disabled{border-color:var(--color);background: none; user-select: none;}
 	figure>input:focus{border-radius:0;}
-	figure>input:focus+input{}
+	figure>input:focus+input{border-radius:40%;}
 	</style>
 <main>
 	<nav style="display:flex">
+		<label title=open><input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style="width:0px">&#x1F4C1;</label>
 		<button onclick="alert(usage.content)">?</button>
-		<button @click="commands=commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
-		<button @click="commands=commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
-		<button @click="commands=[]">&times;</button>
+		<button @click="layers[level].commands=layers[level].commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
+		<button @click="layers[level].commands=layers[level].commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
+		<button @click="layers[level].commands=[]">&times;</button>
 		<input v-model.number=width  max=64 min=2 type=number title=width>
 		<input v-model.number=height max=64 min=2 type=number title=height>
-		<label><input type=checkbox v-model=grid>#</label>
+		<select v-model="level"><option v-for="(layer,l) in layers" :value=l :style="{background:layer.color}">{{l}}</option></select>
+		<input type="color" v-model="layers[level].color">
+		<button @click="layers=layers.concat({color:'#008888',commands:[]})">+</button>
+		<button @click="layers.splice(level,1);level=Math.min(level,layers.length-1)" v-if="layers.length>1">-</button>
 		<a v-for="i in [4,8,16,24]" style=margin-left:4px :download=name :href=img><img :src=img :width=i :height=i :title='img.length-24'></a>
-		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)">
 	</nav>
 	<figure class=rel>
 		<img :src=img width=100%>
-		<div v-if=grid class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
+		<div v-if="height<32" class=grid :style="`grid-template:repeat(${height},1fr)/repeat(${width},1fr)`">
 			<span v-for="_ in width*height"></span>
 		</div>
 		<template v-for="lv in [1,2,'']">
-		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
+		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in layers[level].commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
 		</template>
 	</figure>
 	<nav class=touch style="display:grid; gap:5px; grid-template-columns: repeat(4, auto);">
@@ -54,6 +57,7 @@ shift+[one of above] = apply to the whole group" id=usage>
 </main>
 <script type=module>
 import "https://unpkg.com/vue@2";//import './vue.js';
+const mime = "image/svg+xml";
 const rel = (ratio) => `calc(${100*ratio}% - calc(var(--size)/2) - 2px)`;
 const cat = (file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file));
 const kbev = (opt={}, type="keydown") => document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
@@ -66,36 +70,38 @@ const toCommands = (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
 const v = new Vue({
 	el: "main",
 	data() { return { kbd:[['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']],
-		name:"picon.svg", width: 8, height: 8, grid:true, commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')
+		name:"picon.svg", width: 8, height: 8, level:0, layers:[{color:'#008888', commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')}]
 	}},
 	methods: {rel,cat,toPathString,toCommands,kbev,
 		key(cmd, c, ev) {
 			if(ev.key == 'Enter') {
 				Object.assign(cmd, JSON.parse(prompt("", JSON.stringify(cmd))||'{}'))
 			} if(ev.key == 'Delete') {
-				ev.shiftKey?this.commands.splice(...this.groupRange(cmd,true)):this.commands.splice(c,1);
+				ev.shiftKey?this.layers[this.level].commands.splice(...this.groupRange(cmd,true)):this.layers[this.level].commands.splice(c,1);
 			} if(~"mlqc".indexOf(ev.key)) {
 				const opts = {m:{},l:{},q:{x1: cmd.x+1, y1: cmd.y+1},c:{x1: cmd.x+1, y1: cmd.y+1, x2: cmd.x-1, y2: cmd.y-1}}
-				this.commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
+				this.layers[this.level].commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
 			} else if(ev.key.startsWith("Arrow")) {
 				const cmds = ev.shiftKey ? this.groupRange(cmd,/*true*/) : [cmd]
 				const attr = (ev.keyCode & 1 ? 'x':'y') + (ev.ctrlKey | ev.altKey*2 || '')
 				cmds.forEach(cmd=>attr in cmd?cmd[attr]=+cmd[attr]+(ev.keyCode>38)*2-1:0)
 			} else return true //don't prevent (Tab, ctrl+r ...)
-			ev.preventDefault(location.hash=this.toPathString(this.commands))
+			ev.preventDefault();/*location.hash=this.toPathString(this.commands)*///TODO
 		},
 		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
 		groupRange(cmd,range=false) {
-			const pos = this.commands.indexOf(cmd);
-			for(var first = pos; first>0 && this.commands[first].type!='M'; first--);
-			for(var last = pos; last+1<this.commands.length && this.commands[last+1].type!='M'; last++);
-			return range ? [first,last-first+1] : this.commands.slice(first, last+1);
+			const pos = this.layers[this.level].commands.indexOf(cmd);
+			for(var first = pos; first>0 && this.layers[this.level].commands[first].type!='M'; first--);
+			for(var last = pos; last+1<this.layers[this.level].commands.length && this.layers[this.level].commands[last+1].type!='M'; last++);
+			return range ? [first,last-first+1] : this.layers[this.level].commands.slice(first, last+1);
 		},
-		load(svg) {return this.commands = this.toCommands((svg.match(/ d=".*?"/g)||'').map(path => path.slice(4,-1))[0])}
+		load(svg) { return this.layers = [...(new DOMParser()).parseFromString(svg, mime).querySelectorAll('path')].map(path => ({commands:this.toCommands(path.attributes.d.value), color:path.attributes.fill?.value}));}
 	},
 	computed: {
-		img() { return favicon.href=`data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}"><path d="${this.toPathString(this.commands)}"></path></svg>`}
+		img() { return favicon.href=`data:${mime},<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}">`+
+			this.layers.map(layer=>`<path d="${this.toPathString(layer.commands)}"${layer.color?' fill="'+encodeURIComponent(layer.color)+'"':''}></path>`).join('')+
+			`</svg>`}
 	}
 });
-addEventListener('hashchange', ()=>v.commands=v.toCommands(location.hash.slice(1)), false);
+addEventListener('hashchange', ()=>v.load(location.hash.slice(1)), false);
 </script>
