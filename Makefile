@@ -28,4 +28,4 @@ opentype.js:; curl https://raw.githubusercontent.com/opentypejs/opentype.js/mast
 # pip install fontbakery gftools
 # mkdir ofl
 # f=ofl/Picon-Regular.ttf
-# wget 192.168.43.237:8000/solid.all.ttf -O $f && gftools fix-dsig --autofix $f && gftools fix-unwanted-tables $f && fontbakery check-googlefonts $f
+# wget 192.168.43.237:8000/solid.ttf -O $f && gftools fix-dsig --autofix $f && gftools fix-unwanted-tables $f && fontbakery check-googlefonts $f

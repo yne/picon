@@ -32,7 +32,7 @@ jobs:
           curl -u:${PERSONAL_TOKEN} -H "Content-Type: $(file -b --mime-type $f)" --data-binary @$f ${upload_url/{*}?name=$f | jq .browser_download_url
         done
         curl -HAccept:application/vnd.github.mercy-preview+json https://api.github.com/repos/${GITHUB_REPOSITORY} |
-        jq '{name,version:"'$TAG'",main:"solid.all.woff2",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
+        jq '{name,version:"'$TAG'",main:"solid.woff2",description,homepage,author:.owner.login,license:.license.key,repository:{type:"git",url:.git_url},keywords:.topics}' > package.json
     - name: Page
       run: |
         git config user.name  "${GITHUB_ACTOR}"
