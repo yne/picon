@@ -3,10 +3,9 @@ need := solid.woff2 solid.tar.bz2 solid.svg solid.json \
         flags.woff2 flags.tar.bz2 flags.svg flags.json# solid.png are too slow
 all: $(need)
 clean:; rm -f $(need) # opentype.js
-serve:all; python3 -m http.server
+serve:; python3 -m http.server
 
-%.ttf: %.n.ttf ; ttfautohint $^ $@
-%.n.ttf: %.otf ; fontforge -lang=ff -c 'Open("$^");Generate("$@")'
+%.ttf: %.otf   ; fontforge -lang=ff -c 'Open("$^");AutoHint();Generate("$@")'
 %.woff2: %.otf ; woff2_compress $^
 %.bz2: %       ; bzip2 -z9 <$^ >$@
 %.tar: %       ; tar -c --transform='s|[.].*|.svg|;s|^.*/||' $^/*.svg > $@
