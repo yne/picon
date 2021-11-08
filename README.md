@@ -1,8 +1,8 @@
 # The Pico-icon set
 
-[![preview](https://raw.githubusercontent.com/yne/picon/gh-pages/solid.png)](list.html)
+[![preview](https://raw.githubusercontent.com/yne/picon/gh-pages/solid.png)](list.html?solid)
 
-[Download](https://github.com/yne/picon/releases) | [Icon finder](https://yne.fr/picon/list) | [Editor](https://yne.fr/picon/edit)
+[Download](https://github.com/yne/picon/releases) | [Icon finder](https://yne.fr/picon/list?solid) | [Flags color demo](https://yne.fr/picon/list?flags) | [Editor](https://yne.fr/picon/edit)
 
 - ~900 libre icons released as ligatured Font, SVG, PNG, and JSON [icomoon](https://icomoon.io/app) project, [compare](https://github.com/yne/picon/wiki/format)
 - Hackable: Update or remove any svg, then simply rebuild with `make all`! You can also use [Icomoon](https://icomoon.io/app) (can't handle coloring).
@@ -10,8 +10,10 @@
 - Designed on a 8-grid: to be readable at 8px 16px 24px 32px 48px ... [demo](https://github.com/yne/picon/wiki/render)
 - Thousand of icon [composition](#composition) possible
 - CDN backed via [unpkg.com](https://unpkg.com/picon) and [jsdelivr.net](https://cdn.jsdelivr.net/npm/picon)
+- Multicolor support ! [Example](https://yne.fr/picon/list?flags)
+# Usage 
 
-# Usage
+Tips: replace `solid` with the iconset you want (ex: `flags`)
 
 ```html
 <!-- SVG: for casual usage -->
@@ -32,7 +34,7 @@
 <span class=picon>app</span>
 ```
 
-> Tips: Always use a versioned CDN url (ex: `https://unpkg.com/picon@21.5.5`) for production
+> Tips: Always use a versioned CDN url (ex: `https://unpkg.com/picon@21.5.5/solid/...`) for production
 
 # Mardown Integration
 
@@ -81,7 +83,7 @@ del>sub{vertical-align:text-bottom;}
 
 > Note: replace `del` with `s` or `.picon` according to your Mardown processor
 
-you can now associate any [parent](list#parent) with any [child](list#child%7Carrow%7Clang) icon:
+you can now associate any [parent](list?solid#parent) with any [child](list?solid#child%7Carrow%7Clang) icon:
 
 ```html
 <del>microphone not</del>

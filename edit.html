@@ -14,7 +14,7 @@ shift+[one of above] = apply to the whole shape" id=usage>
 	.L{--color:red}
 	.Q{--color:violet}
 	.C{--color:blue}
-	body{margin:0;--size:16px}
+	body{margin:0;--size:16px;background-color:#DDD;}
 	nav>input:invalid{border-color: red;}
 	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px);border:1px solid #DDD;}
 	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
@@ -71,7 +71,7 @@ const toCommands = (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
 const osk = [['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']];
 const v = new Vue({
 	el: "main",
-	data() { return { osk, lv:0, name:"picon.svg", width: 8, height: 8, layers:[{color:'', commands: this.toCommands(location.hash.slice(1)||'M4,6L2,4Q2,2,4,2C6,2,4,4,6,4')}]}},
+	data() { return { osk, lv:0, name:"picon.svg", width: 8, height: 8, layers:[{color:'', commands: this.toCommands('M4,6L2,3Q4,4,6,3')}]}},
 	methods: {rel,cat,toPathString,toCommands,kbev,
 		key(cmd, c, ev) {
 			if(ev.key == 'Enter') {
@@ -88,7 +88,9 @@ const v = new Vue({
 			} else if(ev.key.startsWith("Page")) {
 				this.level += ev.keyCode == 33 ? 1 : -1;
 			} else return true //don't prevent (Tab, ctrl+r ...)
-			ev.preventDefault();/*location.hash=this.toPathString(this.commands)*///TODO
+			ev.preventDefault();
+			
+			console.log(location.hash=this.img.slice(`data:${mime},`.length))
 		},
 		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
 		groupRange(cmd,range=false) {
@@ -106,5 +108,6 @@ const v = new Vue({
 			`</svg>`}
 	}
 });
-addEventListener('hashchange', ()=>v.load(location.hash.slice(1)), false);
+v.load(decodeURIComponent(location.hash.slice(1)));
+addEventListener('hashchange', ()=>v.load(decodeURIComponent(location.hash.slice(1))), false);
 </script>

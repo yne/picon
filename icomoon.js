@@ -27,7 +27,8 @@ OUTPUT
 ]
 **/
 const log = (str) => (console.error(str), str);
-const colorTag = /^#[0-9a-f]{3}$/
+const colorTag = /^#[0-9a-f]{3}$/;
+const noHollow = (list) => list.every(l => l === undefined) ? undefined : list;
 process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 	IcoMoonType: "selection",
 	height: 32, // preview size
@@ -43,7 +44,7 @@ process.stdout.write(JSON.stringify(((metadata, ...svgs) => ({
 				tags: props.filter(p => p.startsWith('#') && !p.match(colorTag)).map(h => h.slice(1)),
 				grid: +(data.match(/ viewBox="\d+ \d+ \d+ (\d+)"/) || [16]).slice(-1)[0],
 				paths: [...data.matchAll(/<path (.*?)>/g)].map(([_,attr]) => (attr.match(/d="(.*?)"/)||[])[1]),
-				colors: [...data.matchAll(/<path (.*?)>/g)].map(([_,attr]) => (attr.match(/fill="(.*?)"/)||[])[1]) // COLRv0 null=text-color
+				colors: noHollow([...data.matchAll(/<path (.*?)>/g)].map(([_,attr]) => (attr.match(/fill="(.*?)"/)||[])[1])) // COLRv0 null=text-color
 			},
 			properties: props[0].startsWith('%') ?  {ligatures:''} : {
 				ligatures: props.filter(p => p.match(/^[0-9a-z]/)).join(', '),
