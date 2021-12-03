@@ -9,7 +9,7 @@ serve:; python3 -m http.server
 %.woff2: %.otf ; woff2_compress $^
 %.bz2: %       ; bzip2 -z9 <$^ >$@
 %.tar: %       ; tar -c --transform='s|[.].*|.svg|;s|^.*/||' $^/*.svg > $@
-%.png: %       ; montage -background none -density 288 -geometry +4+4 $^/*.svg $@
+%.png: %       ; montage -background none -density 288 -tile 32 -monitor -geometry +3+3 $^/*.svg $@
 %.png: %.svg   ; convert -background none -density 2304 $^ $@
 %.json:%       ; node icomoon.js $^/manifest.json $^/*.svg > $@
 %.svg: %.json  ; jq -r < $^ '"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"0\" height=\"0\">\n" + (.icons | map("<symbol viewBox=\"0 0 \(.icon.grid) \(.icon.grid)\" id=\"\(.properties.name)\">\([.icon.paths,.icon.colors]|transpose|map("<path d=\""+.[0]+"\" fill=\""+.[1]+"\"></path>")|join(""))</symbol>") | join("\n")) + "\n</svg>"' | sed 's/ fill=""//' > $@

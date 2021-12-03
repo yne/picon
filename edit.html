@@ -19,21 +19,20 @@ shift+[one of above] = apply to the whole shape" id=usage>
 	figure{position:relative;margin:auto;max-width:calc(100vmin - 64px);border:1px solid #DDD;}
 	figure>.grid{display:grid;position: absolute;top: 0;bottom: 0;left: 0;right: 0;}
 	figure>.grid>*{box-shadow:0 0 0 1px rgba(0,0,0,.1);}
-	figure>input{position:absolute;background:var(--color);font-size:0;z-index:9;outline: none;}
+	figure>input{position:absolute;background:var(--color);font-size:0;z-index:9;}
 	figure>input{border:1px solid transparent;width:var(--size);height:var(--size);border-radius:100%;cursor:pointer;}
 	figure>input:disabled{border-color:var(--color);background: none; user-select: none;}
-	figure>input:focus{border-radius:0;}
-	figure>input:focus+input{border-radius:40%;}
+	figure>input:focus{outline:5px green solid;}
 	</style>
 <main>
 	<nav style="display:flex">
-		<label title=open><input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)" style="width:0px">&#x1F4C1;</label>
+		<input type=file @change="name=$event.target.files[0].name;cat($event.target.files[0]).then(load)">
 		<button onclick="alert(usage.content)">?</button>
-		<button @click="layers[level].commands=layers[level].commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
-		<button @click="layers[level].commands=layers[level].commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
-		<button @click="layers[level].commands=[]">&times;</button>
-		<input v-model.number=width  max=64 min=2 type=number title=width>
-		<input v-model.number=height max=64 min=2 type=number title=height>
+		<button @click="layer.commands=layer.commands.concat(toCommands('M2,4L2,2L4,2L4,4'))">&#11035;</button>
+		<button @click="layer.commands=layer.commands.concat(toCommands('M4,7C0,7,0,1,4,1C8,1,8,7,4,7'))">&#11044;</button>
+		<button @click="layer.commands=[]">&times;</button>
+		<input v-model.number=width  min=2 type=number style="width:3em" title=width>
+		<input v-model.number=height min=2 type=number style="width:3em" title=height>
 		<input v-model.number=level :max=layers.length-1 min=0 type=number title=layer>
 		<template v-for="(l, i) in layers">
 			<input v-model="l.color" :style="{background:l.color,opacity:i==level?1:.5}" size=4 placeholder=text-color @focus="level=i" pattern='#[a-f0-9]{6}'>
@@ -48,7 +47,7 @@ shift+[one of above] = apply to the whole shape" id=usage>
 			<span v-for="_ in width*height"></span>
 		</div>
 		<template v-for="lv in [1,2,'']">
-		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in layers[level].commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
+		<input :class=cmd.type :style=pos(cmd,lv) v-for="cmd,c in layer.commands.filter(x=>'x'+lv in x)" :disabled=!!lv @keydown="key(cmd,c,$event)">
 		</template>
 	</figure>
 	<nav class=touch style="display:grid; gap:5px; grid-template-columns: repeat(4, auto);">
@@ -59,15 +58,17 @@ shift+[one of above] = apply to the whole shape" id=usage>
 <script type=module>
 import "https://unpkg.com/vue@2";//import './vue.js';
 const mime = "image/svg+xml";
+const mime_uri = `data:${mime},`;
 const rel = (ratio) => `calc(${100*ratio}% - calc(var(--size)/2) - 2px)`;
 const cat = (file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file));
 const kbev = (opt={}, type="keydown") => document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
 const toPathString = (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join('');
-const toCommands = (str) => str.match(/([A-Z a-z][-.0-9,]+)/g).map(cmd => {
-	const coords = cmd.slice(1).split(',').map(Number);
-	const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
-	return JSON.parse(JSON.stringify({type:cmd[0].replace(/ /g,'L'), x, y, x1, y1, x2, y2}));//to remove undefined props
-});
+const toCommands = (str) => str.match(/([Mm lL] *[-.0-9]+)|([Mm lL] *[-.0-9]+ *[-.0-9]+)/g)
+	.map(cmd => [cmd[0].replace(/ /g,'L'), cmd.slice(1).split(/[, ]/).map(Number), cmd])
+	.map(([type, coords, cmd], i, a) => {
+		const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
+		return JSON.parse(JSON.stringify({type, x, y, x1, y1, x2, y2}));//to remove undefined props
+	});
 const osk = [['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']];
 const v = new Vue({
 	el: "main",
@@ -77,10 +78,10 @@ const v = new Vue({
 			if(ev.key == 'Enter') {
 				Object.assign(cmd, JSON.parse(prompt("", JSON.stringify(cmd))||'{}'))
 			} if(ev.key == 'Delete') {
-				ev.shiftKey?this.layers[this.level].commands.splice(...this.groupRange(cmd,true)):this.layers[this.level].commands.splice(c,1);
+				ev.shiftKey?this.layer.commands.splice(...this.groupRange(cmd,true)):this.layer.commands.splice(c,1);
 			} if(~"mlqc".indexOf(ev.key)) {
 				const opts = {m:{},l:{},q:{x1: cmd.x+1, y1: cmd.y+1},c:{x1: cmd.x+1, y1: cmd.y+1, x2: cmd.x-1, y2: cmd.y-1}}
-				this.layers[this.level].commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
+				this.layer.commands.splice(c+1,0,{type:ev.key.toUpperCase(), x: cmd.x+1, y: cmd.y+1,...opts[ev.key]})
 			} else if(ev.key.startsWith("Arrow")) {
 				const cmds = ev.shiftKey ? this.groupRange(cmd,/*true*/) : [cmd]
 				const attr = (ev.keyCode & 1 ? 'x':'y') + (ev.ctrlKey | ev.altKey*2 || '')
@@ -89,25 +90,28 @@ const v = new Vue({
 				this.level += ev.keyCode == 33 ? 1 : -1;
 			} else return true //don't prevent (Tab, ctrl+r ...)
 			ev.preventDefault();
-			
-			console.log(location.hash=this.img.slice(`data:${mime},`.length))
 		},
 		pos(cmd, n=''){return {top:this.rel(cmd['y'+n] / this.height), left:this.rel(cmd['x'+n] / this.width)}},
 		groupRange(cmd,range=false) {
-			const pos = this.layers[this.level].commands.indexOf(cmd);
-			for(var first = pos; first>0 && this.layers[this.level].commands[first].type!='M'; first--);
-			for(var last = pos; last+1<this.layers[this.level].commands.length && this.layers[this.level].commands[last+1].type!='M'; last++);
-			return range ? [first,last-first+1] : this.layers[this.level].commands.slice(first, last+1);
+			const pos = this.layer.commands.indexOf(cmd);
+			for(var first = pos; first>0 && this.layer.commands[first].type!='M'; first--);
+			for(var last = pos; last+1<this.layer.commands.length && this.layer.commands[last+1].type!='M'; last++);
+			return range ? [first,last-first+1] : this.layer.commands.slice(first, last+1);
 		},
-		load(svg) { return this.layers = [...(new DOMParser()).parseFromString(svg, mime).querySelectorAll('path')].map(path => ({commands:this.toCommands(path.attributes.d.value), color:path.attributes.fill?.value}));}
+		load(svg='test') {
+			const dom = (new DOMParser()).parseFromString(svg, mime);
+			[this.width, this.height] = [dom.documentElement.viewBox.baseVal.width, dom.documentElement.viewBox.baseVal.height];
+			return this.layers = [...dom.querySelectorAll('path')].map(path => ({commands:this.toCommands(path.attributes.d.value), color:path.attributes.fill?.value}));
+		}
 	},
 	computed: {
+		layer(){ return this.layers[this.level];},
 		level:{get(){return this.lv}, set(val){this.lv = Math.max(0, Math.min(val, this.layers.length - 1));}},
-		img() { return favicon.href=`data:${mime},<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}">`+
+		img() { return favicon.href=`${mime_uri}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${this.width} ${this.height}">`+
 			this.layers.map(layer=>`<path d="${this.toPathString(layer.commands)}"${layer.color?' fill="'+encodeURIComponent(layer.color)+'"':''}></path>`).join('')+
 			`</svg>`}
 	}
 });
-v.load(decodeURIComponent(location.hash.slice(1)));
+if(location.hash.length>1)v.load(decodeURIComponent(location.hash.slice(1)));
 addEventListener('hashchange', ()=>v.load(decodeURIComponent(location.hash.slice(1))), false);
 </script>
