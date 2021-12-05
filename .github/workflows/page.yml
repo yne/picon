@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Prerequist
-      run: sudo apt install -y woff2 fontforge ttfautohint jq inkscape # better svg rendering for montage
+      run: sudo apt update && sudo apt install -y woff2 fontforge ttfautohint jq inkscape # better svg rendering for montage
     - name: Build
       run: |
         make all METADATA.pb solid.png
