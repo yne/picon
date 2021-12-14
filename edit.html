@@ -64,13 +64,12 @@ const cat = (file) => new Promise((then) => Object.assign(new FileReader(),{onlo
 const kbev = (opt={}, type="keydown") => document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
 const toPathString = (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join('');
 const toCommands = (t) => {
-	const argc = {z:0,m:2,l:2,h:1,v:1,q:4,c:6,s:4};
-	const strs=t.match(/([MLHVQCS]|[+-]?([0-9]*[.])?[0-9]+)/gi);
-	let cmds=[], prev={x:0,y:0}, poly={x:0,y:0};
+	const strs=t.match(/([MLHVQCSA]|[+-]?([0-9]*[.])?[0-9]+)/gi);
+	let cmds=[], prev={x:0,y:0}, poly={x:0,y:0}, old_type;
 	for(let used=0,i = 0; i < strs.length;i += used) {
-		let type = isNaN(strs[i]) ? strs[i] : prev.type;
+		let type = (old_type = isNaN(strs[i]) ? strs[i] : old_type); // store type before transform
 		i += isNaN(strs[i]) ? 1 : 0;//args start at [i] when implicit command
-		used = argc[type.toLowerCase()];
+		used = {z:0,m:2,l:2,h:1,v:1,q:4,c:6,a:7,s:4}[type.toLowerCase()];
 		let args = strs.slice(i, i + used).map(Number);
 		//if (type == 'z') {prev=poly;continue;}
 		// convert H/V to L and other lowercase to absolute coord
@@ -84,7 +83,8 @@ const toCommands = (t) => {
 		if (type == 's')[type, args] = ['Q', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y]];
 		if (type == 'q')[type, args] = ['Q', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y]];
 		if (type == 'c')[type, args] = ['C', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y, args[4] + prev.x, args[5] + prev.y]];
-		//TODO: S/s/z
+		if (type == 'A')[type, args] = ['L', [args[5], args[6]]];
+		if (type == 'a')[type, args] = ['L', [args[5] + prev.x, args[6] + prev.y]];
 		const [x, y, x1, y1, x2, y2] = [...args.slice(-2), ...args.slice(0, -2)];
 		let obj = JSON.parse(JSON.stringify({type, x, y, x1, y1, x2, y2}));
 		cmds.push(obj);//to remove undefined props
