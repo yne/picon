@@ -63,12 +63,36 @@ const rel = (ratio) => `calc(${100*ratio}% - calc(var(--size)/2) - 2px)`;
 const cat = (file) => new Promise((then) => Object.assign(new FileReader(),{onload:e=>then(e.target.result)}).readAsText(file));
 const kbev = (opt={}, type="keydown") => document.activeElement.dispatchEvent(new KeyboardEvent(type, opt));
 const toPathString = (cmds) => cmds.map(({type,x1,y1,x2,y2,x,y}) => type + [x1,y1,x2,y2,x,y].filter(x=>x !== undefined)).join('');
-const toCommands = (str) => str.match(/([Mm lL] *[-.0-9]+)|([Mm lL] *[-.0-9]+ *[-.0-9]+)/g)
-	.map(cmd => [cmd[0].replace(/ /g,'L'), cmd.slice(1).split(/[, ]/).map(Number), cmd])
-	.map(([type, coords, cmd], i, a) => {
-		const [x, y, x1, y1, x2, y2] = [...coords.slice(-2), ...coords.slice(0, -2)];
-		return JSON.parse(JSON.stringify({type, x, y, x1, y1, x2, y2}));//to remove undefined props
-	});
+const toCommands = (t) => {
+	const argc = {z:0,m:2,l:2,h:1,v:1,q:4,c:6,s:4};
+	const strs=t.match(/([MLHVQCS]|[+-]?([0-9]*[.])?[0-9]+)/gi);
+	let cmds=[], prev={x:0,y:0}, poly={x:0,y:0};
+	for(let used=0,i = 0; i < strs.length;i += used) {
+		let type = isNaN(strs[i]) ? strs[i] : prev.type;
+		i += isNaN(strs[i]) ? 1 : 0;//args start at [i] when implicit command
+		used = argc[type.toLowerCase()];
+		let args = strs.slice(i, i + used).map(Number);
+		//if (type == 'z') {prev=poly;continue;}
+		// convert H/V to L and other lowercase to absolute coord
+		if (type == 'H')[type, args] = ['L', [args[0], prev.y]];
+		if (type == 'V')[type, args] = ['L', [prev.x, args[0]]];
+		if (type == 'h')[type, args] = ['L', [args[0] + prev.x, prev.y]];
+		if (type == 'v')[type, args] = ['L', [prev.x, args[0] + prev.y]];
+		if (type == 'l')[type, args] = ['L', [args[0] + prev.x, args[1] + prev.y]];
+		if (type == 'm')[type, args] = ['M', [args[0] + prev.x, args[1] + prev.y]];
+		if (type == 'S')[type, args] = ['Q', [args[0], args[1], args[2], args[3]]];
+		if (type == 's')[type, args] = ['Q', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y]];
+		if (type == 'q')[type, args] = ['Q', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y]];
+		if (type == 'c')[type, args] = ['C', [args[0] + prev.x, args[1] + prev.y, args[2] + prev.x, args[3] + prev.y, args[4] + prev.x, args[5] + prev.y]];
+		//TODO: S/s/z
+		const [x, y, x1, y1, x2, y2] = [...args.slice(-2), ...args.slice(0, -2)];
+		let obj = JSON.parse(JSON.stringify({type, x, y, x1, y1, x2, y2}));
+		cmds.push(obj);//to remove undefined props
+		prev=obj;
+	}
+	return cmds;
+}
+// toCommands(str);
 const osk = [['&times;', 'Delete'],['m'],['l'],['q'],['c'],['&#9668;', 'ArrowLeft', 37],['&#9650;', 'ArrowUp', 38],['&#9660;', 'ArrowDown', 40],['&#9658;', 'ArrowRight', 39],['&#128269;', 'Enter']];
 const v = new Vue({
 	el: "main",
