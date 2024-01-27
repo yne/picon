@@ -16,7 +16,7 @@ serve:; python3 -m http.server
 %.pb:  %.pb.m4 ; m4 -D JSONS="($(shell ls -m */manifest.json))" <$^ >$@
 %.otf: %.json opentype.js ; node otf.js <$< >$@
 
-opentype.js:; curl -s https://raw.githubusercontent.com/opentypejs/opentype.js/master/dist/$@ -o $@
+opentype.js:; curl -s https://opentype.js.org/dist/$@ -o $@
 
 # override auto github README pages with custom mage
 #index.html: README.md   ; curl -s -HContent-Type:text/x-markdown https://api.github.com/markdown/raw --data-binary @- <$^ | sed s/user-content-// >$@
