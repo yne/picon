@@ -1,0 +1,4175 @@
+{
+  "IcoMoonType": "selection",
+  "height": 32,
+  "metadata": {
+    "fullName": "Picon Flags",
+    "familyName": "Picon",
+    "styleName": "Flags",
+    "fontFamily": "",
+    "fontSubfamily": "",
+    "preferredFamily": "",
+    "preferredSubfamily": "",
+    "filename": "Picon-Flags.ttf",
+    "postScriptName": "Picon-Flags",
+    "unitsPerEm": 16,
+    "ascender": 16,
+    "descender": 0,
+    "license": "OFL",
+    "licenseURL": "https://scripts.sil.org/OFL",
+    "designer": "yne",
+    "designerURL": "https://github.com/yne",
+    "manufacturer": "yne",
+    "manufacturerURL": "https://github.com/yne",
+    "description": "Easy Hackable PicoIcon Set",
+    "version": "Version 21.02.27; git-deadbeef-release",
+    "weightClass": 400,
+    "copyright": "Copyright 2021 The Picon Project Authors (https://github.com/yne/picon/graphs/contributors with Font Name \"Picon\")",
+    "trademark": "Picon (tm)",
+    "tables": {
+      "os2": {
+        "bProportion": 9,
+        "achVendID": "!YNE"
+      }
+    }
+  },
+  "icons": [
+    {
+      "icon": {
+        "defaultCode": 57344,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7",
+          "M3,5L3,3L5,3L5,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "ad",
+        "name": "ad"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57345,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M2,3L2,1L8,1L8,3",
+          "M2,5L2,3L8,3L8,5",
+          "M2,7L2,5L8,5L8,7",
+          "M0,7L0,1L2,1L2,7"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#000000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ae",
+        "name": "ae"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57346,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#000000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "af",
+        "name": "af"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57347,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,5L0,4L8,4L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L4,7L8,1L8,7",
+          "M3,4C2,2,6,2,5,4"
+        ],
+        "colors": [
+          "#000000",
+          "#0000c0",
+          "#ffffff",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ag",
+        "name": "ag"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57348,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M6,5L4,6L2,5L2,2L4,3L6,2"
+        ],
+        "colors": [
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "al",
+        "name": "al"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57349,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ff8000"
+        ]
+      },
+      "properties": {
+        "ligatures": "am",
+        "name": "am"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57350,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ao",
+        "name": "ao"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57351,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M4,5C2,5,2,3,4,3C6,3,6,5,4,5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ar",
+        "name": "ar"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57352,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "at",
+        "name": "at"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57353,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M6,4L5,4L5,3Q3,4,5,5Q1,4,5,3"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ff0000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "az",
+        "name": "az"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57354,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,6L0,2L8,2L8,6",
+          "M2,2L6,2L6,6"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ba",
+        "name": "ba"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57355,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2.5,7L2.5,1L5.5,1L5.5,7"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bb",
+        "name": "bb"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57356,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,5.5C1,6,1,2,3,2.5C5,2,5,6,3,5.5"
+        ],
+        "colors": [
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bd",
+        "name": "bd"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57357,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#000000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "be",
+        "name": "be"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57358,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M2.5,6L4,2L5.5,6L2,3.5L6,3.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bf",
+        "name": "bf"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57359,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bg",
+        "name": "bg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57360,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M2,7L2,1L8,1L8,7",
+          "M0,7L0,1L2,1L4,2L2,3L4,4L2,5L4,6L2,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "bh",
+        "name": "bh"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57361,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M5,3Q4,2,3,3L1,1L7,1M1,7L3,5Q4,6,5,5L7,7",
+          "M0,7L0,1L2,3Q1,4,2,5M6,5Q7,4,6,3L8,1L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bi",
+        "name": "bi"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57362,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M3,4L3,1L8,1L8,4",
+          "M0,7L0,1L3,1L3,7",
+          "M3,7L3,4L8,4L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bj",
+        "name": "bj"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57363,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,3L0,2L8,6L8,7",
+          "M0,2L0,1L8,5L8,6",
+          "M4,5C2.5,5,2.5,3,4,3C5.5,3,5.5,5,4,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#000000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bn",
+        "name": "bn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57364,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,5L0,3L8,3L8,5",
+          "M0,3L0,1L8,1L8,3M4,5L3,4L4,3L5,4",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff0000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bo",
+        "name": "bo"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57365,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,4L4,2L7,4L4,6",
+          "M4,5C2.5,5,2.5,3,4,3C5.5,3,5.5,5,4,5"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "br",
+        "name": "br"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57366,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,1L4,4"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bs",
+        "name": "bs"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57367,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1",
+          "M0,7L8,1L8,7",
+          "M6,3C6,6,1,4,1,7C1,1,5,6,5,2L7,2"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff8000",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "bt",
+        "name": "bt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57368,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,4.5L0,3.5L8,3.5L8,4.5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "bw",
+        "name": "bw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57369,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M1,5L1,1L8,1L8,5",
+          "M1,7L1,5L8,5L8,7",
+          "M0,7L0,1L1,1L1,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "by",
+        "name": "by"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57370,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M4,6C1,6,1,2,4,2C7,2,7,6,4,6"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "bz",
+        "name": "bz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57371,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L6,1L6,7",
+          "M3,5L3,3L4,2L5,3L5,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ca",
+        "name": "ca"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57372,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,7L0,7L0,5L7,1L8,1L8,3M2,1L1,3L3,1.5L1,1.5L2.5,3",
+          "M0.5,7L0,7L0,5.5L7.5,1L8,1L8,2.5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cd",
+        "name": "cd"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57373,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,4L0,2.5L8,2.5L8,4",
+          "M0,6L0,4L8,4L8,6",
+          "M0,7L0,5.5L8,5.5L8,7M1.5,1L2,2.5L0.5,1.5L2.5,1.5L1,2.5",
+          "M3,7L3,1L5,1L5,7"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#008000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cf",
+        "name": "cf"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57374,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L6,1",
+          "M2,7L8,1L8,7",
+          "M0,7L6,1L8,1L2,7"
+        ],
+        "colors": [
+          "#008000",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cg",
+        "name": "cg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57375,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,8L0,0L8,0L8,8",
+          "M1,5L1,3L7,3L7,5M3,7L3,1L5,1L5,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ch",
+        "name": "ch"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57376,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff8000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ci",
+        "name": "ci"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57377,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,4L8,4L8,7",
+          "M0,4L0,1L2.5,1L2.5,4",
+          "M2.5,4L2.5,1L8,1L8,4M1,3L1,1L2,3L0,2L2,2"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "cl",
+        "name": "cl"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57378,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7M3,5L4,3L5,5L3,3.5L5,3.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cm",
+        "name": "cm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57379,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,4L3,2.5L1,2.5L3,4L2,2M3,1.5L4,1L4,5L3,4.5L5,4L4,3L5,2"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cn",
+        "name": "cn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57380,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M0,7L0,5.5L8,5.5L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "co",
+        "name": "co"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57381,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5L0,3L8,3L8,5",
+          "M3,5L2,4L3,3L4,4"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "cr",
+        "name": "cr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57382,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,3L0,2L8,2L8,3M0,6L0,5L8,5L8,6",
+          "M0,7L0,1L5,4",
+          "M1,5L1,3L3,5L0,4L3,3"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "cu",
+        "name": "cu"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57383,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,4L8,4L8,6",
+          "M0,5.5L0,4.5L8,4.5L8,5.5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cv",
+        "name": "cv"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57384,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,5Q0,4,3,3L3,2Q4,3,7,2Q5,3,6,4",
+          "M1,6Q4,8,7,6"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff8000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "cy",
+        "name": "cy"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57385,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M0,7L0,1L4,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "cz",
+        "name": "cz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57386,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#000000",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "de",
+        "name": "de"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57387,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,4L8,4L8,7",
+          "M0,7L0,1L4,4",
+          "M1,5L1,3L2,5L0.5,4L2,3"
+        ],
+        "colors": [
+          "#0080ff",
+          "#008000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "dj",
+        "name": "dj"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57388,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L4,1L4,7M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "dk",
+        "name": "dk"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57389,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,4L8,4L8,5M4,7L4,1L5,1L5,7",
+          "M0,4.5L0,3L8,3L8,4.5M3,7L3,1L4.5,1L4.5,7",
+          "M3,7L3,1L3.5,1L3.5,7M0,3.5L0,3L8,3L8,3.5",
+          "M4,6L2,4L4,2L6,4"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#000000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "dm",
+        "name": "dm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57390,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,5L3,5L3,7M5,3L5,1L8,1L8,3",
+          "M0,3L0,1L3,1L3,3M5,7L5,5L8,5L8,7",
+          "M3,4L4,3L5,4L4,5"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#0000c0",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "do",
+        "name": "do"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57391,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L4,1L4,7",
+          "M4,7L4,1L8,1L8,7",
+          "M3,6C0,6,0,2,3,2L4,2C1,2,1,6,4,6M6,4L4,5L5.5,3L5.5,5L4,3"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "dz",
+        "name": "dz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57392,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M0,7L0,5.5L8,5.5L8,7",
+          "M4,6L3,5L3.5,4L3,2L4,3L5,2L4.5,4L5,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ec",
+        "name": "ec"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57393,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#0080ff",
+          "#000000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ee",
+        "name": "ee"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57394,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,5L3,3L5,3L5,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "eg",
+        "name": "eg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57395,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M0,7L0,1L8,4",
+          "M1,5L1,3L3,3L3,5"
+        ],
+        "colors": [
+          "#008000",
+          "#0080ff",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "er",
+        "name": "er"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57396,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M1,3L1,5L3,5L3,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "es",
+        "name": "es"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57397,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M4,6C1.5,6,1.5,2,4,2C6.5,2,6.5,6,4,6"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000",
+          "#ff0000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "et",
+        "name": "et"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57398,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L4,1L4,7M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "fi",
+        "name": "fi"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57399,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,2L5,3L4,1L3,3L5,2M1,5L3,4L1,3L2,5L2,3M6,3L7,5L5,4L7,3L6,5M4,7L5,5L3,6L5,6L3,5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "fm",
+        "name": "fm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57400,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "fr",
+        "name": "fr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57401,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "ga",
+        "name": "ga"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57402,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M7,7L0,2L0,1L1,1L8,6L8,7M1,7L0,7L0,6L7,1L8,1L8,2",
+          "M7.5,7L0,1.5L0,1L0.5,1L8,6.5L8,7M0.5,7L0,7L0,6.5L7.5,1L8,1L8,1.5",
+          "M0,5L0,3L8,3L8,5M3,7L3,1L5,1L5,7",
+          "M3.5,7L3.5,1L4.5,1L4.5,7M0,4.5L0,3.5L8,3.5L8,4.5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gb",
+        "name": "gb"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57403,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,6L1,2L7,2L7,6",
+          "M7,6L1,2L7,2L1,6",
+          "M3,4L4,3L5,4L4,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gd",
+        "name": "gd"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57404,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,7L3,1L5,1L5,7M0,5L0,3L8,3L8,5M2,2L1,2L1,1M6,2L7,2L7,1M2,6L1,6L1,7M7,7L7,6L6,6"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ge",
+        "name": "ge"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57405,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,5L4,3L5,5L3,3.5L5,3.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000",
+          "#008000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gh",
+        "name": "gh"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57406,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,7L0,5L8,5L8,7",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "gm",
+        "name": "gm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57407,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff0000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gn",
+        "name": "gn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57408,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L3,4"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#ff0000",
+          "#0080ff"
+        ]
+      },
+      "properties": {
+        "ligatures": "gq",
+        "name": "gq"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57409,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,5L8,5L8,6M0,3L0,2L8,2L8,1L3,1L3,4L8,4L8,3M1,4L1,1L2,1L2,4"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "gr",
+        "name": "gr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57410,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2.5,7L2.5,1L5.5,1L5.5,7",
+          "M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gt",
+        "name": "gt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57411,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M3,4L3,1L8,1L8,4",
+          "M0,7L0,1L3,1L3,7",
+          "M3,7L3,4L8,4L8,7",
+          "M2,5L0.5,3.5L2.5,3.5L1,5L1.5,3"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff0000",
+          "#008000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gw",
+        "name": "gw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57412,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M8,4L0,7L0,1",
+          "M7,4L0,6L0,2",
+          "M4,4L0,7L0,1",
+          "M3,4L0,6L0,2"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#f0f000",
+          "#000000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "gy",
+        "name": "gy"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57413,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M2,4L3,3L4,5L5,3L6,4"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "hn",
+        "name": "hn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57414,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7M3,3L3,2L5,2L5,3",
+          "M3,5L3,3L5,3L5,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "hr",
+        "name": "hr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57415,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M3,5L3,3L5,3L5,5",
+          "M3,5Q4,3,5,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ht",
+        "name": "ht"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57416,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "hu",
+        "name": "hu"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57417,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "id",
+        "name": "id"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57418,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#008000",
+          "#ff8000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ie",
+        "name": "ie"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57419,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M2,5L4,2L6,5M2,3L4,6L6,3"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "il",
+        "name": "il"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57420,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#ff8000",
+          "#ffffff",
+          "#008000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "in",
+        "name": "in"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57421,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M2,5L2,4L6,4L5,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "iq",
+        "name": "iq"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57422,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ir",
+        "name": "ir"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57423,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L4,1L4,7M0,5L0,3L8,3L8,5",
+          "M2.5,7L2.5,1L3.5,1L3.5,7M0,4.5L0,3.5L8,3.5L8,4.5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "is",
+        "name": "is"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57424,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "it",
+        "name": "it"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57425,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L8,7L8,1",
+          "M8,7L7,7L0,2L0,1L1,1L8,6M1,7L0,7L0,6L7,1L8,1L8,2"
+        ],
+        "colors": [
+          "#008000",
+          "#000000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "jm",
+        "name": "jm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57426,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M4,4L0,7L0,1",
+          "M1,4.5L2,3L2,5L1,3.5L3,4"
+        ],
+        "colors": [
+          "#000000",
+          "#ffffff",
+          "#008000",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "jo",
+        "name": "jo"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57427,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,6C1,6,1,2,4,2C7,2,7,6,4,6"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "jp",
+        "name": "jp"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57428,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,7L0,5L8,5L8,7",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M0,5L0,3L8,3L8,5M4,6Q2,4,4,2Q6,4,4,6",
+          "M3,5Q4,4,3,3M5,3Q4,4,5,5"
+        ],
+        "colors": [
+          "#000000",
+          "#008000",
+          "#ffffff",
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ke",
+        "name": "ke"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57429,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,5.5C2,6,2,2,4,2.5C6,2,6,6,4,5.5",
+          "M3,6Q3,3,6,3Q4,4,3,6M5,6Q4,4,2,3Q5,3,5,6"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "kg",
+        "name": "kg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57430,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M2,5L3,3L5,3L6,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "kh",
+        "name": "kh"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57431,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M0,6L0,5L8,5L8,6",
+          "M2,4Q4,1,6,4M3,2L3,1.5L5,1.5L5,2"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ki",
+        "name": "ki"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57432,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,4L0,2.5L8,2.5L8,4",
+          "M0,6L0,4L8,4L8,6",
+          "M0,7L0,5.5L8,5.5L8,7",
+          "M0,7L0,1L4,4",
+          "M2,5Q-1,4,2,3Q1,4,2,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ffffff",
+          "#ff0000",
+          "#0000c0",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "km",
+        "name": "km"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57433,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,6L6,1L8,1L8,2L2,7",
+          "M3,7L8,3L8,7",
+          "M0,5L0,1L5,1",
+          "M6,3L5,3L6,2M2,6L2,5L3,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#000000",
+          "#ff0000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "kn",
+        "name": "kn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57434,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M3,5L2,4L3,3L4,4"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "kp",
+        "name": "kp"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57435,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,3L2,2L3,2L2,3M7,3L6,3L5,2L6,2M2,6L1,5L2,5L3,6M6,6L5,6L6,5L7,5",
+          "M5,3L2,4Q4,7.5,6,4",
+          "M6,4C4,2,4,6,2,4Q4,0.5,6,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#000000",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "kr",
+        "name": "kr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57436,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L2,3L2,5"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "kw",
+        "name": "kw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57437,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,4L3,3L4,2L5,3M0.5,6L0.5,2L1,2L1,6M6,4Q4,8,2,4Q4,6,6,4"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "kz",
+        "name": "kz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57438,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M4,5.5C2,5,2,3,4,2.5C6,3,6,5,4,5.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "la",
+        "name": "la"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57439,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M4,6L2,5L4,2L6,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "lb",
+        "name": "lb"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57440,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,6L4,2L6,6",
+          "M2.5,6L4,3L5.5,6",
+          "M2,6L4,4.5L6,6"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#000000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "lc",
+        "name": "lc"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57441,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M1,3L1,2L3,2L3,3"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "li",
+        "name": "li"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57442,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,6L3,2L7,2L7,6",
+          "M1,6L1,2L2,2L2,6",
+          "M5,5L4,4L5,3L6,4"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff0000",
+          "#008000",
+          "#e0e000"
+        ]
+      },
+      "properties": {
+        "ligatures": "lk",
+        "name": "lk"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57443,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4L0,1L3,1L3,4",
+          "M0,5L0,4L8,4L8,5M0,7L0,6L8,6L8,7M3,3L3,2L8,2L8,3M1,3L1,1L2,3L0,2L2,2"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "lr",
+        "name": "lr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57444,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,5L4,3L5,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#008000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ls",
+        "name": "ls"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57445,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "lt",
+        "name": "lt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57446,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0080ff"
+        ]
+      },
+      "properties": {
+        "ligatures": "lu",
+        "name": "lu"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57447,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4.5L0,3.5L8,3.5L8,4.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "lv",
+        "name": "lv"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57448,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M4,5Q0,4,4,3Q2,4,4,5M4,5L4,3L5,4.5L3.5,4L5,3.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#000000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ly",
+        "name": "ly"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57449,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,5L2.5,6L4,1.5L5.5,6M2,3L4,5L6,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ma",
+        "name": "ma"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57450,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "mc",
+        "name": "mc"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57451,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7",
+          "M4,5L3,4L3,3L5,3L5,4"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "md",
+        "name": "md"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57452,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,6L1,2L7,2L7,6",
+          "M5,3C7,6,1,6,3,3L4,4"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ff0000",
+          "#e0e000"
+        ]
+      },
+      "properties": {
+        "ligatures": "me",
+        "name": "me"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57453,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M3,4L3,1L8,1L8,4",
+          "M0,7L0,1L3,1L3,7",
+          "M3,7L3,4L8,4L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mg",
+        "name": "mg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57454,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L8,2L8,3M2,4L1,3L2,2L3,3",
+          "M0,7L8,1L8,2"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#ff8000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mh",
+        "name": "mh"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57455,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,1L1,1L8,7L7,7M0,4.5L0,3.5L8,4.5L8,3.5M3.5,7L4.5,1L3.5,1L4.5,7M0,7L7,1L8,1L1,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mk",
+        "name": "mk"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57456,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ml",
+        "name": "ml"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57457,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,6L4,2L5,6L2,3.5L6,3.5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "mm",
+        "name": "mm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57458,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2.5,7L2.5,1L5.5,1L5.5,7",
+          "M1,6L2,3L1,3L2,6"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0080ff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mn",
+        "name": "mn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57459,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M6,3C7,6,1,6,2,3C3,5,5,5,6,3M3.5,3L4,1.5L4.5,3L3,2L5,2"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mr",
+        "name": "mr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57460,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L4,1L4,7",
+          "M4,7L4,1L8,1L8,7",
+          "M0,2L1,1L2,2L1,3"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "mt",
+        "name": "mt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57461,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,4L0,2.5L8,2.5L8,4",
+          "M0,6L0,4L8,4L8,6",
+          "M0,7L0,5.5L8,5.5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#f0f000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mu",
+        "name": "mu"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57462,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,6L1,2L7,2L7,6",
+          "M5,5Q1,4,5,3Q3,4,5,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "mv",
+        "name": "mv"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57463,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5M2,2.5Q4,0,6,2.5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#000000",
+          "#ff0000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mw",
+        "name": "mw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57464,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7",
+          "M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#008000",
+          "#ff0000",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "mx",
+        "name": "mx"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57465,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,4L4,3L8,3L8,4M0,6L0,5L8,5L8,6M4,2L4,1L8,1L8,2",
+          "M0,4L0,1L4,1L4,4",
+          "M2,3.5Q-1,2.5,2,1.5Q0,2.5,2,3.5M3,3L3,2L2,2.5"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "my",
+        "name": "my"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57466,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L4,4",
+          "M0,3.5L2,3.5L0,5L1,3L2,5"
+        ],
+        "colors": [
+          "#008000",
+          "#000000",
+          "#f0f000",
+          "#ff0000",
+          "#e0e000"
+        ]
+      },
+      "properties": {
+        "ligatures": "mz",
+        "name": "mz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57467,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,6L6,1L8,1L8,2L2,7",
+          "M2.5,7L8,2.5L8,7",
+          "M0,5.5L0,1L5.5,1",
+          "M2,3L1,2L2,1L3,2"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#008000",
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "na",
+        "name": "na"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57468,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,5L0,3L8,3L8,5",
+          "M0,3L0,1L8,1L8,3M4,5L3,4L4,3L5,4",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff8000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ne",
+        "name": "ne"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57469,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2.5,7L2.5,1L5.5,1L5.5,7"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ng",
+        "name": "ng"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57470,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M5,4.5L3,4.5L4,3"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ni",
+        "name": "ni"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57471,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "nl",
+        "name": "nl"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57472,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L4,1L4,7M0,5L0,3L8,3L8,5",
+          "M2.5,7L2.5,1L3.5,1L3.5,7M0,4.5L0,3.5L8,3.5L8,4.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "no",
+        "name": "no"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57473,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L5,4L2,4L5,7",
+          "M1,6L0,5L2,3L0,3L2,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "np",
+        "name": "np"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57474,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4L0,3L8,3L8,4",
+          "M2,6L1,5L2,4L3,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "nr",
+        "name": "nr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57475,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,4L0,1L1,1L4,4M1,4L0,4L3,1L4,1",
+          "M0,3L0,2L4,2L4,3M6,2L7,1L7,2M7,3L8,2L8,3M5,3L5,2L6,3M6,6L7,5L7,6"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "nz",
+        "name": "nz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57476,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,7L3,5L8,5L8,7",
+          "M3,3L3,1L8,1L8,3M2,4L1,2L2,2L1,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "om",
+        "name": "om"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57477,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,4L4,4L4,7M1,2L3,3L2,1.5L1.5,3L3,2",
+          "M4,4L4,1L8,1L8,4M7,6L5,5L7,5L5,6L6,4.5"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0080ff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "pa",
+        "name": "pa"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57478,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2.5,7L2.5,1L5.5,1L5.5,7",
+          "M3,5L3,3L5,3L5,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "pe",
+        "name": "pe"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57479,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,7",
+          "M8,7L0,1L8,1",
+          "M3,5L1,4L3,4L1,5L4,6L2,6",
+          "M6,4L6,4L5,3L6,2L7,3"
+        ],
+        "colors": [
+          "#000000",
+          "#ff0000",
+          "#ffffff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "pg",
+        "name": "pg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57480,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,4L8,4L8,7",
+          "M0,4L0,1L8,1L8,4",
+          "M4,4L0,7L0,1",
+          "M0,5L0,3L2,3L2,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ph",
+        "name": "ph"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57481,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L2,1L2,7",
+          "M2,7L2,1L8,1L8,7",
+          "M7,3L5,3L6,2L6,4M7,5C5,9,0,4,4,2C2,4,5,7,7,5"
+        ],
+        "colors": [
+          "#ffffff",
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "pk",
+        "name": "pk"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57482,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,4L8,4L8,7",
+          "M0,4L0,1L8,1L8,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "pl",
+        "name": "pl"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57483,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M2,5L2,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L4,4"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#000000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ps",
+        "name": "ps"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57484,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M3,7L3,1L8,1L8,7",
+          "M0,7L0,1L3,1L3,7",
+          "M3,6L1,4L3,2L5,4",
+          "M3,5L2,4L3,3L4,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#008000",
+          "#f0f000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "pt",
+        "name": "pt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57485,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,5.5C1,6,1,2,3,2.5C5,2,5,6,3,5.5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "pw",
+        "name": "pw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57486,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,4L4,3L5,4L4,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "py",
+        "name": "py"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57487,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M2,7L2,1L8,1L8,7",
+          "M0,7L0,1L2,1L4,2L2,3L4,4L2,5L4,6L2,7"
+        ],
+        "colors": [
+          "#800040",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "qa",
+        "name": "qa"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57488,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ro",
+        "name": "ro"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57489,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,5L8,5L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,3L0,1L8,1L8,3M2,5L2,3.5L4,3.5L4,5L3,6"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "rs",
+        "name": "rs"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57490,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ru",
+        "name": "ru"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57491,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7M6,3L6,2L7,2L7,3",
+          "M0,7L0,5.5L8,5.5L8,7"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "rw",
+        "name": "rw"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57492,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M7,6L1,5L7,5M1,2L1,4L3,2L5,4L7,2L7,4L5,2L3,4"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "sa",
+        "name": "sa"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57493,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,7L8,2L8,7",
+          "M0,6L0,1L7,1",
+          "M0,2L1,1L1,4L0,3L3,3L2,4L2,1L3,2"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "sb",
+        "name": "sb"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57494,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L3,1",
+          "M0,7L3,1L6,1",
+          "M0,7L6,1L8,1L8,3",
+          "M0,7L8,3L8,5",
+          "M0,7L8,5L8,7"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000",
+          "#ff0000",
+          "#ffffff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sc",
+        "name": "sc"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57495,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M2,5L2,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M0,7L0,1L4,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sd",
+        "name": "sd"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57496,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M2,7L2,1L4,1L4,7M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "se",
+        "name": "se"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57497,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7M3,4Q-1,2.5,3,1Q1,2.5,3,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "sg",
+        "name": "sg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57498,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,5L0,3L8,3L8,5M2,4L3,2L1,2",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "si",
+        "name": "si"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57499,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,6L0,3L8,3L8,6",
+          "M0,7L0,5L8,5L8,7M1,2C1,7,4,7,4,2"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sk",
+        "name": "sk"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57500,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#0080ff"
+        ]
+      },
+      "properties": {
+        "ligatures": "sl",
+        "name": "sl"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57501,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7",
+          "M4,6L2,4L4,2L6,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0080ff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sm",
+        "name": "sm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57502,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7M5,5L3,3.5L5,3.5L3,5L4,3",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#008000",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sn",
+        "name": "sn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57503,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M5.5,6L4,5L2.5,6L4,2M2,3.5L6,3.5L4,5"
+        ],
+        "colors": [
+          "#0080ff",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "so",
+        "name": "so"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57504,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M3,5L4,3L5,5L3,3.5L5,3.5"
+        ],
+        "colors": [
+          "#008000",
+          "#ffffff",
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sr",
+        "name": "sr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57505,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,2L0,1L8,1L8,2",
+          "M0,7L0,6L8,6L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M0,7L0,1L4,4",
+          "M1,5L1,3L2,4.5L0.5,4L2,3.5"
+        ],
+        "colors": [
+          "#000000",
+          "#008000",
+          "#ffffff",
+          "#ff0000",
+          "#0000c0",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ss",
+        "name": "ss"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57506,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,1L4,4",
+          "M5,4.5L5,3L7,4.5L7,3"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000",
+          "#ff0000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "st",
+        "name": "st"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57507,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,5L0,3L8,3L8,5M5,3Q4,5,3,3Q4,6,5,3"
+        ],
+        "colors": [
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "sv",
+        "name": "sv"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57508,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M3,4.5L1,3.5L3,3.5L1,4.5L2,3M5,4.5L6,3L7,4.5L5,3.5L7,3.5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sy",
+        "name": "sy"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57509,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M6,4L4,5L4,3",
+          "M2,4L4,3L4,5"
+        ],
+        "colors": [
+          "#0000c0",
+          "#f0f000",
+          "#ff0000",
+          "#ffffff",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "sz",
+        "name": "sz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57510,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L2.5,1L2.5,7",
+          "M5.5,7L5.5,1L8,1L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "td",
+        "name": "td"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57511,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,3.5L3,2L8,2L8,3.5M0,6L0,4.5L8,4.5L8,6",
+          "M0,4.5L0,1L3.5,1L3.5,4.5",
+          "M1,3.5L2,1L3,3.5L1,2L3,2"
+        ],
+        "colors": [
+          "#008000",
+          "#f0f000",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "tg",
+        "name": "tg"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57512,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M0,5L0,3L8,3L8,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "th",
+        "name": "th"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57513,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#008000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "tj",
+        "name": "tj"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57514,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,1L5,4",
+          "M0,7L0,1L3,4",
+          "M0,4L2,3L1,5"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000",
+          "#000000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "tl",
+        "name": "tl"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57515,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M1,7L1,1L2,1L2,7",
+          "M5,1C7,3,5,5,3,3C5,4,6,3,5,1"
+        ],
+        "colors": [
+          "#008000",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "tm",
+        "name": "tm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57516,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,6C1,6,1,2,4,2C7,2,7,6,4,6",
+          "M4,6Q1,4,4,2Q3,4,4,6M5,5L4,4L5,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "tn",
+        "name": "tn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57517,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4.5L0,1L4.5,1L4.5,4.5",
+          "M2,4L2,1L3,1L3,4M1,3L1,2L4,2L4,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#ff0000"
+        ]
+      },
+      "properties": {
+        "ligatures": "to",
+        "name": "to"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57518,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M3,6C0,6,0,2,3,2L4,2C1,2,1,6,4,6M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "tr",
+        "name": "tr"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57519,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M5,7L0,1L3,1L8,7",
+          "M5.5,7L0.5,1L2.5,1L7.5,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "tt",
+        "name": "tt"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57520,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,6L6,1L8,1L8,2L2,7",
+          "M0,5L0,1L5,1",
+          "M3,7L8,3L8,7"
+        ],
+        "colors": [
+          "#f0f000",
+          "#000000",
+          "#008000",
+          "#0080ff"
+        ]
+      },
+      "properties": {
+        "ligatures": "tz",
+        "name": "tz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57521,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,4L0,1L8,1L8,4",
+          "M0,7L0,4L8,4L8,7"
+        ],
+        "colors": [
+          "#0080ff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ua",
+        "name": "ua"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57522,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4L0,3L8,3L8,4M0,7L0,6L8,6L8,7",
+          "M0,6L0,5L8,5L8,6M0,3L0,2L8,2L8,3",
+          "M4,5L3,4L4,3L5,4"
+        ],
+        "colors": [
+          "#000000",
+          "#ff0000",
+          "#f0f000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ug",
+        "name": "ug"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57523,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,4L4,3L8,3L8,4M0,6L0,5L8,5L8,6M4,2L4,1L8,1L8,2",
+          "M0,4L0,1L4,1L4,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#0000c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "us",
+        "name": "us"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57524,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,7L0,6L8,6L8,7M0,5L0,4L8,4L8,5M3,3L3,2L8,2L8,3",
+          "M1,3L0,2L1,1L2,2"
+        ],
+        "colors": [
+          "#ffffff",
+          "#0080ff",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "uy",
+        "name": "uy"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57525,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,7L0,5L8,5L8,7",
+          "M0,5.5L0,2.5L8,2.5L8,5.5",
+          "M0,5L0,3L8,3L8,5M2,2Q1,1.5,2,1Q0,1.5,2,2"
+        ],
+        "colors": [
+          "#0080ff",
+          "#008000",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "uz",
+        "name": "uz"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57526,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L4,1L4,7",
+          "M4,7L4,1L8,1L8,7",
+          "M6,5L5,4L6,3L7,4"
+        ],
+        "colors": [
+          "#f0f000",
+          "#ffffff",
+          "#c0c0c0"
+        ]
+      },
+      "properties": {
+        "ligatures": "va",
+        "name": "va"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57527,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M2,7L2,1L6,1L6,7",
+          "M0,7L0,1L2,1L2,7",
+          "M6,7L6,1L8,1L8,7M3,4L3.5,3L4,4L4.5,3L5,4L4,6"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0080ff",
+          "#008000"
+        ]
+      },
+      "properties": {
+        "ligatures": "vc",
+        "name": "vc"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57528,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7",
+          "M6,5Q4,3,2,5Q4,1,6,5"
+        ],
+        "colors": [
+          "#f0f000",
+          "#0000c0",
+          "#ff0000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ve",
+        "name": "ve"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57529,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,5L2,6L4,1.5L6,6M4,5L1.5,3L6.5,3"
+        ],
+        "colors": [
+          "#ff0000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "vn",
+        "name": "vn"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57530,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,3L0,1L8,1L8,3",
+          "M0,7L4,5L8,5L8,7",
+          "M0,6.5L0,6L3.5,4L0,2L0,1.5L4,3.5L8,3.5L8,4.5L4,4.5M1,5L0,4L1,3L2,4"
+        ],
+        "colors": [
+          "#000000",
+          "#ff0000",
+          "#008000",
+          "#f0f000"
+        ]
+      },
+      "properties": {
+        "ligatures": "vu",
+        "name": "vu"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57531,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,4L0,1L4,1L4,4",
+          "M1,3L0,2L3,2L2,3L1,1L2,1"
+        ],
+        "colors": [
+          "#ff0000",
+          "#0000c0",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "ws",
+        "name": "ws"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57532,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,3L0,1L8,1L8,3",
+          "M0,5L0,3L8,3L8,5",
+          "M0,7L0,5L8,5L8,7"
+        ],
+        "colors": [
+          "#ff0000",
+          "#ffffff",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "ye",
+        "name": "ye"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57533,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M4,3L0,1L8,1L8,3",
+          "M0,7L4,5L8,5L8,7",
+          "M0,6.5L0,1.5L4,3.5L8,3.5L8,4.5L4,4.5",
+          "M0,6L0,2L4,4",
+          "M0,5.5L0,2.5L3,4"
+        ],
+        "colors": [
+          "#ffffff",
+          "#ff0000",
+          "#0000c0",
+          "#008000",
+          "#f0f000",
+          "#000000"
+        ]
+      },
+      "properties": {
+        "ligatures": "za",
+        "name": "za"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57534,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M5,7L5,4L6,4L6,7",
+          "M6,7L6,4L7,4L7,7",
+          "M7,7L7,4L8,4L8,7M5,2L8,2L6.5,3"
+        ],
+        "colors": [
+          "#008000",
+          "#ff0000",
+          "#000000",
+          "#ff8000"
+        ]
+      },
+      "properties": {
+        "ligatures": "zm",
+        "name": "zm"
+      }
+    },
+    {
+      "icon": {
+        "defaultCode": 57535,
+        "tags": [],
+        "grid": 8,
+        "paths": [
+          "M0,7L0,1L8,1L8,7",
+          "M0,6L0,2L8,2L8,6",
+          "M2,5L2,3L8,3L8,5",
+          "M2,4.5L2,3.5L8,3.5L8,4.5",
+          "M0,7L0,1L3,4M2,4L0,3L1,5"
+        ],
+        "colors": [
+          "#008000",
+          "#ff8000",
+          "#ff0000",
+          "#000000",
+          "#ffffff"
+        ]
+      },
+      "properties": {
+        "ligatures": "zw",
+        "name": "zw"
+      }
+    }
+  ]
+}
